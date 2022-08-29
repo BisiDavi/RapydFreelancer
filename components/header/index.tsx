@@ -20,7 +20,7 @@ export default function Header() {
             />
             <Button
               text="Sign Up"
-              className="bg-blue-500 px-4 py-1.5 font-bold rounded-full text-white hover:bg-blue-800"
+              className="bg-blue-500 px-6 py-1.5 font-bold rounded-full text-white hover:bg-blue-800"
             />
           </div>
         </div>
