@@ -21,7 +21,7 @@ export default function Header() {
           <div className="w-1/3 justify-between flex">
             <Button
               text="Login"
-              className="text-blue-500 font-bold rounded-md text-white hover:text-blue-800"
+              className="text-blue-500 font-bold rounded-md hover:text-blue-800"
             />
             <Button
               text="Sign Up"

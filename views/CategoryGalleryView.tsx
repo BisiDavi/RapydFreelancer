@@ -12,7 +12,7 @@ export default function CategoryGalleryView() {
         {categoryGalleryArray.map((categoryItem) => (
           <div
             key={categoryItem.image}
-            className="image-view flex hover:opacity-50 hover:bg-gray-900 flex-col relative justify-center items-center"
+            className="image-view flex hover:bg-gray-900 flex-col relative justify-center items-center"
           >
             <div className="shadow-effect rounded-lg"></div>
             <Image
@@ -39,8 +39,8 @@ export default function CategoryGalleryView() {
             height: 100%;
             width: 100%;
             display: none;
-            background-color: black;
-            opacity: 0.4;
+            background-color: black;  
+            opacity: 0.5;
           }
           .image-view {
             z-index: 10;
