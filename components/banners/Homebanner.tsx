@@ -6,7 +6,7 @@ export default function Homebanner() {
     <section className="banner justify-between flex items-center px-5  bg-gray-100 w-full">
       <div className="w-1/2">
         <TypewriterEffect />
-        <p className="font-light text-lg -mt-4 underline text-gray-400">
+        <p className="font-light text-lg -mt-4 underline text-gray-600">
           Hire top talent in minutes not weeks
         </p>
         <p className="w-2/3 text-xl font-light mt-4">
