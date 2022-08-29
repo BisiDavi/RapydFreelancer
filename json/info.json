@@ -1,0 +1,17 @@
+[
+  {
+    "title": "Post a job",
+    "icon": "postJob",
+    "text": "It’s totally free and easy to post a job on RapydFreelancer. Get started by fill in a title, description and budget and competitive professional freelancer bids come within minutes."
+  },
+  {
+    "title": "Choose freelancers",
+    "icon": "chooseFreelancer",
+    "text": "No matter the complexity of your project/job. We've got professional freelancers for jobs of any size or budget, across 1800+ skills. No job is too complex. We can get it done!"
+  },
+  {
+    "title": "Pay safely",
+    "icon": "paySafely",
+    "text": "Only pay for services when it has been completed and you're 100% satisfied with the quality using our robost, Rapyd payment system, you can even pay in your local currency."
+  }
+]

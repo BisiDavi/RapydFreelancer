@@ -1,4 +1,5 @@
 import Homebanner from "@/components/banners/Homebanner";
+import InfoBanner from "@/components/banners/InfoBanner";
 import Container from "@/components/UI/Container";
 import DefaultLayout from "@/layout/DefaultLayout";
 
@@ -9,6 +10,7 @@ const Home: NextPage = () => {
     <DefaultLayout>
       <Container>
         <Homebanner />
+        <InfoBanner />
       </Container>
     </DefaultLayout>
   );

@@ -9,6 +9,6 @@ export default function Container({
   className,
 }: PropsWithChildren<Props>) {
   return (
-    <div className={`container mx-auto flex ${className}`}>{children}</div>
+    <div className={`container mx-auto flex flex-col ${className}`}>{children}</div>
   );
 }
