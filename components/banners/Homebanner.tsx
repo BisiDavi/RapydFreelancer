@@ -12,7 +12,7 @@ export default function Homebanner() {
         <p className="font-light text-lg -mt-4 underline text-gray-600">
           Hire top talent in minutes not weeks
         </p>
-        <p className="w-2/3 text-xl font-light my-4">
+        <p className="w text-xl font-light my-4">
           <span className="italic mr-1 font-bold">RapydFreelancer</span>
           is an exclusive network of the top freelance software developers,
           copywriters, product managers, designers, finance experts and data
@@ -30,7 +30,9 @@ export default function Homebanner() {
           />
         </div>
         <div className="brands mt-10">
-          <h6 className="mb-2 font-medium">Trusted and powered by leading brand</h6>
+          <h6 className="mb-2 font-medium">
+            Trusted and powered by leading brand
+          </h6>
           <RapydLogo />
         </div>
       </div>

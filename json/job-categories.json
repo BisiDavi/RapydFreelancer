@@ -1,0 +1,79 @@
+[
+  {
+    "name": "Software Developers",
+    "link": "/hire/software-developers",
+    "group": [
+      "Mobile App Developer",
+      "Android App Developer",
+      "Iphone App Developer",
+      "eCommerce",
+      "JavaScript Developer",
+      "Amazon Web services",
+      "Python",
+      "Wordpress"
+    ]
+  },
+  {
+    "name": "Writing",
+    "link": "/hire/writer",
+    "group": [
+      "Article Writing",
+      "Proofreading",
+      "Link Building",
+      "Copywriting",
+      "Web Search",
+      "Legal",
+      "Content Writing",
+      "Technical Writing",
+      "Blogging",
+      "Research",
+      "Translation",
+      "Ghostwriting"
+    ]
+  },
+  {
+    "name": "SEO Expert",
+    "link": "/hire/seo-expert",
+    "group": [
+      "SEO Analytics",
+      "SEO Auditing",
+      "White Hat SEO",
+      "SEO Writing",
+      "SEOMoz",
+      "Brand Awareness",
+      "Internet Marketing"
+    ]
+  },
+  {
+    "name": "Design",
+    "link": "/hire/design",
+    "group": [
+      "3D Modelling",
+      "Banner Design",
+      "Logo Design",
+      "Illustration",
+      "PhotoShop",
+      "Product Design",
+      "Building Design",
+      "UI/UX",
+      "Game Design",
+      "eBook Design"
+    ]
+  },
+  {
+    "name": "Finance",
+    "link": "/hire/finance",
+    "group": [
+      "Accounting",
+      "Finance",
+      "Excel",
+      "External Auditing",
+      "Finance Consulting",
+      "Financial Accounting",
+      "Financial Services Tax",
+      "Value Added Tax",
+      "Corporate Income Tax",
+      "Property Tax"
+    ]
+  }
+]

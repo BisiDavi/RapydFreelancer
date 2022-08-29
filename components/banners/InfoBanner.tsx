@@ -3,10 +3,14 @@ import InfoCard from "@/components/card/InfoCard";
 
 export default function InfoBanner() {
   return (
-    <section className="flex items-center my-6">
-      {infoContent.map((infoItem) => (
-        <InfoCard content={infoItem} key={infoItem.icon} />
-      ))}
+    <section className="flex  flex-col  my-6">
+      <h3 className="text-left text-3xl my-10 font-medium ml-4">Need to get something done?</h3>
+      <div className="flex">
+        {infoContent.map((infoItem) => (
+          <InfoCard content={infoItem} key={infoItem.icon} />
+        ))}
+      </div>
     </section>
   );
 }
+  

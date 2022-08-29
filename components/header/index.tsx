@@ -1,7 +1,10 @@
 import Logo from "@/components/logo";
 import Button from "@/components/UI/Button";
+import useScroll from "@/hooks/useScroll";
 
 export default function Header() {
+  const { scroll } = useScroll();
+  const headerClassname = scroll > 80 ? "fixed" : "";
   return (
     <>
       <title>Rapyd Freelancers | The Freelancer Marketplace | Hire now</title>
@@ -10,7 +13,9 @@ export default function Header() {
         content="Hire a freelancer for that your project for quick and reliable execution"
       />
       <link rel="icon" href="/favicon.ico" />
-      <header className="flex w-full   items-center shadow py-3">
+      <header
+        className={`flex w-full bg-white z-50 items-center shadow py-3 ${headerClassname}`}
+      >
         <div className="container mx-auto flex items-center justify-between">
           <Logo />
           <div className="w-1/3 justify-between flex">
