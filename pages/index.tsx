@@ -2,7 +2,7 @@ import Homebanner from "@/components/banners/Homebanner";
 import InfoBanner from "@/components/banners/InfoBanner";
 import Container from "@/components/UI/Container";
 import DefaultLayout from "@/layout/DefaultLayout";
-import GalleryView from "@/views/GalleryView";
+import CategoryGalleryView from "@/views/CategoryGalleryView";
 
 import type { NextPage } from "next";
 
@@ -12,7 +12,7 @@ const Home: NextPage = () => {
       <Container>
         <Homebanner />
         <InfoBanner />
-        <GalleryView />
+        <CategoryGalleryView />
       </Container>
     </DefaultLayout>
   );
