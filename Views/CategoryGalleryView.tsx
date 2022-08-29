@@ -4,7 +4,10 @@ import categoryGalleryArray from "@/json/category-gallery.json";
 
 export default function CategoryGalleryView() {
   return (
-    <>
+    <section>
+      <h3 className="text-3xl font-bold my-4">
+        Hire Professionals with RapydFreelancer
+      </h3>
       <div className="categorygalleryview my-10">
         {categoryGalleryArray.map((categoryItem) => (
           <div
@@ -58,6 +61,6 @@ export default function CategoryGalleryView() {
           }
         `}
       </style>
-    </>
+    </section>
   );
 }
