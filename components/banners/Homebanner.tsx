@@ -26,6 +26,7 @@ export default function Homebanner() {
           />
           <Button
             text="Find Work"
+            href="/jobs"
             className="border border-blue-500 text-blue-500 px-4 py-1 rounded-full hover:bg-blue-800 hover:text-white"
           />
         </div>

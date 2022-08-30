@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import ButtonSpinner from "@/components/loader/ButtonSpinner";
 
 interface Props {
@@ -8,6 +10,7 @@ interface Props {
   icon?: JSX.Element;
   disabled?: boolean;
   loading?: boolean;
+  href?: string;
 }
 
 export default function Button({
@@ -18,18 +21,25 @@ export default function Button({
   icon,
   disabled,
   loading,
+  href,
 }: Props) {
   const buttonType = type ? type : "button";
   return (
     <>
-      <button
-        className={className}
-        onClick={onClick}
-        type={buttonType}
-        disabled={disabled}
-      >
-        {loading && <ButtonSpinner />} {icon} {!loading && text}
-      </button>
+      {href ? (
+        <Link href={href}>
+          <a className={className}>{text}</a>
+        </Link>
+      ) : (
+        <button
+          className={className}
+          onClick={onClick}
+          type={buttonType}
+          disabled={disabled}
+        >
+          {loading && <ButtonSpinner />} {icon} {!loading && text}
+        </button>
+      )}
     </>
   );
 }
