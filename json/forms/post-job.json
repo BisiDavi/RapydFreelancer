@@ -1,0 +1,23 @@
+[
+  {
+    "label": "Choose a name for your project",
+    "type": "input",
+    "name": "title",
+    "elementType": "text",
+    "placeholder": "e.g. Build me an e-commerce website"
+  },
+  {
+    "label": "Tell us more about your project",
+    "type": "textarea",
+    "name": "description",
+    "elementType": "text",
+    "placeholder": "Describe your project here..."
+  },
+  {
+    "label": "Drag & Drop any image(s) or document(s) that might be helpful in explaining your brief here (Max file size: 25 MB).",
+    "type": "media",
+    "name": "media",
+    "elementType": "text",
+    "placeholder": "Upload files"
+  }
+]
