@@ -4,7 +4,7 @@ import displayCategoryIcons from "@/lib/displayCategoryIcons";
 export default function CategoryList() {
   return (
     <>
-      <div className="categorylist grid grid-cols-5">
+      <div className="categorylist grid grid-cols-5 my-4">
         {categoryListArray.map((categoryItem) => {
           return (
             <ul key={categoryItem.link}>

@@ -1,7 +1,7 @@
 import JobListCard from "@/components/card/JobListCard";
 import Container from "@/components/UI/Container";
 import jobsArray from "@/json/jobs.json";
-import FilterJob from "@/components/jobs/FilterJob";
+import FilterJob from "@/components/jobss/FilterJob";
 
 export default function JobList() {
   return (
