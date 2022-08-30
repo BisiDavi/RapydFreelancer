@@ -1,5 +1,5 @@
 import Container from "@/components/UI/Container";
-import JobList from "@/components/Jobs/JobList";
+import JobList from "@/components/jobs/JobList";
 
 export default function JobsView() {
   return (

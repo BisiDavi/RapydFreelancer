@@ -6,7 +6,7 @@ interface Props {
   className?: string;
   onClick?: () => void;
   type?: "button" | "submit" | "reset";
-  text: string;
+  text?: string;
   icon?: JSX.Element;
   disabled?: boolean;
   loading?: boolean;

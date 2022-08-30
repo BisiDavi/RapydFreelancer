@@ -3,9 +3,11 @@ import storage from "redux-persist/lib/storage";
 import { persistReducer } from "redux-persist";
 
 import UIReducer from "@/redux/ui-slice";
+import LayoutReducer from "@/redux/layout-slice";
 
 const reducers = combineReducers({
   UI: UIReducer,
+  layout: LayoutReducer,
 });
 
 const persistConfig = {

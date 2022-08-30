@@ -3,6 +3,7 @@ import Head from "next/head";
 
 import Footer from "@/components/footer";
 import Header from "@/components/header";
+import FooterAlert from "@/components/alerts/FooterAlert";
 
 interface Props {
   title?: string;
