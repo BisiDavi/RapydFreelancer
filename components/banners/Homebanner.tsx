@@ -22,6 +22,7 @@ export default function Homebanner() {
         <div className="button-group w-72 flex items-center justify-between mt-4">
           <Button
             text="Hire Talent"
+            href="/post-job"
             className="bg-blue-500 text-white px-4 py-1 rounded-full hover:bg-blue-800"
           />
           <Button

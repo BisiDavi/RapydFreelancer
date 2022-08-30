@@ -22,6 +22,7 @@ export default function Header() {
           />
           <Button
             text="Post a Job"
+            href="/post-job"
             className="bg-blue-500 px-6 py-1.5 font-bold rounded-full text-white hover:bg-blue-800"
           />
         </div>
