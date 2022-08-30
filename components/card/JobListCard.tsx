@@ -16,14 +16,14 @@ interface Props {
 
 export default function JobListCard({ content }: Props) {
   return (
-    <div className="bg-white border-b px-6 py-4 flex items-start">
+    <div className="bg-white border-b flex py-3 items-start hover:bg-gray-100 justify-between px-2">
       <div className="left w-4/5">
         <div className="top flex items-center">
           <h4 className="font-medium text-lg">{content.title}</h4>{" "}
           <p className="ml-2">days left</p>
         </div>
-        <p className="w-11/12 break-words">{content.description}</p>
-        <ul className="flex">
+        <p className="break-words my-4">{content.description}</p>
+        <ul className="flex mb-2">
           {content.tags.map((tag) => (
             <li key={tag} className="font-light text-blue-400 mr-4">
               {tag}
@@ -31,7 +31,7 @@ export default function JobListCard({ content }: Props) {
           ))}
         </ul>
       </div>
-      <div className="right w-1/5">
+      <div className="right w-1/5 flex flex-col items-end justify-items-end">
         <div className="top">
           <h6 className="font-bold">
             {content?.price
