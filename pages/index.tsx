@@ -10,7 +10,7 @@ import type { NextPage } from "next";
 const Home: NextPage = () => {
   return (
     <DefaultLayout>
-      <Container>
+      <Container className="flex-col">
         <Homebanner />
         <InfoBanner />
         <CategoryGalleryView />
