@@ -1,4 +1,5 @@
 interface Props {
+  showBorder: boolean;
   content: {
     title: string;
     description: string;
@@ -14,9 +15,12 @@ interface Props {
   };
 }
 
-export default function JobListCard({ content }: Props) {
+export default function JobListCard({ content, showBorder }: Props) {
+  const borderClassname = showBorder ? "border-b" : "";
   return (
-    <div className="bg-white border-b flex py-3 items-start hover:bg-gray-100 justify-between px-2">
+    <div
+      className={`bg-white ${borderClassname} flex py-3 items-start hover:bg-gray-100 justify-between px-2`}
+    >
       <div className="left w-4/5">
         <div className="top flex items-center">
           <h4 className="font-medium text-lg">{content.title}</h4>{" "}
