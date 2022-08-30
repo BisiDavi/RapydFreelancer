@@ -39,7 +39,7 @@ export default function CategoryGalleryView() {
             height: 100%;
             width: 100%;
             display: none;
-            background-color: black;  
+            background-color: black;
             opacity: 0.5;
           }
           .image-view {
