@@ -6,7 +6,7 @@ export default function PostJob() {
   return (
     <>
       <div className="banner w-full py-20">
-        <div className="banne w-1/2 mx-auto h-72">
+        <div className=" w-1/2 mx-auto h-72">
           <div className="logo-wrapper w-1/3 my-4">
             <Logo />
           </div>
@@ -18,7 +18,7 @@ export default function PostJob() {
             ratings, portfolios and chat with them. Pay the freelancers only
             when you are 100% satisfied with their work.
           </p>
-          <div className="content bg-white shadow drop-shadow rounded-xl mt-10">
+          <div className="content mb-10 bg-white shadow drop-shadow rounded-xl mt-10">
             <form className="py-1 p-8">
               {formContent.map((formElementContent, index) => (
                 <div key={index}>{displayFormElement(formElementContent)}</div>
@@ -39,7 +39,7 @@ export default function PostJob() {
             );
           }
           .content {
-            height: 450px;
+            height: 500px;
           }
         `}
       </style>
