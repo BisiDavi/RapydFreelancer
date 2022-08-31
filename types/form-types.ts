@@ -6,5 +6,6 @@ export type elementType = {
     elementType: string;
     type: string;
     options?: string;
+    inputStyle?: string;
   };
 };

@@ -10,8 +10,11 @@ interface Props {
   title?: string;
 }
 
-const DynamicSidebar = dynamic(
-  () => import(/* webpackChunkName: 'Sidebar' */ "@/components/sidebar")
+const DynamicAuthSidebar = dynamic(
+  () =>
+    import(
+      /* webpackChunkName: 'AuthSidebar' */ "@/components/sidebar/AuthSidebar"
+    )
 );
 
 export default function DefaultLayout({
@@ -30,7 +33,7 @@ export default function DefaultLayout({
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {sidebar !== null && <DynamicSidebar />}
+      {sidebar !== null && <DynamicAuthSidebar />}
       <Header />
       <main>{children}</main>
       <Footer />

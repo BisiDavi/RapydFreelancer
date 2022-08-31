@@ -10,12 +10,23 @@ export default function Sidebar({ children }: PropsWithChildren) {
   }
 
   return (
-    <div className="sidebarwrapper h-sreen fixed right-0">
-      <div
-        className="overlay opacity-50 bg-gray-900"
-        onClick={closeSidebar}
-      ></div>
-      <aside className="h-screen w-1/4">{children}</aside>;
-    </div>
+    <>
+      <div className="sidebarwrapper flex w-screen h-sreen fixed right-0">
+        <div
+          className="overlay h-screen opacity-50 bg-gray-900 w-3/4 cursor-pointer"
+          onClick={closeSidebar}
+        ></div>
+        <aside className="h-screen w-1/4 bg-white flex justify-center m-auto p-4">
+          {children}
+        </aside>
+      </div>
+      <style jsx>
+        {`
+          .sidebarwrapper {
+            z-index: 100;
+          }
+        `}
+      </style>
+    </>
   );
 }
