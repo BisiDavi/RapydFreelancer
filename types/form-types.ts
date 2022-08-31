@@ -4,5 +4,6 @@ export type elementType = {
     label: string;
     placeholder: string;
     elementType: string;
+    type: string;
   };
 };

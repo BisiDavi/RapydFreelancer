@@ -1,4 +1,6 @@
 import Logo from "@/components/logo";
+import displayFormElement from "@/lib/displayFormElement";
+import formContent from "@/json/forms/post-job.json";
 
 export default function PostJob() {
   return (
@@ -16,7 +18,13 @@ export default function PostJob() {
             ratings, portfolios and chat with them. Pay the freelancers only
             when you are 100% satisfied with their work.
           </p>
-          <div className="content bg-white shadow drop-shadow rounded-xl mt-10"></div>
+          <div className="content bg-white shadow drop-shadow rounded-xl mt-10">
+            <form className="py-1 p-8">
+              {formContent.map((formElementContent, index) => (
+                <div key={index}>{displayFormElement(formElementContent)}</div>
+              ))}
+            </form>
+          </div>
         </div>
       </div>
       <style jsx>
