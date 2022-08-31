@@ -1,19 +1,25 @@
 import { PropsWithChildren } from "react";
 import Head from "next/head";
+import dynamic from "next/dynamic";
 
 import Footer from "@/components/footer";
 import Header from "@/components/header";
-import FooterAlert from "@/components/alerts/FooterAlert";
+import { useAppSelector } from "@/hooks/useRedux";
 
 interface Props {
   title?: string;
 }
+
+const DynamicSidebar = dynamic(
+  () => import(/* webpackChunkName: 'Sidebar' */ "@/components/sidebar")
+);
 
 export default function DefaultLayout({
   children,
   title,
 }: PropsWithChildren<Props>) {
   const siteTitle = title ? title : "The Freelancer Marketplace | Hire now";
+  const { sidebar } = useAppSelector((state) => state.UI);
   return (
     <>
       <Head>
@@ -24,6 +30,7 @@ export default function DefaultLayout({
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      {sidebar !== null && <DynamicSidebar />}
       <Header />
       <main>{children}</main>
       <Footer />

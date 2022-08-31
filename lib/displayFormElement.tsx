@@ -1,6 +1,6 @@
-import Input from "@/components/form/Input";
-import Media from "@/components/form/Media";
-import Textarea from "@/components/form/Textarea";
+import Input from "@/components/form/form-elements/Input";
+import Media from "@/components/form/form-elements/Media";
+import Textarea from "@/components/form/form-elements/Textarea";
 
 import type { elementType } from "@/types/form-types";
 
