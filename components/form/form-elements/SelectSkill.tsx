@@ -1,11 +1,17 @@
-import CreatableSelect from "react-select/async-creatable";
+import AsyncCreatableSelect from "react-select/async-creatable";
 
 import useSelectSkill from "@/hooks/useSelectSkill";
 import type { elementType } from "@/types/form-types";
 
 export default function SelectSkill({ content }: elementType) {
-  const { handleCreate, handleChange, skillState } = useSelectSkill();
-  const { value, isLoading, options } = skillState;
+  const {
+    onCreateHandler,
+    selectHandler,
+    promiseOptions,
+    skills,
+    defaultOptions,
+    isLoading,
+  } = useSelectSkill();
   return (
     <div className="flex flex-col">
       <label
@@ -14,34 +20,20 @@ export default function SelectSkill({ content }: elementType) {
       >
         {content.label}
       </label>
-      <CreatableSelect
-        id={content.name}
-        classNamePrefix="selectSkill"
-        placeholder={content.placeholder}
+      <AsyncCreatableSelect
         cacheOptions
         isClearable
+        classNamePrefix="selectSkill"
+        id={content.name}
+        placeholder={content.placeholder}
         isDisabled={isLoading}
         isLoading={isLoading}
-        onChange={handleChange}
-        onCreateOption={handleCreate}
-        options={options}
-        value={value}
+        onChange={selectHandler}
+        onCreateOption={onCreateHandler}
+        defaultOptions={defaultOptions}
+        loadOptions={promiseOptions}
+        value={skills}
       />
-      <style jsx>
-        {`
-          .categorydropdown {
-            width: 100%;
-            height: 50px;
-          }
-          .categorydropdown label {
-            width: 227px;
-            height: 50px;
-          }
-          .categorydropdown select {
-            width: 100%;
-          }
-        `}
-      </style>
     </div>
   );
 }

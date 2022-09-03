@@ -17,6 +17,13 @@
       "inputStyle": "big"
     },
     {
+      "label": "Skills Required to do the Project (select at least 4)",
+      "type": "select-skills",
+      "name": "skill-categories",
+      "placeholder": "Select Skill",
+      "elementType": "text"
+    },
+    {
       "label": "Pricing Model",
       "type": "select",
       "name": "pricingModel",
@@ -26,13 +33,6 @@
         { "text": "Fixed Price", "value": "FIXED_PRICE" },
         { "text": "Price Varies (Range)", "value": "PRICE_VARIES" }
       ]
-    },
-    {
-      "label": "Skills Required to do the Project (select at least 4)",
-      "type": "select-skills",
-      "name": "skill-categories",
-      "placeholder": "Select Skill",
-      "elementType": "text"
     }
   ],
   "price": [

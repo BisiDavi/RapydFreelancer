@@ -1,23 +1,19 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import type { FormStateType } from "@/types/redux-types";
-
-const initialState: FormStateType = {
-  postJobForm: {
-    pricingModel: "FIXED_PRICE",
-  },
+const initialState: any = {
+  skills: {},
 };
 
 const FormSlice = createSlice({
   name: "form",
   initialState,
   reducers: {
-    updatePostJobForm(state, action: PayloadAction<string>) {
-      state.postJobForm.pricingModel = action.payload;
+    updateSkills(state, action: PayloadAction<string>) {
+      state.skills = action.payload;
     },
   },
 });
 
-export const { updatePostJobForm } = FormSlice.actions;
+export const { updateSkills } = FormSlice.actions;
 export default FormSlice.reducer;
