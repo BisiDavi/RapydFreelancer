@@ -8,15 +8,22 @@ import { useAppDispatch } from "@/hooks/useRedux";
 import useScroll from "@/hooks/useScroll";
 import { updateSidebar } from "@/redux/ui-slice";
 import { UIStateType } from "@/types/redux-types";
+import useAuthMutation from "@/hooks/useAuthMutation";
 
 export default function Header() {
   const { scroll } = useScroll();
   const dispatch = useAppDispatch();
   const { authDetails } = useAuth();
+  const { useSignoutMutation } = useAuthMutation();
+  const { mutate } = useSignoutMutation();
 
   const auth: any = authDetails();
 
-  console.log("auth", auth?.currentUser);
+  const authStyle = auth?.currentUser ? "w-2/5" : "w-1/4";
+
+  function signoutHandler() {
+    return mutate({});
+  }
 
   const headerClassname = scroll > 80 ? "fixed" : "";
 
@@ -30,8 +37,8 @@ export default function Header() {
     >
       <div className="container mx-auto flex items-center justify-between">
         <Logo />
-        <div className="w-2/5 justify-between flex">
-          {auth === null ? (
+        <div className={`${authStyle}  justify-between flex`}>
+          {auth?.currentUser === null ? (
             <>
               <Button
                 text="Login"
@@ -55,6 +62,7 @@ export default function Header() {
                 text="Sign out"
                 icon={<FaSignOutAlt className="mr-1" />}
                 className="border flex items-center border-blue-500 px-6 py-1.5 font-bold rounded-full text-blue-500 hover:bg-blue-800 hover:text-white"
+                onClick={signoutHandler}
               />
             </div>
           )}
