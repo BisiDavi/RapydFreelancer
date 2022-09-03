@@ -28,8 +28,8 @@
     },
     {
       "label": "Skills Required to do the Project (select at least 4)",
-      "type": "select-categories",
-      "name": "job-categories",
+      "type": "select-skills",
+      "name": "skill-categories",
       "elementType": "text"
     }
   ],
