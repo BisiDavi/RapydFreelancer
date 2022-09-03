@@ -1,17 +1,47 @@
-import { initializeApp } from "firebase/app";
+import { getDatabase, ref, set, onValue } from "firebase/database";
+import { getAuth } from "firebase/auth";
+
+import { createFirebaseApp, firebaseConfig } from "@/lib/firebaseConfig";
 
 export default function useFirebase() {
-  const firebaseConfig = {
-    apiKey: process.env.NEXT_PUBLIC_APIKEY,
-    authDomain: process.env.NEXT_PUBLIC_AUTHDOMAIN,
-    projectId: process.env.PROJECTID,
-    storageBucket: process.env.STORAGEBUCKET,
-    messagingSenderId: process.env.NEXT_PUBLIC_MESSAGINGSENDERID,
-    appId: process.env.NEXT_PUBLIC_APPID,
-    measurementId: process.env.NEXT_PUBLIC_MEASUREMENTID,
-  };
+  function initFB() {
+    const app = createFirebaseApp(firebaseConfig);
+    return app;
+  }
+  function getAuthdetails() {
+    const app = initFB();
+    const auth = getAuth(app);
+    const user = auth.currentUser;
+    const currentUser: any = {};
+    if (user !== null) {
+      currentUser.displayName = user.displayName;
+      currentUser.email = user.email;
+      currentUser.photoURL = user.photoURL;
+      currentUser.emailVerified = user.emailVerified;
+      currentUser.uid = user.uid;
+    }
+    return currentUser;
+  }
 
-  const app = initializeApp(firebaseConfig);
+  function initializeDB() {
+    const app = initFB();
+    const db = getDatabase(app);
+    return db;
+  }
 
-  return app;
+  function writeData(data: any, dbNode: string) {
+    const db = initializeDB();
+    return set(ref(db, dbNode), data);
+  }
+
+  function readData(dbNode: string) {
+    const db = initializeDB();
+    const dataRef = ref(db, dbNode);
+    onValue(dataRef, (snapshot) => {
+      const data = snapshot.val();
+      return data;
+    });
+  }
+
+  return { getAuthdetails, initFB, writeData, readData };
 }
