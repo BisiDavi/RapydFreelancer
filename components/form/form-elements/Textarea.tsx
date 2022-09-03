@@ -16,7 +16,7 @@ export default function Textarea({ content }: elementType) {
         id={content.name}
         placeholder={content.placeholder}
         className="rounded-lg p-4 border"
-        rows={4}
+        rows={3}
         {...register(content.name)}
       ></textarea>
       <p className="text-red-500 p-0 mt-1 text-xs">

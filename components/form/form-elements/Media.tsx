@@ -6,8 +6,8 @@ export default function Media({ content }: elementType) {
       <input
         id={content.name}
         placeholder={content.placeholder}
-        className="rounded-lg px-10 border-2 h-8"
-        type="submit"
+        className="rounded-lg px-10 border-2 h-8 w-1/3 mx-4"
+        type="file"
       />
       <label htmlFor={content.name} className="text-xs w-2/3">
         {content.label}

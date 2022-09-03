@@ -57,17 +57,15 @@
     }
   ],
   "priceVaries": [
-    [
-      {
-        "label": "Price Range (min - max)",
-        "type": "price-range",
-        "name": "price",
-        "elementType": "text",
-        "placeholder": "Project Price",
-        "inputStyle": "big",
-        "note": "you can pay in your local currency, but the job will be listed in USD ($)"
-      }
-    ],
+    {
+      "label": "Price Range (min - max)",
+      "type": "price-range",
+      "name": "price",
+      "elementType": "text",
+      "placeholder": "Project Price",
+      "inputStyle": "big",
+      "note": "you can pay in your local currency, but the job will be listed in USD ($)"
+    },
     {
       "label": "Project Duration",
       "type": "select",
