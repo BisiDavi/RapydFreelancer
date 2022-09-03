@@ -6,6 +6,7 @@ import formContent from "@/json/auth.json";
 import displayFormElement from "@/lib/displayFormElement";
 import Button from "@/components/UI/Button";
 import { loginSchema } from "@/components/form/schema/authSchema";
+import useAuthMutation from "@/hooks/useAuthMutation";
 
 type FormInputsProps = {
   email: string;
@@ -16,7 +17,14 @@ export default function LoginForm() {
     resolver: yupResolver(loginSchema),
     mode: "all",
   });
-  const onSubmit = (data: any) => console.log("data", data);
+  const { useSigninMutation } = useAuthMutation();
+  const { mutate, isLoading } = useSigninMutation();
+
+  const onSubmit = (data: any) => {
+    console.log("data", data);
+    const { email, password } = data;
+    return mutate({ email, password });
+  };
   return (
     <FormProvider {...methods}>
       <form
@@ -32,6 +40,7 @@ export default function LoginForm() {
           type="submit"
           className="bg-blue-500 text-white mt-4 px-4 py-1 mx-auto flex rounded hover:bg-blue-900"
           text="Login"
+          loading={isLoading}
         />
       </form>
       <style jsx>

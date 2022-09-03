@@ -22,11 +22,11 @@ export default function SignupForm() {
   });
 
   const { useSignupMutation } = useAuthMutation();
-  const signupMutate = useSignupMutation();
+  const { mutate, isLoading } = useSignupMutation();
 
   const onSubmit = (data: any) => {
     const { email, name, password } = data;
-    return signupMutate.mutate({ email, password, name });
+    return mutate({ email, password, name });
   };
   return (
     <FormProvider {...methods}>
@@ -42,6 +42,7 @@ export default function SignupForm() {
           type="submit"
           className="bg-blue-500 text-white px-4 mt-4 py-1 mx-auto flex rounded hover:bg-blue-900"
           text="Signup"
+          loading={isLoading}
         />
       </form>
       <style jsx>
