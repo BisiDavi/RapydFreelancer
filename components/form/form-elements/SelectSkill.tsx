@@ -2,14 +2,8 @@ import useSelectSkill from "@/hooks/useSelectSkill";
 import AsyncCreatableSelect from "react-select/async-creatable";
 
 export default function SelectSkill() {
-  const {
-    promiseOptions,
-    isLoading,
-    value,
-    defaultOptions,
-    onCreateHandler,
-    selectHandler,
-  } = useSelectSkill();
+  const { promiseOptions, defaultOptions, onCreateHandler, selectHandler } =
+    useSelectSkill();
   return (
     <div className="categorydropdown flex items-center">
       <label
@@ -24,9 +18,9 @@ export default function SelectSkill() {
         classNamePrefix="categoryDropdown"
         placeholder="Select Category"
         cacheOptions
-        value={value}
+        // value={value}
         isClearable
-        isLoading={isLoading}
+        // isLoading={isLoading}
         onCreateOption={onCreateHandler}
         onChange={selectHandler}
         defaultOptions={defaultOptions}
