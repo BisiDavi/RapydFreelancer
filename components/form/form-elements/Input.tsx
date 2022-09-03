@@ -10,10 +10,11 @@ export default function Input({ content }: elementType) {
     register,
     formState: { errors },
   }: any = useFormContext();
+
   const inputClassName =
     content.inputStyle === "big"
-      ? { label: "font-bold my-2 text-lg", wrapper: "my-4", input: "h-12" }
-      : { label: "font-medium my-1 text-base", wrapper: "my-2", input: "h-10" };
+      ? { label: "font-bold my-1 text-lg", input: "h-12" }
+      : { label: "font-medium my-1 text-base", input: "h-10" };
 
   const inputType =
     content.elementType === "password"
@@ -24,7 +25,7 @@ export default function Input({ content }: elementType) {
 
   return (
     <div className="form-group">
-      <div className={`form flex flex-col relative ${inputClassName.wrapper}`}>
+      <div className="form flex flex-col relative my-2">
         <label htmlFor={content.name} className={inputClassName.label}>
           {content.label}
         </label>
@@ -32,7 +33,7 @@ export default function Input({ content }: elementType) {
           id={content.name}
           placeholder={content.placeholder}
           type={inputType}
-          className={`rounded-lg ${inputClassName.input} px-4 border`}
+          className="rounded-lg h-10 px-4 border"
           aria-invalid={errors[content.name] ? "true" : "false"}
           {...register(content.name)}
         />
