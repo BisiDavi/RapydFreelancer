@@ -49,7 +49,7 @@ export default function useAuth() {
 
   function authDetails() {
     const auth = getAuth(app);
-    return auth;
+    return auth?.currentUser;
   }
 
   return { authSignup, authSignIn, authSignOut, authDetails };

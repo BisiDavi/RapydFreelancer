@@ -3,7 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import displayFormElement from "@/lib/displayFormElement";
 import formContent from "@/json/forms/post-job.json";
-import { postJobSchema } from "./schema/postJobSchema";
+import { postJobSchema } from "@/components/form/schema/postJobSchema";
 
 interface FormInputsProps {
   title: string;

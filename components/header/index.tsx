@@ -19,7 +19,7 @@ export default function Header() {
 
   const auth: any = authDetails();
 
-  const authStyle = auth?.currentUser ? "w-2/5" : "w-1/4";
+  const authStyle = auth ? "w-2/5" : "w-1/4";
 
   function signoutHandler() {
     return mutate({});
@@ -38,7 +38,7 @@ export default function Header() {
       <div className="container mx-auto flex items-center justify-between">
         <Logo />
         <div className={`${authStyle}  justify-between flex`}>
-          {auth?.currentUser === null ? (
+          {auth === null ? (
             <>
               <Button
                 text="Login"
@@ -54,7 +54,7 @@ export default function Header() {
           ) : (
             <div className="justify-between items-center w-2/3 flex">
               <Button
-                text={`Hello ${auth?.currentUser?.displayName}`}
+                text={`Hello ${auth?.displayName}`}
                 icon={<BsFillPersonFill className="mr-1" />}
                 className="text-blue-500 font-bold flex items-center rounded-md hover:text-blue-800"
               />

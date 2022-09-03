@@ -1,7 +1,11 @@
 import Logo from "@/components/logo";
 import PostJobForm from "@/components/form/PostJobForm";
+import useAuth from "@/hooks/useAuth";
 
 export default function PostJob() {
+  const { authDetails } = useAuth();
+  const auth = authDetails();
+  const userName = auth ? `Hello 👋  ${auth?.displayName},` : "";
   return (
     <>
       <div className="banner w-full py-20">
@@ -9,10 +13,10 @@ export default function PostJob() {
           <div className="logo-wrapper w-1/3 my-4">
             <Logo />
           </div>
-          <h2 className="text-white text-3xl my-4">
-            Get that Project done, Tell us what you need done
+          <h2 className="text-white text-2xl my-4">
+            {userName} Get that Project done, Tell us what you need done
           </h2>
-          <p className="break-words text-white text-sm my-2">
+          <p className="break-words text-white text-lg my-2">
             Contact RapydFreelancers within minutes. View their profiles,
             ratings, portfolios and chat with them. Pay the freelancers only
             when you are 100% satisfied with their work.
