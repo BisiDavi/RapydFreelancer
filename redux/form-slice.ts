@@ -13,11 +13,8 @@ const FormSlice = createSlice({
   name: "form",
   initialState,
   reducers: {
-    updatePostJobForm(
-      state,
-      action: PayloadAction<FormStateType["postJobForm"]>
-    ) {
-      state.postJobForm = action.payload;
+    updatePostJobForm(state, action: PayloadAction<string>) {
+      state.postJobForm.pricingModel = action.payload;
     },
   },
 });

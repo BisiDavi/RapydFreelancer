@@ -50,7 +50,7 @@
       "name": "duration",
       "elementType": "text",
       "options": [
-        { "text": "Select Projuect Duration", "value": "" },
+        { "text": "Select Project Duration", "value": "" },
         { "text": "Day(s)", "value": "DAYS" },
         { "text": "Week", "value": "WEEKS" },
         { "text": "Monthly", "value": "MONTHLY" },

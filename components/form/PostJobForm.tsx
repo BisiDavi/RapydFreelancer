@@ -1,16 +1,22 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useForm, FormProvider } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useEffect } from "react";
 
 import displayFormElement from "@/lib/displayFormElement";
 import formContent from "@/json/forms/post-job.json";
 import { postJobSchema } from "@/components/form/schema/postJobSchema";
 import Button from "@/components/UI/Button";
-import { useAppSelector } from "@/hooks/useRedux";
+import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
+import { updatePostJobForm } from "@/redux/form-slice";
 
 interface FormInputsProps {
   title: string;
   description: string;
   media: string;
+  pricingModel: string;
+  duration: string;
+  price: number;
 }
 
 interface Props {
@@ -35,10 +41,14 @@ function FormElement({ type }: Props) {
 
 export default function PostJobForm() {
   const { postJobForm } = useAppSelector((state) => state.form);
+  const dispatch = useAppDispatch();
+
   const methods = useForm<FormInputsProps>({
     resolver: yupResolver(postJobSchema),
     mode: "all",
   });
+
+  const priceModelValue = methods.watch("pricingModel");
 
   const onSubmit = (data: any) => console.log("data", data);
   return (
@@ -51,7 +61,7 @@ export default function PostJobForm() {
           {formContent.main.map((formElementContent, index) => (
             <div key={index}>{displayFormElement(formElementContent)}</div>
           ))}
-          {postJobForm.pricingModel === "FIXED_PRICE" ? (
+          {priceModelValue !== "PRICE_VARIES" ? (
             <FormElement type="price" />
           ) : (
             <FormElement type="priceVaries" />
