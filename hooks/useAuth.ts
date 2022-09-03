@@ -12,12 +12,7 @@ export default function useAuth() {
   const { initFB, writeData } = useFirebase();
   const app = initFB();
 
-  async function authSignup(
-    email: string,
-    password: string,
-    firstName: string,
-    lastName: string
-  ) {
+  async function authSignup(email: string, password: string, name: string) {
     const auth: any = getAuth(app);
     try {
       await createUserWithEmailAndPassword(auth, email, password).then(
@@ -34,7 +29,7 @@ export default function useAuth() {
         }
       );
       return await updateProfile(auth.currentUser, {
-        displayName: `${firstName} ${lastName}`,
+        displayName: name,
       });
     } catch (err) {
       console.log(err);
@@ -51,5 +46,10 @@ export default function useAuth() {
     return signOut(auth);
   }
 
-  return { authSignup, authSignIn, authSignOut };
+  function authDetails() {
+    const auth = getAuth(app);
+    return auth;
+  }
+
+  return { authSignup, authSignIn, authSignOut, authDetails };
 }

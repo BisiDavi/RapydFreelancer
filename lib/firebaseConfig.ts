@@ -1,7 +1,7 @@
 import { getApp, initializeApp } from "firebase/app";
 
 export function firebaseConfig() {
-  const firebaseConfig = {
+  return {
     apiKey: process.env.NEXT_PUBLIC_APIKEY,
     authDomain: process.env.NEXT_PUBLIC_AUTHDOMAIN,
     projectId: process.env.PROJECTID,
@@ -10,7 +10,6 @@ export function firebaseConfig() {
     appId: process.env.NEXT_PUBLIC_APPID,
     measurementId: process.env.NEXT_PUBLIC_MEASUREMENTID,
   };
-  return firebaseConfig;
 }
 
 export const createFirebaseApp = (config = {}) => {

@@ -1,5 +1,6 @@
 import Logo from "@/components/logo";
 import Button from "@/components/UI/Button";
+import useAuth from "@/hooks/useAuth";
 import { useAppDispatch } from "@/hooks/useRedux";
 import useScroll from "@/hooks/useScroll";
 import { updateSidebar } from "@/redux/ui-slice";
@@ -8,6 +9,12 @@ import { UIStateType } from "@/types/redux-types";
 export default function Header() {
   const { scroll } = useScroll();
   const dispatch = useAppDispatch();
+  const { authDetails } = useAuth();
+
+  const auth = authDetails();
+
+  console.log("auth", auth?.currentUser);
+
   const headerClassname = scroll > 80 ? "fixed" : "";
 
   function authHandler(authValue: UIStateType["sidebar"]) {

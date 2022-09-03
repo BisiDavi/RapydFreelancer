@@ -6,6 +6,7 @@ import formContent from "@/json/auth.json";
 import displayFormElement from "@/lib/displayFormElement";
 import Button from "@/components/UI/Button";
 import { signupSchema } from "@/components/form/schema/authSchema";
+import useAuthMutation from "@/hooks/useAuthMutation";
 
 interface FormInputsProps {
   fullname: string;
@@ -20,7 +21,13 @@ export default function SignupForm() {
     mode: "all",
   });
 
-  const onSubmit = (data: any) => console.log("data", data);
+  const { useSignupMutation } = useAuthMutation();
+  const signupMutate = useSignupMutation();
+
+  const onSubmit = (data: any) => {
+    const { email, name, password } = data;
+    return signupMutate.mutate({ email, password, name });
+  };
   return (
     <FormProvider {...methods}>
       <form

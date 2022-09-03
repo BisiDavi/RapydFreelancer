@@ -5,7 +5,8 @@ import { createFirebaseApp, firebaseConfig } from "@/lib/firebaseConfig";
 
 export default function useFirebase() {
   function initFB() {
-    const app = createFirebaseApp(firebaseConfig);
+    const config = firebaseConfig();
+    const app = createFirebaseApp(config);
     return app;
   }
   function getAuthdetails() {
