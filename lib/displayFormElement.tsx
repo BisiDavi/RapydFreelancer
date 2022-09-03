@@ -2,6 +2,7 @@ import Input from "@/components/form/form-elements/Input";
 import Media from "@/components/form/form-elements/Media";
 import PriceRange from "@/components/form/form-elements/PriceRange";
 import Select from "@/components/form/form-elements/Select";
+import SelectSkill from "@/components/form/form-elements/SelectSkill";
 import Textarea from "@/components/form/form-elements/Textarea";
 
 import type { elementType } from "@/types/form-types";
@@ -14,6 +15,8 @@ export default function displayFormElement(content: elementType["content"]) {
       return <Textarea content={content} />;
     case "select":
       return <Select content={content} />;
+    case "select-skills":
+      return <SelectSkill content={content} />;
     case "price-range":
       return <PriceRange content={content} />;
     case "media":

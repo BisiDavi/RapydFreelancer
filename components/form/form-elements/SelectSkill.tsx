@@ -1,30 +1,31 @@
-import useSelectSkill from "@/hooks/useSelectSkill";
-import AsyncCreatableSelect from "react-select/async-creatable";
+import CreatableSelect from "react-select/async-creatable";
 
-export default function SelectSkill() {
-  const { promiseOptions, defaultOptions, onCreateHandler, selectHandler } =
-    useSelectSkill();
+import useSelectSkill from "@/hooks/useSelectSkill";
+import type { elementType } from "@/types/form-types";
+
+export default function SelectSkill({ content }: elementType) {
+  const { handleCreate, handleChange, skillState } = useSelectSkill();
+  const { value, isLoading, options } = skillState;
   return (
-    <div className="categorydropdown flex items-center">
+    <div className="flex flex-col">
       <label
-        className="bg-gray-200 text-gray-900 px-3 py-4 border-b border-white font-bold items-center flex"
-        htmlFor="categoryDropdown"
+        className="form flex flex-col relative my-2 font-bold my-1 text-lg"
+        htmlFor={content.name}
       >
-        Category
+        {content.label}
       </label>
-      <AsyncCreatableSelect
-        id="categoryDropdown"
-        className="w-3/4"
-        classNamePrefix="categoryDropdown"
-        placeholder="Select Category"
+      <CreatableSelect
+        id={content.name}
+        classNamePrefix="selectSkill"
+        placeholder={content.placeholder}
         cacheOptions
-        // value={value}
         isClearable
-        // isLoading={isLoading}
-        onCreateOption={onCreateHandler}
-        onChange={selectHandler}
-        defaultOptions={defaultOptions}
-        loadOptions={promiseOptions}
+        isDisabled={isLoading}
+        isLoading={isLoading}
+        onChange={handleChange}
+        onCreateOption={handleCreate}
+        options={options}
+        value={value}
       />
       <style jsx>
         {`

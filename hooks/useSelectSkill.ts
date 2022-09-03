@@ -1,32 +1,58 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useState } from "react";
 
+import type { ActionMeta } from "react-select";
+
+interface Option {
+  readonly label: string;
+  readonly value: string;
+}
+
+type skillStateType = {
+  isLoading: boolean;
+  options: Option[];
+  value: Option | undefined;
+};
+
 export default function useSelectSkill() {
-  const [defaultOptions, setDefaultOptions] = useState([
-    { label: "None", value: "NONE" },
-  ]);
+  const [skillState, setSkillState] = useState<skillStateType>({
+    isLoading: false,
+    options: [],
+    value: undefined,
+  });
 
-  const filterCategories = (inputValue: string) => {
-    return defaultOptions.filter((i) =>
-      i.label.toLowerCase().includes(inputValue.toLowerCase())
-    );
-  };
+  const createOption = (skill: string) => ({
+    label: skill,
+    value: skill.toLowerCase().replace(/\W/g, ""),
+  });
 
-  const promiseOptions: any = (inputValue: string) =>
-    new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(filterCategories(inputValue));
-      }, 1000);
-    });
+  function handleChange(newValue: any, actionMeta: ActionMeta<Option>) {
+    console.group("Value Changed");
+    console.log(newValue);
+    console.log(`action: ${actionMeta.action}`);
+    console.groupEnd();
+    setSkillState({ ...skillState, value: newValue });
+  }
 
-  function selectHandler(inputValue: any) {}
-
-  function onCreateHandler(inputValue: any) {}
+  function handleCreate(inputValue: string) {
+    setSkillState({ ...skillState, isLoading: true });
+    console.group("Option created");
+    console.log("Wait a moment...");
+    setTimeout(() => {
+      const { options } = skillState;
+      const newOption = createOption(inputValue);
+      console.log(newOption);
+      console.groupEnd();
+      setSkillState({
+        isLoading: false,
+        options: [...options, newOption],
+        value: newOption,
+      });
+    }, 1000);
+  }
 
   return {
-    promiseOptions,
-    defaultOptions,
-    selectHandler,
-    onCreateHandler,
+    handleCreate,
+    handleChange,
+    skillState,
   };
 }

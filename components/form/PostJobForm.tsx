@@ -1,14 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useForm, FormProvider } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useEffect } from "react";
 
 import displayFormElement from "@/lib/displayFormElement";
 import formContent from "@/json/forms/post-job.json";
 import { postJobSchema } from "@/components/form/schema/postJobSchema";
 import Button from "@/components/UI/Button";
-import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
-import { updatePostJobForm } from "@/redux/form-slice";
 
 interface FormInputsProps {
   title: string;
@@ -40,9 +37,6 @@ function FormElement({ type }: Props) {
 }
 
 export default function PostJobForm() {
-  const { postJobForm } = useAppSelector((state) => state.form);
-  const dispatch = useAppDispatch();
-
   const methods = useForm<FormInputsProps>({
     resolver: yupResolver(postJobSchema),
     mode: "all",
