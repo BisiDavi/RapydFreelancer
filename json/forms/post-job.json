@@ -22,6 +22,7 @@
       "name": "pricingModel",
       "elementType": "text",
       "options": [
+        { "text": "Select Pricing Model", "value": "" },
         { "text": "Fixed Price", "value": "FIXED_PRICE" },
         { "text": "Price Varies (Range)", "value": "PRICE_VARIES" }
       ]
@@ -49,6 +50,7 @@
       "name": "duration",
       "elementType": "text",
       "options": [
+        { "text": "Select Projuect Duration", "value": "" },
         { "text": "Day(s)", "value": "DAYS" },
         { "text": "Week", "value": "WEEKS" },
         { "text": "Monthly", "value": "MONTHLY" },

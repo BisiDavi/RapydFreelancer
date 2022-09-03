@@ -26,6 +26,7 @@ export default function FooterAlert() {
         <Button
           text="Post a Job"
           className="border border-white px-4 py-2 text-xl font-bold bg-white hover:bg-black hover:text-white hover:border-black"
+          href="/post-job"
         />
         <Button
           className="text-3xl absolute right-4 top-4 hover:text-red-500 text-white"

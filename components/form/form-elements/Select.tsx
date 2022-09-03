@@ -25,9 +25,7 @@ export default function Select({ content }: elementType) {
           </option>
         ))}
       </select>
-      <p className="text-red-500 p-0 -mt-2 text-xs">
-        {errors[content.name]?.message}
-      </p>
+      <p className="text-red-500 text-xs">{errors[content.name]?.message}</p>
     </div>
   );
 }

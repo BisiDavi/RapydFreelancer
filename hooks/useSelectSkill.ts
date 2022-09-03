@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
 export default function useSelectSkill() {
   const [defaultOptions, setDefaultOptions] = useState([

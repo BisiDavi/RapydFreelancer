@@ -44,7 +44,10 @@ export default function PostJobForm() {
   return (
     <>
       <FormProvider {...methods}>
-        <form className="content mb-10 bg-white shadow drop-shadow rounded-xl mt-10 py-1 pb-4 px-8 overflow-y-scroll">
+        <form
+          className="content mb-10 bg-white shadow drop-shadow rounded-xl mt-10 py-1 pb-4 px-8 overflow-y-scroll"
+          onSubmit={methods.handleSubmit(onSubmit)}
+        >
           {formContent.main.map((formElementContent, index) => (
             <div key={index}>{displayFormElement(formElementContent)}</div>
           ))}
@@ -61,6 +64,7 @@ export default function PostJobForm() {
             />
             <Button
               text="Submit"
+              type="submit"
               className="bg-green-600 text-white w-24 h-10 hover:bg-green-400 font-bold"
             />
           </div>
