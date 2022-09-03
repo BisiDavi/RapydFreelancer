@@ -10,7 +10,7 @@ const initialState: FormStateType = {
 };
 
 const FormSlice = createSlice({
-  name: "UI",
+  name: "form",
   initialState,
   reducers: {
     updatePostJobForm(

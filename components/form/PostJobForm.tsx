@@ -4,7 +4,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import displayFormElement from "@/lib/displayFormElement";
 import formContent from "@/json/forms/post-job.json";
 import { postJobSchema } from "@/components/form/schema/postJobSchema";
-import Button from "../UI/Button";
+import Button from "@/components/UI/Button";
+import { useAppSelector } from "@/hooks/useRedux";
 
 interface FormInputsProps {
   title: string;
@@ -12,7 +13,28 @@ interface FormInputsProps {
   media: string;
 }
 
+interface Props {
+  type: "price" | "priceVaries";
+}
+
+function FormElement({ type }: Props) {
+  return (
+    <div className="price-view flex items-center">
+      {formContent[type].map((formElementContent, index) => {
+        const marginStyle =
+          Number(formContent.price.length - 1) !== index ? "mr-4" : "";
+        return (
+          <div key={index} className={`w-1/2 ${marginStyle}`}>
+            {displayFormElement(formElementContent)}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 export default function PostJobForm() {
+  const { postJobForm } = useAppSelector((state) => state.form);
   const methods = useForm<FormInputsProps>({
     resolver: yupResolver(postJobSchema),
     mode: "all",
@@ -26,28 +48,11 @@ export default function PostJobForm() {
           {formContent.main.map((formElementContent, index) => (
             <div key={index}>{displayFormElement(formElementContent)}</div>
           ))}
-          <div className="price-view flex items-center">
-            {formContent.price.map((formElementContent, index) => {
-              const marginStyle =
-                Number(formContent.price.length - 1) !== index ? "mr-4" : "";
-              return (
-                <div key={index} className={`w-1/2 ${marginStyle}`}>
-                  {displayFormElement(formElementContent)}
-                </div>
-              );
-            })}
-          </div>
-          <div className="price-view flex items-center">
-            {formContent.priceVaries.map((formElementContent, index) => {
-              const marginStyle =
-                Number(formContent.price.length - 1) !== index ? "mr-4" : "";
-              return (
-                <div key={index} className={`w-1/2 ${marginStyle}`}>
-                  {displayFormElement(formElementContent)}
-                </div>
-              );
-            })}
-          </div>
+          {postJobForm.pricingModel === "FIXED_PRICE" ? (
+            <FormElement type="price" />
+          ) : (
+            <FormElement type="priceVaries" />
+          )}
           <div className="my-4">{displayFormElement(formContent.media)}</div>
           <div className="button-Group flex items-center my-2 mt-4 justify-between w-2/3 justify-center mx-auto">
             <Button
