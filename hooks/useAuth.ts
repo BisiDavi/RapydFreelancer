@@ -25,7 +25,7 @@ export default function useAuth() {
           console.log("user", user);
           writeData(
             JSON.stringify(user.providerData[0]),
-            `/users/${user.uid}/`
+            `/users/${user.uid}/auth/`
           );
         }
       );
