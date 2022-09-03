@@ -5,7 +5,7 @@ export type elementType = {
     placeholder?: string;
     elementType: string;
     type: string;
-    options?: string;
+    options?: Array<{ text: string; value: string }>;
     inputStyle?: string;
   };
 };

@@ -1,21 +1,87 @@
-[
-  {
-    "label": "Choose a name for your project",
-    "type": "input",
-    "name": "title",
-    "elementType": "text",
-    "placeholder": "e.g. Build me an e-commerce website",
-    "inputStyle": "big"
-  },
-  {
-    "label": "Tell us more about your project",
-    "type": "textarea",
-    "name": "description",
-    "elementType": "text",
-    "placeholder": "Describe your project here...",
-    "inputStyle": "big"
-  },
-  {
+{
+  "main": [
+    {
+      "label": "Choose a name for your project",
+      "type": "input",
+      "name": "title",
+      "elementType": "text",
+      "placeholder": "e.g. Build me an e-commerce website",
+      "inputStyle": "big"
+    },
+    {
+      "label": "Tell us more about your project",
+      "type": "textarea",
+      "name": "description",
+      "elementType": "text",
+      "placeholder": "Describe your project here...",
+      "inputStyle": "big"
+    },
+    {
+      "label": "Pricing Model",
+      "type": "select",
+      "name": "pricingModel",
+      "elementType": "text",
+      "options": [
+        { "text": "Fixed Price", "value": "FIXED_PRICE" },
+        { "text": "Price Varies (Range)", "value": "PRICE_VARIES" }
+      ]
+    },
+    {
+      "label": "Skills Required to do the Project (select at least 4)",
+      "type": "select-categories",
+      "name": "job-categories",
+      "elementType": "text"
+    }
+  ],
+  "price": [
+    {
+      "label": "Price",
+      "type": "input",
+      "name": "price",
+      "elementType": "text",
+      "placeholder": "Project Price",
+      "inputStyle": "big",
+      "note": "you can pay in your local currency, but the job will be listed in USD ($)"
+    },
+    {
+      "label": "Project Duration",
+      "type": "select",
+      "name": "duration",
+      "elementType": "text",
+      "options": [
+        { "text": "Day(s)", "value": "DAYS" },
+        { "text": "Week", "value": "WEEKS" },
+        { "text": "Monthly", "value": "MONTHLY" },
+        { "text": "Yearly", "value": "YEARLY" }
+      ]
+    }
+  ],
+  "priceVaries": [
+    [
+      {
+        "label": "Price Range (min - max)",
+        "type": "price-range",
+        "name": "price",
+        "elementType": "text",
+        "placeholder": "Project Price",
+        "inputStyle": "big",
+        "note": "you can pay in your local currency, but the job will be listed in USD ($)"
+      }
+    ],
+    {
+      "label": "Project Duration",
+      "type": "select",
+      "name": "duration",
+      "elementType": "text",
+      "options": [
+        { "text": "Day(s)", "value": "DAYS" },
+        { "text": "Week", "value": "WEEKS" },
+        { "text": "Monthly", "value": "MONTHLY" },
+        { "text": "Yearly", "value": "YEARLY" }
+      ]
+    }
+  ],
+  "media": {
     "label": "Drag & Drop any image(s) or document(s) that might be helpful in explaining your brief here (Max file size: 25 MB).",
     "type": "media",
     "name": "media",
@@ -23,4 +89,4 @@
     "placeholder": "Upload files",
     "inputStyle": "big"
   }
-]
+}

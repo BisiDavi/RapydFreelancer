@@ -22,7 +22,7 @@ export default function PostJobForm() {
     <FormProvider {...methods}>
       <div className="content mb-10 bg-white shadow drop-shadow rounded-xl mt-10">
         <form className="py-1 pb-4 px-8">
-          {formContent.map((formElementContent, index) => (
+          {formContent.main.map((formElementContent, index) => (
             <div key={index}>{displayFormElement(formElementContent)}</div>
           ))}
         </form>

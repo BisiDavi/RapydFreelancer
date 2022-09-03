@@ -8,9 +8,9 @@ export default function PostJob() {
   const userName = auth ? `Hello 👋  ${auth?.displayName},` : "";
   return (
     <>
-      <div className="banner w-full py-20">
+      <div className="banner w-full py-12">
         <div className=" w-1/2 mx-auto h-72">
-          <div className="logo-wrapper w-1/3 my-4">
+          <div className="logo-wrapper w-1/3 my-1">
             <Logo />
           </div>
           <h2 className="text-white text-2xl my-4">
