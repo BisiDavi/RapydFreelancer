@@ -9,7 +9,7 @@ const FormSlice = createSlice({
   initialState,
   reducers: {
     updateSkills(state, action: PayloadAction<string>) {
-      state.skills = [...state.skills, action.payload];
+      state.skills = action.payload;
     },
   },
 });

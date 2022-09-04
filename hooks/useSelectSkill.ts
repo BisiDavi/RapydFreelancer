@@ -58,6 +58,7 @@ export default function useSelectSkill() {
       { skill: inputValue, skillId: uuidv4() },
       {
         onSuccess: (data: any) => {
+          console.log("onSuccess-data", data);
           const defaultOptionsArray = formatSkills(data?.data);
           setDefaultOptions(defaultOptionsArray);
           queryClient.invalidateQueries(["searchCatalogObject"]);

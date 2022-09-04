@@ -26,6 +26,7 @@ export default function firebaseDB() {
 
   function initializeDB() {
     const app = initFB();
+    getAuth(app);
     const db = getDatabase(app);
     return db;
   }

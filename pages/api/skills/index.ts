@@ -15,6 +15,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
           res.status(200).json({ status: "skill created" });
         })
         .catch((error) => {
+          console.log("error", error);
           res.status(400).send(error);
         });
     }

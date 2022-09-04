@@ -6,6 +6,9 @@ export default function PostJob() {
   const { authDetails } = useAuth();
   const auth = authDetails();
   const userName = auth ? `Hello 👋  ${auth?.displayName},` : "";
+
+  console.log("auth", auth);
+
   return (
     <>
       <div className="banner w-full py-12">

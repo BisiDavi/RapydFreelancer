@@ -22,10 +22,9 @@ export default function useAuth() {
             userCredential
           );
           const user = userCredential.user;
-          console.log("user", user);
           writeData(
             JSON.stringify(user.providerData[0]),
-            `/users/${user.uid}/auth/`
+            `/users/${user.uid}/`
           );
         }
       );

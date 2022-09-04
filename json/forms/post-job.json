@@ -17,7 +17,7 @@
       "inputStyle": "big"
     },
     {
-      "label": "Skills Required to do the Project (select at least 4)",
+      "label": "Skills Required to do the Project (select at least 2)",
       "type": "select-skills",
       "name": "skill-categories",
       "placeholder": "Select Skill",
