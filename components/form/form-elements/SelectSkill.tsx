@@ -23,7 +23,9 @@ export default function SelectSkill({ content }: elementType) {
       <AsyncCreatableSelect
         cacheOptions
         isClearable
+        isMulti
         classNamePrefix="selectSkill"
+        closeMenuOnSelect={false}
         id={content.name}
         placeholder={content.placeholder}
         isDisabled={isLoading}
