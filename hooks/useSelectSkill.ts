@@ -15,23 +15,20 @@ function getSkills() {
 export default function useSelectSkill() {
   const { data, status } = useQuery(["skills"], getSkills);
   const { mutate, isLoading } = useCreateSkillMutation();
-  console.log("data", data);
   const dispatch = useAppDispatch();
   const { skills } = useAppSelector((state) => state.form);
   const [defaultOptions, setDefaultOptions] = useState<any>([]);
 
   const queryClient = useQueryClient();
 
-  function formatSkills() {
-    if (data?.data.length > 0) {
-      const parsedData = JSON.parse(data?.data);
-      console.log("parsedData", parsedData);
+  function formatSkills(dataArray: any) {
+    if (dataArray.length > 0) {
       let defaultOptionsArray: any[] = [];
-      parsedData.map((itemData: any) => {
-        console.log("itemData", itemData);
+      dataArray.map((itemData: any) => {
+        const parsedData = JSON.parse(itemData);
         defaultOptionsArray.push({
-          label: itemData.skill,
-          value: itemData.id,
+          label: parsedData.skill,
+          value: parsedData.id,
         });
       });
       return defaultOptionsArray;
@@ -47,7 +44,7 @@ export default function useSelectSkill() {
 
   useMemo(() => {
     if (status === "success") {
-      const defaultOptionsArray = formatSkills();
+      const defaultOptionsArray = formatSkills(data?.data);
       setDefaultOptions(defaultOptionsArray);
     }
   }, [status]);
@@ -57,16 +54,15 @@ export default function useSelectSkill() {
   }
 
   function onCreateHandler(inputValue: any) {
-    console.log("inputValue", inputValue);
     mutate(
       { skill: inputValue, skillId: uuidv4() },
       {
         onSuccess: (data: any) => {
-          console.log("mutate-data", data);
-          const parsedData = JSON.parse(data?.data);
-          console.log("parsedData", parsedData);
+          const defaultOptionsArray = formatSkills(data?.data);
+          setDefaultOptions(defaultOptionsArray);
           queryClient.invalidateQueries(["searchCatalogObject"]);
         },
+        onError: (err) => console.log("mutate-err", err),
       }
     );
   }

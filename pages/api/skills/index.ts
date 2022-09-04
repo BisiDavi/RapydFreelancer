@@ -9,7 +9,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     // create skill
     case "POST": {
       const data = { skill, id: skillId };
-      writeData(JSON.stringify(data), `/skills/${skillId}/`)
+      writeData(JSON.stringify(data), `skills/${skillId}/`)
         .then((response) => {
           console.log("response", response);
           res.status(200).json({ status: "skill created" });
@@ -20,11 +20,10 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     }
     // get skills
     case "GET": {
-      const skillsData = readData("/skills");
-      console.log("skillsData", skillsData);
+      let result: any = {};
+      readData("/skills", result);
       const skills =
-        typeof skillsData === "object" ? Object.values(skillsData) : [];
-      console.log("skills", skills);
+        typeof result?.data === "object" ? Object.values(result?.data) : [];
       res.status(200).send(skills);
     }
   }

@@ -35,12 +35,12 @@ export default function firebaseDB() {
     return set(ref(db, dbNode), data);
   }
 
-  function readData(dbNode: string) {
+  function readData(dbNode: string, result: any) {
     const db = initializeDB();
     const dataRef = ref(db, dbNode);
     onValue(dataRef, (snapshot) => {
       const data = snapshot.val();
-      return data;
+      result.data = data;
     });
   }
 
