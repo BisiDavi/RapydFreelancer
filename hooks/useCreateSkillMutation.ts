@@ -10,8 +10,8 @@ export default function useCreateSkillMutation() {
     ({ skill, skillId }) => createSkill(skill, skillId),
     {
       mutationKey: ["useCreateSkillMutation"],
-      success: "skill created",
-      error: "unable to create skill",
+      success: "skill added",
+      error: "unable to add skill",
     }
   );
 }

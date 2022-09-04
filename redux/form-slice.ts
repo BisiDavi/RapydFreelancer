@@ -1,8 +1,7 @@
-/* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: any = {
-  skills: {},
+  skills: [],
 };
 
 const FormSlice = createSlice({
@@ -10,7 +9,7 @@ const FormSlice = createSlice({
   initialState,
   reducers: {
     updateSkills(state, action: PayloadAction<string>) {
-      state.skills = action.payload;
+      state.skills = [...state.skills, action.payload];
     },
   },
 });
