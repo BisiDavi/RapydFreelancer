@@ -1,14 +1,5 @@
 import CryptoJS from "crypto-js";
 
-const salt = CryptoJS.lib.WordArray.random(12); // Randomly generated for each request.
-const timestamp = (Math.floor(new Date().getTime() / 1000) - 10).toString(); // Current Unix time (seconds).
-const access_key = process.env.NEXT_PUBLIC_SANDBOX_RAPYD_ACCESS_KEY; // The access key from Client Portal.
-const secret_key = process.env.NEXT_PUBLIC_SANDBOX_RAPYD_SECRET_KEY; // Never transmit the secret key by itself.
-// Hardkeyed for this example.
-// const http_method = "get"; // get|put|post|delete - must be lowercase.
-// const data = ""; // Stringified JSON without whitespace.
-// Always empty string for GET;
-
 type httpMethodType = "get" | "post" | "delete";
 
 export default function dataRequest(
@@ -16,6 +7,10 @@ export default function dataRequest(
   httpMethod: httpMethodType,
   data: string
 ) {
+  const salt = CryptoJS.lib.WordArray.random(12); // Randomly generated for each request.
+  const timestamp = (Math.floor(new Date().getTime() / 1000) - 10).toString(); // Current Unix time (seconds).
+  const access_key = process.env.NEXT_PUBLIC_SANDBOX_RAPYD_ACCESS_KEY; // The access key from Client Portal.
+  const secret_key = process.env.NEXT_PUBLIC_SANDBOX_RAPYD_SECRET_KEY; // Never transmit the secret key by itself.
   const getSignature = () => {
     const to_sign =
       httpMethod + urlPath + salt + timestamp + access_key + secret_key + data;
