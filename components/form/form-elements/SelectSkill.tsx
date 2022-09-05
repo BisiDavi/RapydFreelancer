@@ -34,7 +34,6 @@ export default function SelectSkill({ content }: elementType) {
         onChange={selectHandler}
         onCreateOption={onCreateHandler}
         defaultOptions={defaultOptions}
-        options={defaultOptions}
         loadOptions={promiseOptions}
         value={selectedSkills}
       />

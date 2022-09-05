@@ -17,6 +17,8 @@ export default function useSelectSkill() {
   const dispatch = useAppDispatch();
   const { skills, selectedSkills } = useAppSelector((state) => state.form);
 
+  console.log("status", status);
+
   function formatSkills() {
     if (status === "success") {
       const defaultOptions: { label: string; value: string }[] = [];
@@ -28,8 +30,6 @@ export default function useSelectSkill() {
     }
     return [];
   }
-
-  const defaultOptions = formatSkills();
 
   const queryClient = useQueryClient();
 
