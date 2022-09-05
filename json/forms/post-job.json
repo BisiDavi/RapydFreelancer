@@ -1,7 +1,7 @@
 {
   "main": [
     {
-      "label": "Choose a name for your project",
+      "label": "Choose a name for your project *",
       "type": "input",
       "name": "title",
       "elementType": "text",
@@ -9,7 +9,7 @@
       "inputStyle": "big"
     },
     {
-      "label": "Tell us more about your project",
+      "label": "Tell us more about your project *",
       "type": "textarea",
       "name": "description",
       "elementType": "text",
@@ -17,7 +17,7 @@
       "inputStyle": "big"
     },
     {
-      "label": "Skills Required to do the Project (select at least 2)",
+      "label": "Skills Required to do the Project (select at least 2) *",
       "type": "select-skills",
       "name": "skill-categories",
       "placeholder": "Select Skill",
@@ -26,7 +26,7 @@
   ],
   "durationModel": [
     {
-      "label": "Duration Period",
+      "label": "Duration Period *",
       "type": "input",
       "name": "durationPeriod",
       "elementType": "text",
@@ -34,7 +34,7 @@
       "inputStyle": "big"
     },
     {
-      "label": "Project Duration",
+      "label": "Project Duration *",
       "type": "select",
       "name": "duration",
       "elementType": "text",
@@ -50,7 +50,7 @@
   ],
   "price": [
     {
-      "label": "Price (USD)",
+      "label": "Price (USD) *",
       "type": "input",
       "name": "price",
       "elementType": "text",
@@ -59,7 +59,7 @@
       "note": "you can pay in your local currency, but the job will be listed in USD ($)"
     },
     {
-      "label": "Price / Period",
+      "label": "Price / Period *",
       "type": "select",
       "name": "pricePeriod",
       "elementType": "text",
@@ -76,7 +76,7 @@
   "media": {
     "name": "media",
     "placeholder": "Attach document",
-    "label": "Upload document (pdf/picture), to help the freelancer understand the scope of your job better",
+    "label": "Upload a document (pdf/picture), to help the freelancer understand the scope of your job better (optional)",
     "type": "media",
     "elementType": "media"
   }
