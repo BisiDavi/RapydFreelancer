@@ -21,7 +21,6 @@ export default function LoginForm() {
   const { mutate, isLoading } = useSigninMutation();
 
   const onSubmit = (data: any) => {
-    console.log("data", data);
     const { email, password } = data;
     return mutate({ email, password });
   };
