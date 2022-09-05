@@ -23,6 +23,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     case "GET": {
       let result: any = {};
       readData("/skills", result);
+      console.log("skill-result", result);
       const skills =
         typeof result?.data === "object" ? Object.values(result?.data) : [];
       res.status(200).send(skills);
