@@ -1,13 +1,29 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from "react";
+
 import Logo from "@/components/logo";
 import PostJobForm from "@/components/form/PostJobForm";
 import useAuth from "@/hooks/useAuth";
+import { DBClient } from "@/db/DBConnection";
+import { getSkillsDB } from "@/db/skills";
+import { useAppDispatch } from "@/hooks/useRedux";
+import { updateSkills } from "@/redux/form-slice";
 
-export default function PostJob() {
+interface Props {
+  skills: { label: string; value: string; id: string }[];
+}
+
+export default function PostJob({ skills }: Props) {
   const { authDetails } = useAuth();
   const auth = authDetails();
   const userName = auth ? `Hello 👋  ${auth?.displayName},` : "";
+  const dispatch = useAppDispatch();
 
-  console.log("auth", auth);
+  useEffect(() => {
+    dispatch(updateSkills(skills));
+  }, []);
+
+  console.log("skills", skills);
 
   return (
     <>
@@ -45,4 +61,27 @@ export default function PostJob() {
       </style>
     </>
   );
+}
+
+export async function getServerSideProps() {
+  try {
+    const dbClient = await DBClient();
+    return await getSkillsDB(dbClient).then((response) => {
+      const defaultOptions: { label: string; value: string }[] = [];
+      response.map((item: { label: string; value: string }) => {
+        defaultOptions.push({ label: item.label, value: item.value });
+      });
+      return {
+        props: {
+          skills: defaultOptions,
+        },
+      };
+    });
+  } catch (err) {
+    return {
+      props: {
+        skills: [],
+      },
+    };
+  }
 }

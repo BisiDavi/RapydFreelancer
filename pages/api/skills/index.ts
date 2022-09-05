@@ -15,8 +15,7 @@ export default async function handler(
       try {
         const dbClient = await DBClient();
         return await createSkillDB(dbClient, data)
-          .then((response) => {
-            console.log("database-create-skill", response);
+          .then(() => {
             return res.status(200).send("skill created");
           })
           .catch((error) => {

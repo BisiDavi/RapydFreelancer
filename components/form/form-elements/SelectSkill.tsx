@@ -8,10 +8,12 @@ export default function SelectSkill({ content }: elementType) {
     onCreateHandler,
     selectHandler,
     promiseOptions,
-    skills,
     defaultOptions,
     isLoading,
+    selectedSkills,
+    mutateLoading,
   } = useSelectSkill();
+  console.log("isLoading", isLoading);
   return (
     <div className="flex flex-col">
       <label
@@ -28,13 +30,13 @@ export default function SelectSkill({ content }: elementType) {
         closeMenuOnSelect={false}
         id={content.name}
         placeholder={content.placeholder}
-        isDisabled={isLoading}
-        isLoading={isLoading}
+        isLoading={mutateLoading}
         onChange={selectHandler}
         onCreateOption={onCreateHandler}
         defaultOptions={defaultOptions}
+        options={defaultOptions}
         loadOptions={promiseOptions}
-        value={skills}
+        value={selectedSkills}
       />
     </div>
   );

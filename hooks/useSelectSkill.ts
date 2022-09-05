@@ -4,7 +4,7 @@ import axios from "axios";
 
 import useCreateSkillMutation from "@/hooks/useCreateSkillMutation";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
-import { updateSkills } from "@/redux/form-slice";
+import { updateSelectedSkills, updateSkills } from "@/redux/form-slice";
 import toSlug from "@/lib/toSlug";
 
 function getSkills() {
@@ -13,31 +13,41 @@ function getSkills() {
 
 export default function useSelectSkill() {
   const { data, status, isLoading } = useQuery(["skills"], getSkills);
-  console.log("getSkills-data", data);
-  const { mutate } = useCreateSkillMutation();
+  const { mutate, isLoading: mutateLoading } = useCreateSkillMutation();
   const dispatch = useAppDispatch();
-  const { skills } = useAppSelector((state) => state.form);
+  const { skills, selectedSkills } = useAppSelector((state) => state.form);
 
-  const defaultOptions = status === "success" ? data?.data : [];
+  function formatSkills() {
+    if (status === "success") {
+      const defaultOptions: { label: string; value: string }[] = [];
+      data?.data.map((item: { label: string; value: string }) => {
+        defaultOptions.push({ label: item.label, value: item.value });
+      });
+      dispatch(updateSkills(defaultOptions));
+      return defaultOptions;
+    }
+    return [];
+  }
+
+  const defaultOptions = formatSkills();
 
   const queryClient = useQueryClient();
 
   const filterSkills = (inputValue: string) => {
-    return defaultOptions.filter((i: any) =>
+    return skills.filter((i: any) =>
       i.label.toLowerCase().includes(inputValue.toLowerCase())
     );
   };
 
   function selectHandler(inputValue: any) {
-    dispatch(updateSkills(inputValue));
+    dispatch(updateSelectedSkills(inputValue));
   }
 
   function onCreateHandler(inputValue: any) {
     mutate(
       { skill: inputValue, id: toSlug(inputValue) },
       {
-        onSuccess: (data: any) => {
-          console.log("onSuccess-data", data);
+        onSuccess: () => {
           queryClient.invalidateQueries(["skills"]);
         },
         onError: (err) => console.log("mutate-err", err),
@@ -57,7 +67,9 @@ export default function useSelectSkill() {
     selectHandler,
     promiseOptions,
     skills,
-    defaultOptions,
+    defaultOptions: skills,
     isLoading,
+    selectedSkills,
+    mutateLoading,
   };
 }
