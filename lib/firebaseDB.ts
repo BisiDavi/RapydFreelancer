@@ -24,6 +24,12 @@ export default function firebaseDB() {
     return currentUser;
   }
 
+  function authDetails() {
+    const app = initFB();
+    const auth = getAuth(app);
+    return auth?.currentUser;
+  }
+
   function initializeDB() {
     const app = initFB();
     const db = getDatabase(app);
@@ -51,5 +57,5 @@ export default function firebaseDB() {
     );
   }
 
-  return { getAuthdetails, initFB, writeData, readData };
+  return { getAuthdetails, authDetails, initFB, writeData, readData };
 }

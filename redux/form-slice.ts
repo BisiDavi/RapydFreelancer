@@ -4,6 +4,7 @@ const initialState: any = {
   skills: [],
   selectedSkills: [],
   jobId: 0,
+  media: [],
 };
 
 const FormSlice = createSlice({
@@ -25,9 +26,12 @@ const FormSlice = createSlice({
     updateJobId(state) {
       state.jobId = state.jobId + 1;
     },
+    updateMedia(state, action: PayloadAction<any>) {
+      state.media = [...state.media, action.payload];
+    },
   },
 });
 
-export const { updateSkills, updateSelectedSkills, updateJobId } =
+export const { updateSkills, updateSelectedSkills, updateJobId, updateMedia } =
   FormSlice.actions;
 export default FormSlice.reducer;
