@@ -9,10 +9,10 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     // create skill
     case "POST": {
       const data = { skill, id: skillId };
-      writeData(JSON.stringify(data), `skills/${skillId}/`)
+      writeData(JSON.stringify(data), `/skills/${skillId}/`)
         .then((response) => {
           console.log("response", response);
-          res.status(200).json({ status: "skill created" });
+          res.status(200).send({ status: "skill created" });
         })
         .catch((error) => {
           console.log("error", error);
