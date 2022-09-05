@@ -14,10 +14,9 @@ export default function usePostJob() {
   const auth: any = authDetails();
 
   function createJob(jobData: any) {
-    console.log("jobData", jobData);
     const job = {
       ...jobData,
-      ...media,
+      media,
       skills: selectedSkills,
       id: jobId,
       user: {
@@ -25,26 +24,19 @@ export default function usePostJob() {
         displayName: auth?.providerData[0].displayName,
       },
     };
-    console.log("job", job);
-    return axios.post("/api/jobs", job);
+    return axios.post("/api/jobs", { job });
   }
 
   function useCreateJobMutation() {
-    return useRequestMutation(
-      (job) => {
-        console.log("job-useRequestMutation", job);
-        return createJob(job);
+    return useRequestMutation((job) => createJob(job), {
+      mutationKey: ["useCreateJobMutation"],
+      success: "Job added",
+      error: "unable to post job",
+      onSuccessMethod: () => {
+        dispatch(updateMedia([]));
+        dispatch(updateSelectedSkills([]));
       },
-      {
-        mutationKey: ["useCreateJobMutation"],
-        success: "Job added",
-        error: "unable to post job",
-        onSuccessMethod: () => {
-          dispatch(updateMedia([]));
-          dispatch(updateSelectedSkills([]));
-        },
-      }
-    );
+    });
   }
 
   return {
