@@ -14,6 +14,7 @@ function getSkills() {
 
 export default function useSelectSkill() {
   const { data, status } = useQuery(["skills"], getSkills);
+  console.log("data", data);
   const { mutate, isLoading } = useCreateSkillMutation();
   const dispatch = useAppDispatch();
   const { skills } = useAppSelector((state) => state.form);
