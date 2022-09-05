@@ -11,6 +11,7 @@ export default function SelectSkill({ content }: elementType) {
     skills,
     defaultOptions,
     isLoading,
+    fetchingSkillsLoading,
   } = useSelectSkill();
   return (
     <div className="flex flex-col">
@@ -28,8 +29,8 @@ export default function SelectSkill({ content }: elementType) {
         closeMenuOnSelect={false}
         id={content.name}
         placeholder={content.placeholder}
-        isDisabled={isLoading}
-        isLoading={isLoading}
+        isDisabled={isLoading || fetchingSkillsLoading}
+        isLoading={isLoading || fetchingSkillsLoading}
         onChange={selectHandler}
         onCreateOption={onCreateHandler}
         defaultOptions={defaultOptions}

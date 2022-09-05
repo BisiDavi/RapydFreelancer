@@ -34,15 +34,12 @@ export default async function handler(
         const dbClient = await DBClient();
         return await getSkillsDB(dbClient)
           .then((response) => {
-            console.log("skills-response", response);
             return res.status(200).json(response);
           })
           .catch((error) => {
-            console.log("error-getSkill", error);
             return res.status(400).json(error);
           });
       } catch (err) {
-        console.log("error-getSkill", err);
         return res.status(400).json(err);
       }
     }

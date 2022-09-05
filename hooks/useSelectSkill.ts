@@ -13,7 +13,11 @@ function getSkills() {
 }
 
 export default function useSelectSkill() {
-  const { data, status } = useQuery(["skills"], getSkills);
+  const {
+    data,
+    status,
+    isLoading: fetchingSkillsLoading,
+  } = useQuery(["skills"], getSkills);
   console.log("data", data);
   const { mutate, isLoading } = useCreateSkillMutation();
   const dispatch = useAppDispatch();
@@ -82,5 +86,6 @@ export default function useSelectSkill() {
     skills,
     isLoading,
     defaultOptions,
+    fetchingSkillsLoading,
   };
 }
