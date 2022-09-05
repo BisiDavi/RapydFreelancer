@@ -15,8 +15,8 @@ export default function usePostJob() {
       skills: selectedSkills,
       id: jobId,
       user: {
-        email: auth.providerData[0].email,
-        displayName: auth.providerData[0].displayName,
+        email: auth?.providerData[0].email,
+        displayName: auth?.providerData[0].displayName,
       },
     };
     return axios.post("/api/jobs", job);

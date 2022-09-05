@@ -44,6 +44,9 @@ export default function PostJobForm() {
           ))}
           <PostJobFormElement type="durationModel" />
           <PostJobFormElement type="price" />
+
+          <div>{displayFormElement(formContent.media)}</div>
+
           <div className="button-Group flex items-center my-2 mt-4 justify-between w-2/3 justify-center mx-auto">
             <Button
               text="Cancel"

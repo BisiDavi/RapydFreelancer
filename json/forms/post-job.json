@@ -72,5 +72,12 @@
         { "text": "year", "value": "YEARLY" }
       ]
     }
-  ]
+  ],
+  "media": {
+    "name": "media",
+    "placeholder": "Attach document",
+    "label": "Upload document (pdf/picture), to help the freelancer understand the scope of your job better",
+    "type": "media",
+    "elementType": "media"
+  }
 }
