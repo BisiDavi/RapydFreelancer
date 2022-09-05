@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import { useMemo, useState } from "react";
 
 import useCreateSkillMutation from "@/hooks/useCreateSkillMutation";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
@@ -13,45 +12,21 @@ function getSkills() {
 }
 
 export default function useSelectSkill() {
-  const {
-    data,
-    status,
-    isLoading: fetchingSkillsLoading,
-  } = useQuery(["skills"], getSkills);
-  console.log("data", data);
-  const { mutate, isLoading } = useCreateSkillMutation();
+  const { data, status, isLoading } = useQuery(["skills"], getSkills);
+  console.log("getSkills-data", data);
+  const { mutate } = useCreateSkillMutation();
   const dispatch = useAppDispatch();
   const { skills } = useAppSelector((state) => state.form);
-  const [defaultOptions, setDefaultOptions] = useState<any>([]);
+
+  const defaultOptions = status === "success" ? data?.data : [];
 
   const queryClient = useQueryClient();
-
-  function formatSkills(dataArray: any) {
-    if (dataArray.length > 0) {
-      let defaultOptionsArray: any[] = [];
-      dataArray.map((itemData: any) => {
-        defaultOptionsArray.push({
-          label: itemData.skill,
-          value: itemData.id,
-        });
-      });
-      return defaultOptionsArray;
-    }
-    return [];
-  }
 
   const filterSkills = (inputValue: string) => {
     return defaultOptions.filter((i: any) =>
       i.label.toLowerCase().includes(inputValue.toLowerCase())
     );
   };
-
-  useMemo(() => {
-    if (status === "success") {
-      const defaultOptionsArray = formatSkills(data?.data);
-      setDefaultOptions(defaultOptionsArray);
-    }
-  }, [status]);
 
   function selectHandler(inputValue: any) {
     dispatch(updateSkills(inputValue));
@@ -63,9 +38,7 @@ export default function useSelectSkill() {
       {
         onSuccess: (data: any) => {
           console.log("onSuccess-data", data);
-          const defaultOptionsArray = formatSkills(data?.data);
-          setDefaultOptions(defaultOptionsArray);
-          queryClient.invalidateQueries(["searchCatalogObject"]);
+          queryClient.invalidateQueries(["skills"]);
         },
         onError: (err) => console.log("mutate-err", err),
       }
@@ -84,8 +57,7 @@ export default function useSelectSkill() {
     selectHandler,
     promiseOptions,
     skills,
-    isLoading,
     defaultOptions,
-    fetchingSkillsLoading,
+    isLoading,
   };
 }

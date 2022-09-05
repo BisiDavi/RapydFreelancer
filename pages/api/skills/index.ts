@@ -7,7 +7,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const { skill, id } = req.body;
-  const data = { skill, id };
+  const data = { label: skill, value: id };
 
   switch (req.method) {
     // create skill
