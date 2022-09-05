@@ -49,8 +49,6 @@ export default function useSelectSkill() {
             getSkills
           );
           const data = formatSkills(refetchedData.data);
-          console.log("data-refetchQueries", refetchedData);
-          console.log("data-data", data);
           dispatch(updateSkills(data));
         },
         onError: (err) => console.log("mutate-err", err),

@@ -22,7 +22,9 @@
       "name": "skill-categories",
       "placeholder": "Select Skill",
       "elementType": "text"
-    },
+    }
+  ],
+  "pricingModel": [
     {
       "label": "Pricing Model",
       "type": "select",
@@ -33,35 +35,50 @@
         { "text": "Fixed Price", "value": "FIXED_PRICE" },
         { "text": "Price Varies (Range)", "value": "PRICE_VARIES" }
       ]
-    }
-  ],
-  "price": [
-    {
-      "label": "Price",
-      "type": "input",
-      "name": "price",
-      "elementType": "text",
-      "placeholder": "Project Price",
-      "inputStyle": "big",
-      "note": "you can pay in your local currency, but the job will be listed in USD ($)"
     },
     {
       "label": "Project Duration",
-      "type": "select",
+      "type": "input-select",
       "name": "duration",
       "elementType": "text",
       "options": [
         { "text": "Select Project Duration", "value": "" },
+        { "text": "hrs", "value": "HOURLY" },
         { "text": "Day(s)", "value": "DAYS" },
-        { "text": "Week", "value": "WEEKS" },
+        { "text": "Week(s)", "value": "WEEKS" },
         { "text": "Monthly", "value": "MONTHLY" },
         { "text": "Yearly", "value": "YEARLY" }
       ]
     }
   ],
+  "price": [
+    {
+      "label": "Price (USD)",
+      "type": "input",
+      "name": "price",
+      "elementType": "text",
+      "placeholder": "Project Price ($)",
+      "inputStyle": "big",
+      "note": "you can pay in your local currency, but the job will be listed in USD ($)"
+    },
+    {
+      "label": "Price / Period",
+      "type": "select",
+      "name": "pricePeriod",
+      "elementType": "text",
+      "options": [
+        { "text": "Select Price Type ", "value": "" },
+        { "text": "/hr", "value": "HOURLY" },
+        { "text": "/way", "value": "DAYS" },
+        { "text": "/week", "value": "WEEKS" },
+        { "text": "/month", "value": "MONTHLY" },
+        { "text": "/year", "value": "YEARLY" }
+      ]
+    }
+  ],
   "priceVaries": [
     {
-      "label": "Price Range (min - max)",
+      "label": "Price Range (min - max) ($)",
       "type": "price-range",
       "name": "price",
       "elementType": "text",
@@ -70,24 +87,18 @@
       "note": "you can pay in your local currency, but the job will be listed in USD ($)"
     },
     {
-      "label": "Project Duration",
+      "label": "Price / Period",
       "type": "select",
-      "name": "duration",
+      "name": "pricePeriod",
       "elementType": "text",
       "options": [
-        { "text": "Day(s)", "value": "DAYS" },
-        { "text": "Week", "value": "WEEKS" },
-        { "text": "Monthly", "value": "MONTHLY" },
-        { "text": "Yearly", "value": "YEARLY" }
+        { "text": "Select Price Type ", "value": "" },
+        { "text": "/hr", "value": "HOURLY" },
+        { "text": "/way", "value": "DAYS" },
+        { "text": "/week", "value": "WEEKS" },
+        { "text": "/month", "value": "MONTHLY" },
+        { "text": "/yearly", "value": "YEARLY" }
       ]
     }
-  ],
-  "media": {
-    "label": "Drag & Drop any image(s) or document(s) that might be helpful in explaining your brief here (Max file size: 25 MB).",
-    "type": "media",
-    "name": "media",
-    "elementType": "text",
-    "placeholder": "Upload files",
-    "inputStyle": "big"
-  }
+  ]
 }

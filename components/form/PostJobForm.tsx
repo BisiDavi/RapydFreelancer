@@ -18,7 +18,7 @@ interface FormInputsProps {
 }
 
 interface Props {
-  type: "price" | "priceVaries";
+  type: "price" | "priceVaries" | "pricingModel";
 }
 
 function FormElement({ type }: Props) {
@@ -58,12 +58,12 @@ export default function PostJobForm() {
           {formContent.main.map((formElementContent, index) => (
             <div key={index}>{displayFormElement(formElementContent)}</div>
           ))}
+          <FormElement type="pricingModel" />
           {priceModelValue !== "PRICE_VARIES" ? (
             <FormElement type="price" />
           ) : (
             <FormElement type="priceVaries" />
           )}
-          <div className="my-4">{displayFormElement(formContent.media)}</div>
           <div className="button-Group flex items-center my-2 mt-4 justify-between w-2/3 justify-center mx-auto">
             <Button
               text="Cancel"
