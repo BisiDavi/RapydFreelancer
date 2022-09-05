@@ -5,13 +5,16 @@ import useAuth from "@/hooks/useAuth";
 import useRequestMutation from "@/hooks/useRequestMutation";
 
 export default function usePostJob() {
-  const { selectedSkills, jobId } = useAppSelector((state) => state.form);
+  const { selectedSkills, jobId, media } = useAppSelector(
+    (state) => state.form
+  );
   const { authDetails } = useAuth();
   const auth: any = authDetails();
 
   function createJob(jobData: any) {
     const job = {
       ...jobData,
+      ...media,
       skills: selectedSkills,
       id: jobId,
       user: {
