@@ -25,15 +25,15 @@ export default function usePostJob() {
     return axios.post("/api/jobs", job);
   }
 
-  function useCreateSkillMutation() {
+  function useCreateJobMutation() {
     return useRequestMutation((job) => createJob(job), {
-      mutationKey: ["useCreateSkillMutation"],
-      success: "skill added",
-      error: "unable to add skill",
+      mutationKey: ["useCreateJobMutation"],
+      success: "Job added",
+      error: "unable to post job",
     });
   }
 
   return {
-    useCreateSkillMutation,
+    useCreateJobMutation,
   };
 }

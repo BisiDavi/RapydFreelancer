@@ -9,6 +9,7 @@ import Button from "@/components/UI/Button";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import PostJobFormElement from "@/components/form/form-elements/PostJobFormElement";
 import { updateJobId } from "@/redux/form-slice";
+import usePostJob from "@/hooks/usePostJob";
 
 interface FormInputsProps {
   title: string;
@@ -25,12 +26,15 @@ export default function PostJobForm() {
     resolver: yupResolver(postJobSchema),
     mode: "all",
   });
+  const { useCreateJobMutation } = usePostJob();
+  const { mutate, isLoading } = useCreateJobMutation();
 
   const { selectedSkills } = useAppSelector((state) => state.form);
 
   const onSubmit = (data: any) => {
     dispatch(updateJobId());
     console.log("data", data);
+    mutate(data);
   };
   return (
     <>
@@ -57,6 +61,7 @@ export default function PostJobForm() {
                 text="Submit"
                 type="submit"
                 className="bg-green-600 text-white w-24 h-10 hover:bg-green-400 font-bold"
+                loading={isLoading}
               />
             )}
           </div>
