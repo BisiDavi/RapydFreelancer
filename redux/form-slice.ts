@@ -29,9 +29,17 @@ const FormSlice = createSlice({
     updateMedia(state, action: PayloadAction<any>) {
       state.media = [...state.media, action.payload];
     },
+    resetMedia(state) {
+      state.media = [];
+    },
   },
 });
 
-export const { updateSkills, updateSelectedSkills, updateJobId, updateMedia } =
-  FormSlice.actions;
+export const {
+  updateSkills,
+  updateSelectedSkills,
+  updateJobId,
+  resetMedia,
+  updateMedia,
+} = FormSlice.actions;
 export default FormSlice.reducer;

@@ -3,7 +3,7 @@ import axios from "axios";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import useAuth from "@/hooks/useAuth";
 import useRequestMutation from "@/hooks/useRequestMutation";
-import { updateMedia, updateSelectedSkills } from "@/redux/form-slice";
+import { resetMedia, updateSelectedSkills } from "@/redux/form-slice";
 
 export default function usePostJob() {
   const { selectedSkills, jobId, media } = useAppSelector(
@@ -33,7 +33,7 @@ export default function usePostJob() {
       success: "Job added",
       error: "unable to post job",
       onSuccessMethod: () => {
-        dispatch(updateMedia([]));
+        dispatch(resetMedia());
         dispatch(updateSelectedSkills([]));
       },
     });
