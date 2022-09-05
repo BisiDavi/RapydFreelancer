@@ -6,6 +6,7 @@ import displayFormElement from "@/lib/displayFormElement";
 import formContent from "@/json/forms/post-job.json";
 import { postJobSchema } from "@/components/form/schema/postJobSchema";
 import Button from "@/components/UI/Button";
+import { useAppSelector } from "@/hooks/useRedux";
 
 interface FormInputsProps {
   title: string;
@@ -44,6 +45,8 @@ export default function PostJobForm() {
 
   const priceModelValue = methods.watch("pricingModel");
 
+  const { selectedSkills } = useAppSelector((state) => state.form);
+
   const onSubmit = (data: any) => console.log("data", data);
   return (
     <>
@@ -66,11 +69,13 @@ export default function PostJobForm() {
               text="Cancel"
               className="bg-red-600 text-white w-24 h-10 hover:bg-red-400 font-bold"
             />
-            <Button
-              text="Submit"
-              type="submit"
-              className="bg-green-600 text-white w-24 h-10 hover:bg-green-400 font-bold"
-            />
+            {selectedSkills.length >= 2 && (
+              <Button
+                text="Submit"
+                type="submit"
+                className="bg-green-600 text-white w-24 h-10 hover:bg-green-400 font-bold"
+              />
+            )}
           </div>
         </form>
       </FormProvider>
