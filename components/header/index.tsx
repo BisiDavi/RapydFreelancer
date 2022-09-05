@@ -19,6 +19,8 @@ export default function Header() {
 
   const auth: any = authDetails();
 
+  console.log("auth", auth.providerData[0]);
+
   const authStyle = auth ? "w-2/5" : "w-1/4";
 
   function signoutHandler() {

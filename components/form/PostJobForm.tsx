@@ -6,7 +6,9 @@ import displayFormElement from "@/lib/displayFormElement";
 import formContent from "@/json/forms/post-job.json";
 import { postJobSchema } from "@/components/form/schema/postJobSchema";
 import Button from "@/components/UI/Button";
-import { useAppSelector } from "@/hooks/useRedux";
+import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
+import PostJobFormElement from "@/components/form/form-elements/PostJobFormElement";
+import { updateJobId } from "@/redux/form-slice";
 
 interface FormInputsProps {
   title: string;
@@ -17,37 +19,19 @@ interface FormInputsProps {
   price: number;
 }
 
-interface Props {
-  type: "price" | "durationModel";
-}
-
-function FormElement({ type }: Props) {
-  return (
-    <div className="price-view flex items-center">
-      {formContent[type].map((formElementContent, index) => {
-        const marginStyle =
-          Number(formContent.price.length - 1) !== index ? "mr-4" : "";
-        return (
-          <div key={index} className={`w-1/2 ${marginStyle}`}>
-            {displayFormElement(formElementContent)}
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-
 export default function PostJobForm() {
+  const dispatch = useAppDispatch();
   const methods = useForm<FormInputsProps>({
     resolver: yupResolver(postJobSchema),
     mode: "all",
   });
 
-  const priceModelValue = methods.watch("pricingModel");
-
   const { selectedSkills } = useAppSelector((state) => state.form);
 
-  const onSubmit = (data: any) => console.log("data", data);
+  const onSubmit = (data: any) => {
+    dispatch(updateJobId());
+    console.log("data", data);
+  };
   return (
     <>
       <FormProvider {...methods}>
@@ -58,8 +42,8 @@ export default function PostJobForm() {
           {formContent.main.map((formElementContent, index) => (
             <div key={index}>{displayFormElement(formElementContent)}</div>
           ))}
-          <FormElement type="durationModel" />
-          <FormElement type="price" />
+          <PostJobFormElement type="durationModel" />
+          <PostJobFormElement type="price" />
           <div className="button-Group flex items-center my-2 mt-4 justify-between w-2/3 justify-center mx-auto">
             <Button
               text="Cancel"
