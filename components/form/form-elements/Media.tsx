@@ -2,7 +2,7 @@ import type { elementType } from "@/types/form-types";
 
 export default function Media({ content }: elementType) {
   return (
-    <div className="form input border-2 border-dotted  flex items-center justify-between py-1 px-3 rounded-lg">
+    <div className="form input border-4 border-dotted mt-4  flex items-center justify-between py-2 px-3 rounded-lg">
       <input
         id={content.name}
         placeholder={content.placeholder}

@@ -1,5 +1,7 @@
+export type modalStateType = "auth-modal" | null;
+
 export type UIStateType = {
-  modal: null | string;
+  modal: modalStateType;
   accordion: null | string;
   apploaded: boolean;
   sidebar: null | "signup-sidebar" | "login-sidebar";
