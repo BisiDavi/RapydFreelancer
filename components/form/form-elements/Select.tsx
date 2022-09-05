@@ -24,12 +24,20 @@ export default function Select({ content }: elementType) {
         aria-invalid={errors[content.name] ? "true" : "false"}
         {...register(content.name)}
       >
-        {content.options?.map((item) => (
-          <option key={item.value} value={item.value}>
-            {item.value && inputValue}
-            {item.text}
-          </option>
-        ))}
+        {content.options?.map((item) => {
+          const option =
+            item.text === "Total"
+              ? `$${priceValue} (${item.text})`
+              : item.value
+              ? `${inputValue}${item.text}`
+              : item.text;
+
+          return (
+            <option key={item.value} value={item.value}>
+              {option}
+            </option>
+          );
+        })}
       </select>
       <p className="text-red-500 text-xs">{errors[content.name]?.message}</p>
     </div>

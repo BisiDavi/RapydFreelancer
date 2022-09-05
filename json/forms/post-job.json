@@ -65,6 +65,7 @@
       "elementType": "text",
       "options": [
         { "text": "Select Price Type ", "value": "" },
+        { "text": "Total", "value": "TOTAL" },
         { "text": "hr", "value": "HOURLY" },
         { "text": "day", "value": "DAILY" },
         { "text": "week", "value": "WEEKS" },
