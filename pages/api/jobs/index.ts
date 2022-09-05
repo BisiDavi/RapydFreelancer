@@ -8,14 +8,15 @@ export default async function handler(
 ) {
   const { job } = req.body;
   const date = new Date();
-  job["createdAt"] = date;
+  console.log("job", job);
+  const jobData = { ...job, createdAt: date };
 
   switch (req.method) {
     // create job
     case "POST": {
       try {
         const dbClient = await DBClient();
-        return await createJobsDB(dbClient, job)
+        return await createJobsDB(dbClient, jobData)
           .then(() => {
             return res.status(200).send("job created");
           })

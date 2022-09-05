@@ -28,7 +28,7 @@ export default function Select({ content }: elementType) {
           const option =
             item.text === "Total"
               ? `$${priceValue} (${item.text})`
-              : item.value
+              : item.value && content.name === "pricePeriod"
               ? `${inputValue}${item.text}`
               : item.text;
 

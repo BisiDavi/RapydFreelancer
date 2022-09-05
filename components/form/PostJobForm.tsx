@@ -34,7 +34,7 @@ export default function PostJobForm() {
   const onSubmit = (data: any) => {
     dispatch(updateJobId());
     console.log("data", data);
-    mutate(data);
+    return mutate(data);
   };
   return (
     <>
@@ -60,7 +60,7 @@ export default function PostJobForm() {
               <Button
                 text="Submit"
                 type="submit"
-                className="bg-green-600 text-white w-24 h-10 hover:bg-green-400 font-bold"
+                className="bg-green-600 text-white w-24 h-10 mx-auto hover:bg-green-400 font-bold"
                 loading={isLoading}
               />
             )}
