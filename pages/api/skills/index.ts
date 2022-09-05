@@ -1,32 +1,50 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import firebaseDB from "@/lib/firebaseDB";
+import { DBClient } from "@/db/DBConnection";
+import { createSkillDB, getSkillsDB } from "@/db/skills";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { skill, skillId } = req.body;
-  const { writeData, readData } = firebaseDB();
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  const { skill, id } = req.body;
+  const data = { skill, id };
+
   switch (req.method) {
     // create skill
     case "POST": {
-      const data = { skill, id: skillId };
-      writeData(JSON.stringify(data), `/skills/${skillId}/`)
-        .then((response) => {
-          console.log("response", response);
-          res.status(200).send({ status: "skill created" });
-        })
-        .catch((error) => {
-          console.log("error", error);
-          res.status(400).send(error);
-        });
+      try {
+        const dbClient = await DBClient();
+        return await createSkillDB(dbClient, data)
+          .then((response) => {
+            console.log("database-create-skill", response);
+            return res.status(200).send("skill created");
+          })
+          .catch((error) => {
+            console.log("error", error);
+            return res.status(400).send("skill not created");
+          });
+      } catch (err) {
+        console.log("post-error", err);
+        return res.status(400).json(err);
+      }
     }
     // get skills
     case "GET": {
-      let result: any = {};
-      readData("/skills", result);
-      console.log("skill-result", result);
-      const skills =
-        typeof result?.data === "object" ? Object.values(result?.data) : [];
-      res.status(200).send(skills);
+      try {
+        const dbClient = await DBClient();
+        return await getSkillsDB(dbClient)
+          .then((response) => {
+            console.log("skills-response", response);
+            return res.status(200).json(response);
+          })
+          .catch((error) => {
+            console.log("error-getSkill", error);
+            return res.status(400).json(error);
+          });
+      } catch (err) {
+        console.log("error-getSkill", err);
+        return res.status(400).json(err);
+      }
     }
   }
 }

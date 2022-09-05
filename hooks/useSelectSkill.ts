@@ -2,11 +2,11 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useMemo, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 
 import useCreateSkillMutation from "@/hooks/useCreateSkillMutation";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import { updateSkills } from "@/redux/form-slice";
+import toSlug from "@/lib/toSlug";
 
 function getSkills() {
   return axios.get("/api/skills");
@@ -26,10 +26,9 @@ export default function useSelectSkill() {
     if (dataArray.length > 0) {
       let defaultOptionsArray: any[] = [];
       dataArray.map((itemData: any) => {
-        const parsedData = JSON.parse(itemData);
         defaultOptionsArray.push({
-          label: parsedData.skill,
-          value: parsedData.id,
+          label: itemData.skill,
+          value: itemData.id,
         });
       });
       return defaultOptionsArray;
@@ -56,7 +55,7 @@ export default function useSelectSkill() {
 
   function onCreateHandler(inputValue: any) {
     mutate(
-      { skill: inputValue, skillId: uuidv4() },
+      { skill: inputValue, id: toSlug(inputValue) },
       {
         onSuccess: (data: any) => {
           console.log("onSuccess-data", data);
