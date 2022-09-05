@@ -1,15 +1,13 @@
-import { useState } from "react";
-
 import useMediaUpload from "@/hooks/useMediaUpload";
 import type { elementType } from "@/types/form-types";
 
 export default function Media({ content }: elementType) {
   const { uploadMedia } = useMediaUpload();
-  const [file, setFile] = useState(null);
 
   function onClickHandler(e: any) {
+    console.log("(e.target.files", e.target.files[0]);
     if (e.target.files) {
-      uploadMedia(e.target.files[0]);
+      return uploadMedia(e.target.files[0]);
     }
   }
 
@@ -20,9 +18,10 @@ export default function Media({ content }: elementType) {
         placeholder={content.placeholder}
         className="rounded-lg px-10 border-2 h-8 w-1/3 mx-4"
         type="file"
-        onClick={onClickHandler}
+        onChange={onClickHandler}
         accept="image/* , application/pdf"
       />
+      {/* <Button onClick={} text="Upload" /> */}
       <label htmlFor={content.name} className="text-xs w-2/3">
         {content.label}
       </label>
