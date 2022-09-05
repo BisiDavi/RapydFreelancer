@@ -23,8 +23,6 @@ export default function PostJob({ skills }: Props) {
     dispatch(updateSkills(skills));
   }, []);
 
-  console.log("skills", skills);
-
   return (
     <>
       <div className="banner w-full py-12">

@@ -9,11 +9,9 @@ export default function SelectSkill({ content }: elementType) {
     selectHandler,
     promiseOptions,
     defaultOptions,
-    isLoading,
     selectedSkills,
     mutateLoading,
   } = useSelectSkill();
-  console.log("isLoading", isLoading);
   return (
     <div className="flex flex-col">
       <label

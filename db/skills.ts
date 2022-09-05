@@ -2,7 +2,7 @@ export async function createSkillDB(client: any, data: any) {
   return await client
     .db("rapyd-freelancer")
     .collection("skills")
-    .insertOne(data);
+    .insertOne(data)
 }
 
 export async function getSkillsDB(client: any) {

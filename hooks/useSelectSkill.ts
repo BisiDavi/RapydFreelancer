@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
 import useCreateSkillMutation from "@/hooks/useCreateSkillMutation";
@@ -11,24 +11,20 @@ function getSkills() {
   return axios.get("/api/skills");
 }
 
+type dataType = { label: string; value: string };
+
 export default function useSelectSkill() {
-  const { data, status, isLoading } = useQuery(["skills"], getSkills);
   const { mutate, isLoading: mutateLoading } = useCreateSkillMutation();
   const dispatch = useAppDispatch();
   const { skills, selectedSkills } = useAppSelector((state) => state.form);
 
-  console.log("status", status);
-
-  function formatSkills() {
-    if (status === "success") {
-      const defaultOptions: { label: string; value: string }[] = [];
-      data?.data.map((item: { label: string; value: string }) => {
-        defaultOptions.push({ label: item.label, value: item.value });
-      });
-      dispatch(updateSkills(defaultOptions));
-      return defaultOptions;
-    }
-    return [];
+  function formatSkills(dataArray: any[]) {
+    const defaultOptions: dataType[] = [];
+    dataArray.map((item: dataType) => {
+      defaultOptions.push({ label: item.label, value: item.value });
+    });
+    dispatch(updateSkills(defaultOptions));
+    return defaultOptions;
   }
 
   const queryClient = useQueryClient();
@@ -47,8 +43,15 @@ export default function useSelectSkill() {
     mutate(
       { skill: inputValue, id: toSlug(inputValue) },
       {
-        onSuccess: () => {
-          queryClient.invalidateQueries(["skills"]);
+        onSuccess: async () => {
+          const refetchedData = await queryClient.fetchQuery(
+            ["skills"],
+            getSkills
+          );
+          const data = formatSkills(refetchedData.data);
+          console.log("data-refetchQueries", refetchedData);
+          console.log("data-data", data);
+          dispatch(updateSkills(data));
         },
         onError: (err) => console.log("mutate-err", err),
       }
@@ -68,7 +71,6 @@ export default function useSelectSkill() {
     promiseOptions,
     skills,
     defaultOptions: skills,
-    isLoading,
     selectedSkills,
     mutateLoading,
   };
