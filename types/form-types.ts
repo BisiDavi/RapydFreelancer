@@ -7,5 +7,6 @@ export type elementType = {
     type: string;
     options?: Array<{ text: string; value: string }>;
     inputStyle?: string;
+    name2?: string;
   };
 };

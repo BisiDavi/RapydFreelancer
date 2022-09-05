@@ -45,7 +45,7 @@ export default function Input({ content }: elementType) {
           />
         )}
       </div>
-      <p className="text-red-500 p-0 -mt-2 text-xs">
+      <p className="text-red-500 p-0  text-xs">
         {errors[content.name]?.message}
       </p>
     </div>

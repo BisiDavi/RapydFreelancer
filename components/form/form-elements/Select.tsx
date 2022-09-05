@@ -5,8 +5,13 @@ import type { elementType } from "@/types/form-types";
 export default function Select({ content }: elementType) {
   const {
     register,
+    watch,
     formState: { errors },
   }: any = useFormContext();
+
+  const priceValue = watch("price") ? watch("price") : 0;
+
+  const inputValue = content.name === "pricePeriod" ? `$${priceValue} / ` : "";
 
   return (
     <div className="form flex flex-col relative my-2">
@@ -21,6 +26,7 @@ export default function Select({ content }: elementType) {
       >
         {content.options?.map((item) => (
           <option key={item.value} value={item.value}>
+            {item.value && inputValue}
             {item.text}
           </option>
         ))}

@@ -24,21 +24,18 @@
       "elementType": "text"
     }
   ],
-  "pricingModel": [
+  "durationModel": [
     {
-      "label": "Pricing Model",
-      "type": "select",
-      "name": "pricingModel",
+      "label": "Duration Period",
+      "type": "input",
+      "name": "durationPeriod",
       "elementType": "text",
-      "options": [
-        { "text": "Select Pricing Model", "value": "" },
-        { "text": "Fixed Price", "value": "FIXED_PRICE" },
-        { "text": "Price Varies (Range)", "value": "PRICE_VARIES" }
-      ]
+      "placeholder": "Project duration in number",
+      "inputStyle": "big"
     },
     {
       "label": "Project Duration",
-      "type": "input-select",
+      "type": "select",
       "name": "duration",
       "elementType": "text",
       "options": [
@@ -68,36 +65,11 @@
       "elementType": "text",
       "options": [
         { "text": "Select Price Type ", "value": "" },
-        { "text": "/hr", "value": "HOURLY" },
-        { "text": "/way", "value": "DAYS" },
-        { "text": "/week", "value": "WEEKS" },
-        { "text": "/month", "value": "MONTHLY" },
-        { "text": "/year", "value": "YEARLY" }
-      ]
-    }
-  ],
-  "priceVaries": [
-    {
-      "label": "Price Range (min - max) ($)",
-      "type": "price-range",
-      "name": "price",
-      "elementType": "text",
-      "placeholder": "Project Price",
-      "inputStyle": "big",
-      "note": "you can pay in your local currency, but the job will be listed in USD ($)"
-    },
-    {
-      "label": "Price / Period",
-      "type": "select",
-      "name": "pricePeriod",
-      "elementType": "text",
-      "options": [
-        { "text": "Select Price Type ", "value": "" },
-        { "text": "/hr", "value": "HOURLY" },
-        { "text": "/way", "value": "DAYS" },
-        { "text": "/week", "value": "WEEKS" },
-        { "text": "/month", "value": "MONTHLY" },
-        { "text": "/yearly", "value": "YEARLY" }
+        { "text": "hr", "value": "HOURLY" },
+        { "text": "day", "value": "DAILY" },
+        { "text": "week", "value": "WEEKS" },
+        { "text": "month", "value": "MONTHLY" },
+        { "text": "year", "value": "YEARLY" }
       ]
     }
   ]

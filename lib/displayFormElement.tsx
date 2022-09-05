@@ -1,4 +1,5 @@
 import Input from "@/components/form/form-elements/Input";
+import InputSelect from "@/components/form/form-elements/InputSelect";
 import Media from "@/components/form/form-elements/Media";
 import PriceRange from "@/components/form/form-elements/PriceRange";
 import Select from "@/components/form/form-elements/Select";
@@ -19,6 +20,8 @@ export default function displayFormElement(content: elementType["content"]) {
       return <SelectSkill content={content} />;
     case "price-range":
       return <PriceRange content={content} />;
+    case "input-select":
+      return <InputSelect content={content} />;
     case "media":
       return <Media content={content} />;
   }
