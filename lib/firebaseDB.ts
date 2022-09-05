@@ -38,10 +38,17 @@ export default function firebaseDB() {
   function readData(dbNode: string, result: any) {
     const db = initializeDB();
     const dataRef = ref(db, dbNode);
-    onValue(dataRef, (snapshot) => {
-      const data = snapshot.val();
-      result.data = data;
-    });
+    onValue(
+      dataRef,
+      (snapshot) => {
+        const data = snapshot.val();
+        console.log("data-readData-onvalue,", data);
+        result.data = data;
+      },
+      (error) => {
+        console.log("error-readdata", error);
+      }
+    );
   }
 
   return { getAuthdetails, initFB, writeData, readData };
