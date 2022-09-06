@@ -40,8 +40,8 @@ export default function usePostJob() {
       onSuccessMethod: () => {
         dispatch(resetMedia());
         dispatch(updateSelectedSkills([]));
-        dispatch(updateFormData(null));
         dispatch(updateModal(null));
+        dispatch(updateFormData(null));
       },
     });
   }

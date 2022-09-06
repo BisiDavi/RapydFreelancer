@@ -9,6 +9,12 @@ import usePostJob from "@/hooks/usePostJob";
 import { useAppDispatch } from "@/redux/store";
 import { updateJobId } from "@/redux/form-slice";
 import { useAppSelector } from "@/hooks/useRedux";
+import {
+  resetMedia,
+  updateFormData,
+  updateSelectedSkills,
+} from "@/redux/form-slice";
+import { updateModal } from "@/redux/ui-slice";
 
 interface Props {
   modal: modalStateType | null;
@@ -31,6 +37,10 @@ export default function PostJobModal({ modal, toggleModal, methods }: Props) {
     return mutate(formData, {
       onSuccess: () => {
         methods.reset();
+        dispatch(resetMedia());
+        dispatch(updateSelectedSkills([]));
+        dispatch(updateModal(null));
+        dispatch(updateFormData(null));
       },
     });
   }
