@@ -13,7 +13,8 @@ import useAuthModal from "@/hooks/useAuthModal";
 import PostJobModal from "@/components/modal/PostJobModal";
 
 const DynamicAuthModal = dynamic(
-  () => import(/* webpackChunkName:AuthModal  */ "@/components/modal/AuthModal")
+  () =>
+    import(/* webpackChunkName:'AuthModal'  */ "@/components/modal/AuthModal")
 );
 
 interface Props {
@@ -34,10 +35,7 @@ export default function PostJob({ skills }: Props) {
   return (
     <>
       {auth === null && modal === "auth-modal" && (
-        <DynamicAuthModal
-          modal={modal}
-          toggleModal={() => toggleModal("auth-modal")}
-        />
+        <DynamicAuthModal modal={modal} toggleModal={() => toggleModal(null)} />
       )}
       <div className="banner w-full py-12">
         <div className=" w-1/2 mx-auto h-72">

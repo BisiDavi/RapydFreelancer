@@ -9,15 +9,14 @@ import { postJobSchema } from "@/components/form/schema/postJobSchema";
 import Button from "@/components/UI/Button";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import PostJobFormElement from "@/components/form/form-elements/PostJobFormElement";
-import { updateJobId } from "@/redux/form-slice";
-import usePostJob from "@/hooks/usePostJob";
+import { updateFormData, updateJobId } from "@/redux/form-slice";
 import { updateModal } from "@/redux/ui-slice";
 import useUI from "@/hooks/useUI";
 
 const DynamicPostJobModal = dynamic(
   () =>
     import(
-      /* webpackChunkName:PostJobModal */ "@/components/modal/PostJobModal"
+      /* webpackChunkName:'PostJobModal' */ "@/components/modal/PostJobModal"
     )
 );
 
@@ -36,19 +35,13 @@ export default function PostJobForm() {
     resolver: yupResolver(postJobSchema),
     mode: "all",
   });
-  const { useCreateJobMutation } = usePostJob();
-  const { mutate, isLoading } = useCreateJobMutation();
   const { modal, toggleModal } = useUI();
   const { selectedSkills } = useAppSelector((state) => state.form);
 
   const onSubmit = (data: any) => {
     dispatch(updateJobId());
+    dispatch(updateFormData(data));
     dispatch(updateModal("confirm-job-modal"));
-    return mutate(data, {
-      onSuccess: () => {
-        methods.reset();
-      },
-    });
   };
   return (
     <>
@@ -82,7 +75,6 @@ export default function PostJobForm() {
                 text="Submit"
                 type="submit"
                 className="bg-green-600 text-white w-24 h-10 mx-auto justify-center items-center flex hover:bg-green-400 font-bold"
-                loading={isLoading}
               />
             )}
           </div>

@@ -3,7 +3,12 @@ import axios from "axios";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import useAuth from "@/hooks/useAuth";
 import useRequestMutation from "@/hooks/useRequestMutation";
-import { resetMedia, updateSelectedSkills } from "@/redux/form-slice";
+import {
+  resetMedia,
+  updateFormData,
+  updateSelectedSkills,
+} from "@/redux/form-slice";
+import { updateModal } from "@/redux/ui-slice";
 
 export default function usePostJob() {
   const { selectedSkills, jobId, media } = useAppSelector(
@@ -35,6 +40,8 @@ export default function usePostJob() {
       onSuccessMethod: () => {
         dispatch(resetMedia());
         dispatch(updateSelectedSkills([]));
+        dispatch(updateFormData(null));
+        dispatch(updateModal(null));
       },
     });
   }

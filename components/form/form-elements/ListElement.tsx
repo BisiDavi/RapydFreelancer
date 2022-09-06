@@ -14,12 +14,12 @@ export default function ListElement({
   mapItem,
 }: ListElementProps) {
   return (
-    <li>
+    <li className="flex items-center my-1">
       <span className="font-bold mr-1">{title}:</span>
       {mapItem ? (
         <div className="group flex items-center">
           {mapItem.map((skill) => (
-            <li key={skill.value} className="border border-blue-500">
+            <li key={skill.value} className="border border-blue-500 mx-1 px-1 rounded-md">
               {" "}
               {skill.label}
             </li>
@@ -34,7 +34,7 @@ export default function ListElement({
 
 export function ListElementMedia({ title, mapMedia }: ListElementProps) {
   return (
-    <li>
+    <li className="flex items-center">
       <span className="font-bold mr-1">{title}:</span>
       {mapMedia?.map((mediaItem) => (
         <div key={mediaItem} className="group flex">
