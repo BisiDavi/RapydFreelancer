@@ -1,4 +1,4 @@
-export type modalStateType = "auth-modal" | null;
+export type modalStateType = "auth-modal" | "confirm-job-modal" | null;
 
 export type UIStateType = {
   modal: modalStateType;

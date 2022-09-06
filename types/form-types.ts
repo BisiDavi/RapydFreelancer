@@ -9,3 +9,5 @@ export type elementType = {
     inputStyle?: string;
   };
 };
+
+export type skillType = { label: string; value: string }[];

@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useForm, FormProvider } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import dynamic from "next/dynamic";
 
 import displayFormElement from "@/lib/displayFormElement";
 import formContent from "@/json/forms/post-job.json";
@@ -10,6 +11,15 @@ import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import PostJobFormElement from "@/components/form/form-elements/PostJobFormElement";
 import { updateJobId } from "@/redux/form-slice";
 import usePostJob from "@/hooks/usePostJob";
+import { updateModal } from "@/redux/ui-slice";
+import useUI from "@/hooks/useUI";
+
+const DynamicPostJobModal = dynamic(
+  () =>
+    import(
+      /* webpackChunkName:PostJobModal */ "@/components/modal/PostJobModal"
+    )
+);
 
 interface FormInputsProps {
   title: string;
@@ -28,11 +38,12 @@ export default function PostJobForm() {
   });
   const { useCreateJobMutation } = usePostJob();
   const { mutate, isLoading } = useCreateJobMutation();
-
+  const { modal, toggleModal } = useUI();
   const { selectedSkills } = useAppSelector((state) => state.form);
 
   const onSubmit = (data: any) => {
     dispatch(updateJobId());
+    dispatch(updateModal("confirm-job-modal"));
     return mutate(data, {
       onSuccess: () => {
         methods.reset();
@@ -41,6 +52,13 @@ export default function PostJobForm() {
   };
   return (
     <>
+      {modal === "confirm-job-modal" && (
+        <DynamicPostJobModal
+          modal={modal}
+          toggleModal={toggleModal}
+          methods={methods}
+        />
+      )}
       <FormProvider {...methods}>
         <form
           className="content mb-10 bg-white shadow drop-shadow rounded-xl mt-10 py-1 pb-4 px-8 overflow-y-scroll"

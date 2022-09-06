@@ -7,6 +7,7 @@ interface Props {
   toggleModal: (modalStateType: modalStateType) => void;
   modal: modalStateType;
   size?: "large" | "small";
+  persistModal?: boolean;
 }
 
 export default function Modal({

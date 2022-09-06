@@ -68,7 +68,7 @@
         { "text": "Total", "value": "TOTAL" },
         { "text": "hr", "value": "HOURLY" },
         { "text": "day", "value": "DAILY" },
-        { "text": "week", "value": "WEEKS" },
+        { "text": "week", "value": "WEEKLY" },
         { "text": "month", "value": "MONTHLY" },
         { "text": "year", "value": "YEARLY" }
       ]

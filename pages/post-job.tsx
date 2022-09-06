@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import dynamic from "next/dynamic";
 import { useEffect } from "react";
 
 import Logo from "@/components/logo";
@@ -8,8 +9,12 @@ import { DBClient } from "@/db/DBConnection";
 import { getSkillsDB } from "@/db/skills";
 import { useAppDispatch } from "@/hooks/useRedux";
 import { updateSkills } from "@/redux/form-slice";
-import AuthModal from "@/components/modal/AuthModal";
 import useAuthModal from "@/hooks/useAuthModal";
+import PostJobModal from "@/components/modal/PostJobModal";
+
+const DynamicAuthModal = dynamic(
+  () => import(/* webpackChunkName:AuthModal  */ "@/components/modal/AuthModal")
+);
 
 interface Props {
   skills: { label: string; value: string; id: string }[];
@@ -28,7 +33,12 @@ export default function PostJob({ skills }: Props) {
 
   return (
     <>
-      <AuthModal modal={modal} toggleModal={toggleModal} />
+      {auth === null && modal === "auth-modal" && (
+        <DynamicAuthModal
+          modal={modal}
+          toggleModal={() => toggleModal("auth-modal")}
+        />
+      )}
       <div className="banner w-full py-12">
         <div className=" w-1/2 mx-auto h-72">
           <div className="logo-wrapper w-1/3 my-1">
