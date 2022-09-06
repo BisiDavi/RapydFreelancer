@@ -24,7 +24,7 @@ export default function Input({ content }: elementType) {
       : content.elementType;
 
   return (
-    <div className="form-group">
+    <div className="form-group w-full">
       <div className="form flex flex-col relative my-2">
         <label htmlFor={content.name} className={inputClassName.label}>
           {content.label}

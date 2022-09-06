@@ -1,12 +1,13 @@
-import { Fragment } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import formContent from "@/json/auth.json";
-import displayFormElement from "@/lib/displayFormElement";
 import Button from "@/components/UI/Button";
 import { signupSchema } from "@/components/form/schema/authSchema";
 import useAuthMutation from "@/hooks/useAuthMutation";
+import {
+  displayModalSignupForm,
+  displaySignupForm,
+} from "@/lib/displaySignupForm";
 
 interface FormInputsProps {
   fullname: string;
@@ -15,7 +16,11 @@ interface FormInputsProps {
   confirmPassword: string;
 }
 
-export default function SignupForm() {
+interface Props {
+  type?: string;
+}
+
+export default function SignupForm({ type }: Props) {
   const methods = useForm<FormInputsProps>({
     resolver: yupResolver(signupSchema),
     mode: "all",
@@ -35,9 +40,7 @@ export default function SignupForm() {
         onSubmit={methods.handleSubmit(onSubmit)}
       >
         <h3 className="text-center text-2xl font-bold">Sign up form</h3>
-        {formContent.signup.map((formElement, index) => (
-          <Fragment key={index}>{displayFormElement(formElement)}</Fragment>
-        ))}
+        {!type ? displaySignupForm() : displayModalSignupForm()}
         <Button
           type="submit"
           className="bg-blue-500 text-white px-4 mt-4 py-1 mx-auto flex rounded hover:bg-blue-900"

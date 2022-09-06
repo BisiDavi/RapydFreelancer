@@ -12,10 +12,13 @@ export default function Select({ content }: elementType) {
   const priceValue = watch("price") ? watch("price") : 0;
 
   const inputValue = content.name === "pricePeriod" ? `$${priceValue} / ` : "";
+  const labelClassName = content?.inputStyle
+    ? "font-medium my-1 text-base"
+    : "font-bold my-1 text-lg";
 
   return (
-    <div className="form flex flex-col relative my-2">
-      <label htmlFor={content.name} className="font-bold my-1 text-lg">
+    <div className="form flex flex-col relative my-2 w-full">
+      <label htmlFor={content.name} className={labelClassName}>
         {content.label}
       </label>
       <select
