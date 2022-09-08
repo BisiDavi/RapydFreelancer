@@ -6,6 +6,7 @@ const initialState: any = {
   jobId: 0,
   formData: null,
   media: [],
+  formView: "post-job",
 };
 
 const FormSlice = createSlice({
@@ -33,6 +34,9 @@ const FormSlice = createSlice({
     updateFormData(state, action) {
       state.formData = action.payload;
     },
+    updateFormView(state, action) {
+      state.formView = action.payload;
+    },
     resetMedia(state) {
       state.media = [];
     },
@@ -45,6 +49,7 @@ export const {
   updateJobId,
   resetMedia,
   updateFormData,
+  updateFormView,
   updateMedia,
 } = FormSlice.actions;
 export default FormSlice.reducer;

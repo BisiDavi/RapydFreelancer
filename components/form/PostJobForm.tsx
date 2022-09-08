@@ -70,6 +70,10 @@ export default function PostJobForm() {
               text="Cancel"
               className="bg-red-600 text-white w-24 h-10 hover:bg-red-400 font-bold"
             />
+            <Button
+              text="Next"
+              className="bg-green-600 text-white w-24 h-10 mx-auto justify-center items-center flex hover:bg-green-400 font-bold"
+            />
             {selectedSkills.length >= 2 && (
               <Button
                 text="Submit"
