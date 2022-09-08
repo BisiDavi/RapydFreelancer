@@ -2,7 +2,7 @@ import CryptoJS from "crypto-js";
 
 type httpMethodType = "get" | "post" | "delete";
 
-export default function dataRequest(
+export default function rapydRequest(
   urlPath: string,
   httpMethod: httpMethodType,
   data: string
