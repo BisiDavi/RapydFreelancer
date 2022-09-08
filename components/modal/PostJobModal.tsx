@@ -30,8 +30,6 @@ export default function PostJobModal({ modal, toggleModal, methods }: Props) {
     (state) => state.form
   );
 
-  console.log("formData", formData);
-
   function postJobHandler() {
     dispatch(updateJobId());
     return mutate(formData, {

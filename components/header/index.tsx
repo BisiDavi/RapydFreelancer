@@ -19,7 +19,7 @@ export default function Header() {
 
   const auth: any = authDetails();
 
-  const authStyle = auth ? "w-2/5" : "w-1/4";
+  const authStyle = auth ? "w-3/5" : "w-2/5";
 
   function signoutHandler() {
     return mutate({});
@@ -52,7 +52,7 @@ export default function Header() {
               />
             </>
           ) : (
-            <div className="justify-between items-center w-2/3 flex">
+            <div className="justify-between items-center w-1/2 flex">
               <Button
                 text={`Hello ${auth?.displayName}`}
                 icon={<BsFillPersonFill className="mr-1" />}
@@ -66,6 +66,11 @@ export default function Header() {
               />
             </div>
           )}
+          <Button
+            text="Find Work"
+            href="/jobs"
+            className="bg-blue-500 px-6 py-1.5 font-bold rounded-full text-white hover:bg-blue-800"
+          />
           <Button
             text="Post a Job"
             href="/post-job"
