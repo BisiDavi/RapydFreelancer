@@ -8,6 +8,7 @@ import {
   displayModalSignupForm,
   displaySignupForm,
 } from "@/lib/displaySignupForm";
+import useAuthModal from "@/hooks/useAuthModal";
 
 interface FormInputsProps {
   fullname: string;
@@ -26,11 +27,15 @@ export default function SignupForm({ type }: Props) {
     mode: "all",
   });
 
+  const { modal, toggleModal } = useAuthModal();
   const { useSignupMutation } = useAuthMutation();
   const { mutate, isLoading } = useSignupMutation();
 
   const onSubmit = (data: any) => {
     const { email, name, password } = data;
+    if (modal === "auth-modal") {
+      toggleModal(null);
+    }
     return mutate({ email, password, name });
   };
   return (

@@ -10,7 +10,7 @@ import { getSkillsDB } from "@/db/skills";
 import { useAppDispatch } from "@/hooks/useRedux";
 import { updateSkills } from "@/redux/form-slice";
 import useAuthModal from "@/hooks/useAuthModal";
-import PostJobModal from "@/components/modal/PostJobModal";
+import { updateModal } from "@/redux/ui-slice";
 
 const DynamicAuthModal = dynamic(
   () =>
@@ -32,10 +32,19 @@ export default function PostJob({ skills }: Props) {
     dispatch(updateSkills(skills));
   }, []);
 
+  useEffect(() => {
+    if (!auth) {
+      dispatch(updateModal("auth-modal"));
+    }
+  }, [auth]);
+
   return (
     <>
       {auth === null && modal === "auth-modal" && (
-        <DynamicAuthModal modal={modal} toggleModal={() => toggleModal(null)} />
+        <DynamicAuthModal
+          modal={modal}
+          toggleModal={() => toggleModal("auth-modal")}
+        />
       )}
       <div className="banner w-full py-12">
         <div className=" w-1/2 mx-auto h-72">
