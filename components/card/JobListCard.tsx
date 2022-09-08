@@ -7,7 +7,7 @@ interface Props {
     maxPrice?: number;
     duration?: string;
     bids: number;
-    tags: string[];
+    skills: { label: string; value: string }[];
     price?: number;
     createdAt: string;
     verified?: boolean;
@@ -28,9 +28,12 @@ export default function JobListCard({ content, showBorder }: Props) {
         </div>
         <p className="break-words my-4">{content.description}</p>
         <ul className="flex mb-2">
-          {content.tags.map((tag) => (
-            <li key={tag} className="font-light text-blue-400 mr-4">
-              {tag}
+          {content.skills.map((skill) => (
+            <li
+              key={skill.value}
+              className="font-light text-sm border px-2 rounded text-blue-400 hover:bg-blue-800 hover:text-white  mr-4"
+            >
+              {skill.label}
             </li>
           ))}
         </ul>
@@ -43,7 +46,7 @@ export default function JobListCard({ content, showBorder }: Props) {
               : `$${content.minPrice} - $${content.maxPrice}`}
           </h6>
         </div>
-        <p>{content.bids} bids</p>
+        {content.bids && <p>{content.bids} bids</p>}
       </div>
     </div>
   );
