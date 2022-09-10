@@ -1,5 +1,5 @@
-import { useEffect } from "react";
 import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 
 import Homebanner from "@/components/banners/Homebanner";
 import InfoBanner from "@/components/banners/InfoBanner";
@@ -10,16 +10,18 @@ import CategoryList from "@/views/CategoryList";
 
 import type { NextPage } from "next";
 
+function createWallet() {
+  return axios.post("/api/admin/e-wallte", {});
+}
+
+function getWallet() {
+  return axios.get("/api/admin/e-wallet");
+}
+
 const Home: NextPage = () => {
-  useEffect(() => {
-    async function createWallet() {
-      return await axios
-        .post("/api/admin/e-wallet", {})
-        .then((response) => console.log("data-response", response))
-        .catch((error) => console.log("error", error));
-    }
-    createWallet();
-  }, []);
+  const { data } = useQuery(["getWallet"], getWallet);
+
+  console.log("data-getWallet", data);
 
   return (
     <DefaultLayout>

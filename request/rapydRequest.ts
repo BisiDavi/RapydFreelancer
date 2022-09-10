@@ -2,7 +2,7 @@ import CryptoJS from "crypto-js";
 
 type httpMethodType = "get" | "post" | "delete";
 
-export default function rapydRequest(
+export default async function rapydRequest(
   urlPath: string,
   httpMethod: httpMethodType,
   data: string
@@ -26,11 +26,11 @@ export default function rapydRequest(
     return signature;
   };
   const headers = {
-    access_key,
-    signature: getSignature(),
+    "Content-Type": "application/json",
     salt,
     timestamp,
-    "Content-Type": "application/json",
+    signature: getSignature(),
+    access_key,
     idempotency,
   };
   return {
