@@ -3,7 +3,7 @@ import crypto from "crypto";
 
 const secretKey = `${process.env.NEXT_PUBLIC_SANDBOX_RAPYD_SECRET_KEY}`; // Never transmit the secret key by itself.
 const access_key = `${process.env.NEXT_PUBLIC_SANDBOX_RAPYD_ACCESS_KEY}`; // The access key from Client Portal.
-const log = true;
+const log = false;
 
 type methodType = "post" | "get" | "delete";
 
@@ -20,8 +20,6 @@ export default async function makeRequest(
     const idempotency = new Date().getTime().toString();
     const timestamp = Math.round(new Date().getTime() / 1000);
     const signature = sign(httpMethod, httpURLPath, salt, timestamp, body);
-
-    console.log("body", body);
 
     const options = {
       hostname: httpBaseURL,

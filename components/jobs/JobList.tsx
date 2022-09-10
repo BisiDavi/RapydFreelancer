@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import JobListCard from "@/components/card/JobListCard";
 import Container from "@/components/UI/Container";
 import jobsArray from "@/json/jobs.json";
-import { getJobs } from "@/request";
+import { getJobs } from "@/request/getRequest";
 
 export default function JobList() {
   const { data, status } = useQuery(["getJobs"], getJobs);

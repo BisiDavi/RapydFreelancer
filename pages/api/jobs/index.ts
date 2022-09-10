@@ -8,7 +8,6 @@ export default async function handler(
 ) {
   const { job } = req.body;
   const date = new Date();
-  console.log("job", job);
   const jobData = { ...job, createdAt: date };
 
   switch (req.method) {
