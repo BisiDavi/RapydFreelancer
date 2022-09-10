@@ -71,7 +71,7 @@ export default function Header() {
                 icon={<BsFillPersonFill className="mr-1" />}
                 className="text-blue-500 font-bold flex  items-center rounded-md hover:text-blue-800"
               />
-              <div className="message relative ml-3">
+              <div className="message relative ml-3 hover:opacity-70">
                 <Button
                   icon={<BiMessageRoundedDetail color="#3B81F6" size={30} />}
                   href="/user/messages"
