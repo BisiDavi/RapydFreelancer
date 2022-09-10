@@ -9,6 +9,9 @@ import {
   displaySignupForm,
 } from "@/lib/displaySignupForm";
 import useAuthModal from "@/hooks/useAuthModal";
+import { useAppDispatch } from "@/hooks/useRedux";
+import { defaultMessage } from "@/lib/user";
+import { updateMessages } from "@/redux/user-slice";
 
 interface FormInputsProps {
   fullname: string;
@@ -22,6 +25,7 @@ interface Props {
 }
 
 export default function SignupForm({ type }: Props) {
+  const dispatch = useAppDispatch();
   const methods = useForm<FormInputsProps>({
     resolver: yupResolver(signupSchema),
     mode: "all",
@@ -35,7 +39,13 @@ export default function SignupForm({ type }: Props) {
     if (modal === "auth-modal") {
       toggleModal(null);
     }
-    return mutate(data);
+    return mutate(data, {
+      onSuccess: (data, variables) => {
+        console.log("mutate-onSuccess", data);
+        const message = defaultMessage(variables);
+        dispatch(updateMessages(message));
+      },
+    });
   };
   return (
     <FormProvider {...methods}>

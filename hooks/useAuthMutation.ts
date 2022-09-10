@@ -2,8 +2,6 @@ import useRequestMutation from "@/hooks/useRequestMutation";
 import useAuth from "@/hooks/useAuth";
 import { useAppDispatch } from "@/hooks/useRedux";
 import { updateSidebar } from "@/redux/ui-slice";
-import { defaultMessage } from "@/lib/user";
-import { updateMessages } from "@/redux/user-slice";
 
 export default function useAuthMutation() {
   const { authSignup, authSignIn, authSignOut } = useAuth();
@@ -19,11 +17,6 @@ export default function useAuthMutation() {
       success: "Sign up Successful",
       error: "Sign up error",
       onSuccessMethod: () => closeSidebar(),
-      onSuccessMethodWithData: (data) => {
-        console.log("data", data);
-        const message = defaultMessage(data);
-        dispatch(updateMessages(message));
-      },
     });
   }
 
