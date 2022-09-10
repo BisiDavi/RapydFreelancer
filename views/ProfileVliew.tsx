@@ -1,3 +1,4 @@
+import ProfileForm from "@/components/form/ProfileForm";
 import useAuth from "@/hooks/useAuth";
 import greetUser from "@/lib/greetUser";
 
@@ -15,6 +16,7 @@ export default function ProfileVliew() {
         your KYC, this will enable you create your wallet and eligible to post
         jobs.
       </p>
+      <ProfileForm />
     </div>
   );
 }
