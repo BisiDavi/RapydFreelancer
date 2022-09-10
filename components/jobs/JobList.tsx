@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 
 import JobListCard from "@/components/card/JobListCard";
 import Container from "@/components/UI/Container";
-import jobsArray from "@/json/jobs.json";
 import { getJobs } from "@/request/getRequest";
 
 export default function JobList() {
@@ -16,7 +15,7 @@ export default function JobList() {
           : status === "loading"
           ? "loading"
           : data?.data.map((job: any, index: number) => {
-              const jobArrayLength = Number(jobsArray.length - 1);
+              const jobArrayLength = Number(data?.data.length - 1);
               const showBorder = jobArrayLength !== index ? true : false;
               return (
                 <JobListCard

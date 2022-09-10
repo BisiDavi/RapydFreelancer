@@ -10,7 +10,11 @@ export default function ProfileVliew() {
       <h3 className="text-xl font-bold flex  text-right">
         {greetUser()}, {auth?.displayName}
       </h3>
-      <p>Welcome to RapydFreelancers, you need to update your profile,</p>
+      <p className="mt-4">
+        Welcome to RapydFreelancers, you need to update your profile, complete
+        your KYC, this will enable you create your wallet and eligible to post
+        jobs.
+      </p>
     </div>
   );
 }

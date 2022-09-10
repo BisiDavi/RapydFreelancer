@@ -1,0 +1,49 @@
+[
+  [
+    {
+      "label": "Address",
+      "type": "input",
+      "name": "address",
+      "elementType": "text",
+      "placeholder": "Your Home Address"
+    },
+    {
+      "label": "Phone Number",
+      "type": "input",
+      "name": "phonenumber",
+      "elementType": "text",
+      "placeholder": "Your Phonenumber"
+    }
+  ],
+  [
+    {
+      "label": "City",
+      "type": "input",
+      "name": "city",
+      "elementType": "text",
+      "placeholder": "City"
+    },
+    {
+      "label": "State",
+      "type": "input",
+      "name": "state",
+      "elementType": "text",
+      "placeholder": "State"
+    }
+  ],
+  [
+    {
+      "label": "Zip",
+      "type": "input",
+      "name": "zip",
+      "elementType": "text",
+      "placeholder": "zip"
+    },
+    {
+      "label": "Select Country",
+      "type": "select",
+      "name": "country",
+      "elementType": "text"
+    }
+  ]
+]
