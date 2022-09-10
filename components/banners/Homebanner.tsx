@@ -7,7 +7,7 @@ import Button from "@/components/UI/Button";
 export default function Homebanner() {
   return (
     <section className="banner justify-between flex items-center p-5  bg-gray-100 w-full">
-      <div className="w-1/2">
+      <div className="w-2/3">
         <TypewriterEffect />
         <p className="font-light text-lg -mt-4 underline text-gray-600">
           Hire top talent in minutes not weeks
@@ -31,7 +31,7 @@ export default function Homebanner() {
             className="border border-blue-500 text-blue-500 px-4 py-1 rounded-full hover:bg-blue-800 hover:text-white"
           />
         </div>
-        <div className="brands mt-10">
+        <div className="brands mt-10">   
           <h6 className="mb-2 font-medium">
             Trusted and powered by leading brand
           </h6>

@@ -1,14 +1,24 @@
 import useRequestMutation from "@/hooks/useRequestMutation";
 import useAuth from "@/hooks/useAuth";
+import { useAppDispatch } from "./useRedux";
+import { updateSidebar } from "@/redux/ui-slice";
 
 export default function useAuthMutation() {
   const { authSignup, authSignIn, authSignOut } = useAuth();
+  const dispatch = useAppDispatch();
+
+  function closeSidebar() {
+    dispatch(updateSidebar(null));
+  }
 
   function useSignupMutation() {
     return useRequestMutation((data) => authSignup(data), {
       mutationKey: ["useSignupMutation"],
       success: "Sign up Successful",
       error: "Sign up error",
+      onSuccessMethod() {
+        return closeSidebar();
+      },
     });
   }
 
@@ -19,6 +29,9 @@ export default function useAuthMutation() {
         mutationKey: ["useSigninMutation"],
         success: "Sign in successful",
         error: "oops, an error occured",
+        onSuccessMethod() {
+          return closeSidebar();
+        },
       }
     );
   }
