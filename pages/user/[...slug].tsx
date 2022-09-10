@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 
 import DefaultLayout from "@/layout/DefaultLayout";
+import displayUserSection from "@/components/tab/displayUserSection";
 
 const asideArray = ["Profile", "Messages", "Chat", "Settings"];
 
@@ -39,7 +40,7 @@ export default function UserPage() {
             })}
           </ul>
         </aside>
-        <div className="content w-4/5"></div>
+        <div className="content w-4/5">{displayUserSection(slugItem)}</div>
       </section>
     </DefaultLayout>
   );
