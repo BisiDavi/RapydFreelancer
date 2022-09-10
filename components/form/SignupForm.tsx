@@ -32,11 +32,10 @@ export default function SignupForm({ type }: Props) {
   const { mutate, isLoading } = useSignupMutation();
 
   const onSubmit = (data: any) => {
-    const { email, name, password } = data;
     if (modal === "auth-modal") {
       toggleModal(null);
     }
-    return mutate({ email, password, name });
+    return mutate(data);
   };
   return (
     <FormProvider {...methods}>

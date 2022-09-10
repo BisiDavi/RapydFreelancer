@@ -5,14 +5,11 @@ export default function useAuthMutation() {
   const { authSignup, authSignIn, authSignOut } = useAuth();
 
   function useSignupMutation() {
-    return useRequestMutation(
-      ({ email, password, name }) => authSignup(email, password, name),
-      {
-        mutationKey: ["useSignupMutation"],
-        success: "Sign up Successful",
-        error: "Sign up error",
-      }
-    );
+    return useRequestMutation((data) => authSignup(data), {
+      mutationKey: ["useSignupMutation"],
+      success: "Sign up Successful",
+      error: "Sign up error",
+    });
   }
 
   function useSigninMutation() {
