@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import dynamic from "next/dynamic";
 
 import displayFormElement from "@/lib/displayFormElement";
-import formContent from "@/json/forms/post-job.json";
+import formContent from "@/json/post-job.json";
 import { postJobSchema } from "@/components/form/schema/postJobSchema";
 import Button from "@/components/UI/Button";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
