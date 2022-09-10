@@ -1,6 +1,10 @@
+import { v4 as uuidv4 } from "uuid";
+import axios from "axios";
+
 import rapydRequest from "@/request/rapydRequest";
 import { NextApiRequest, NextApiResponse } from "next";
-import { v4 as uuidv4 } from "uuid";
+import { DBClient } from "@/db/DBConnection";
+import { saveToDB } from "@/db/saveToDB";
 
 export default async function handler(
   req: NextApiRequest,
@@ -10,6 +14,7 @@ export default async function handler(
     //create e-wallet
     case "POST": {
       try {
+        const dbClient = await DBClient();
         const data = {
           first_name: "Olubisi",
           last_name: "David",
@@ -81,10 +86,23 @@ export default async function handler(
           },
         };
         const stringifedData = JSON.stringify(data);
-        const result = await rapydRequest("/v/user", "post", stringifedData);
-        console.log("result", result);
-      } catch (error) {
-        console.log("error", error);
+        const resultData: any = rapydRequest(
+          "/v1/user",
+          "post",
+          stringifedData
+        );
+        console.log("resultData", resultData);
+        const result = await axios(resultData);
+        console.log("result", result?.data);
+        if (result.data) {
+          await saveToDB(dbClient, "wallet-admin", result)
+            .then((response) => console.log("db-response", response))
+            .catch((error) => console.log("db-error", error));
+        }
+        return res.status(200).send(result);
+      } catch (error: any) {
+        console.log("error", error?.message);
+        return res.status(400).send(error);
       }
     }
     case "GET": {
