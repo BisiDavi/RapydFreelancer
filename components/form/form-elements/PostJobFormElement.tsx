@@ -1,4 +1,4 @@
-import formContent from "@/json/forms/post-job.json";
+import formContent from "@/json/post-job.json";
 import displayFormElement from "@/lib/displayFormElement";
 import spaceRow from "@/lib/spaceRow";
 

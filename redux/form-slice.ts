@@ -7,6 +7,7 @@ const initialState: any = {
   formData: null,
   media: [],
   formView: "post-job",
+  isProfileFormFilled: false,
 };
 
 const FormSlice = createSlice({
@@ -40,6 +41,9 @@ const FormSlice = createSlice({
     resetMedia(state) {
       state.media = [];
     },
+    updateProfileForm(state) {
+      state.isProfileFormFilled = true;
+    },
   },
 });
 
@@ -51,5 +55,6 @@ export const {
   updateFormData,
   updateFormView,
   updateMedia,
+  updateProfileForm,
 } = FormSlice.actions;
 export default FormSlice.reducer;
