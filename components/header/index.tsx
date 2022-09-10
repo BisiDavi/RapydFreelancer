@@ -1,15 +1,15 @@
 import { BsFillPersonFill } from "react-icons/bs";
 import { FaSignOutAlt } from "react-icons/fa";
+import { BiMessageRoundedDetail } from "react-icons/bi";
 
 import Logo from "@/components/logo";
 import Button from "@/components/UI/Button";
 import useAuth from "@/hooks/useAuth";
-import { useAppDispatch } from "@/hooks/useRedux";
+import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import useScroll from "@/hooks/useScroll";
 import { updateSidebar } from "@/redux/ui-slice";
 import { UIStateType } from "@/types/redux-types";
 import useAuthMutation from "@/hooks/useAuthMutation";
-import { BiMessageRoundedDetail } from "react-icons/bi";
 
 export default function Header() {
   const { scroll } = useScroll();
@@ -17,8 +17,10 @@ export default function Header() {
   const { authDetails } = useAuth();
   const { useSignoutMutation } = useAuthMutation();
   const { mutate } = useSignoutMutation();
+  const { messages } = useAppSelector((state) => state.user);
 
   const auth: any = authDetails();
+  const unreadMessages = messages.filter((item) => !item?.read).length;
 
   const authStyle = auth ? "w-4/5" : "w-2/5";
 
@@ -75,9 +77,10 @@ export default function Header() {
                 <Button
                   icon={<BiMessageRoundedDetail color="#3B81F6" size={30} />}
                   href="/user/messages"
+                  // onClick={updateMessagesHander}
                 />
                 <span className="rounded-full h-5 flex items-center justify-center font-bold absolute -top-2 -right-2 w-5  bg-red-500 text-white">
-                  1
+                  {unreadMessages}
                 </span>
               </div>
               <Button
