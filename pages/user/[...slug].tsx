@@ -21,7 +21,7 @@ export default function UserPage() {
 
   return (
     <DefaultLayout title="Your Profile">
-      <section className="container flex items-center mx-auto my-10">
+      <section className="container flex items-start mx-auto my-10">
         <aside className="w-1/5 bg-gray-100 py-10 h-full">
           <ul>
             {asideArray.map((item, index) => {
