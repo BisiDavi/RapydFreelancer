@@ -32,3 +32,46 @@ export const walletData = {
   },
   type: "company",
 };
+
+export function formatWalletData(name: string, email: string) {
+  const formatName = name.split(" ");
+  return {
+    first_name: formatName[0],
+    last_name: formatName[1],
+    ewallet_reference_id: uuidv4(),
+    metadata: {
+      merchant_defined: true,
+    },
+    type: "person",
+    contact: {
+      phone_number: "+14155551234",
+      email: email,
+      first_name: formatName[0],
+      last_name: formatName[1],
+      mothers_name: "",
+      contact_type: "personal",
+      address: {
+        name,
+        line_1: "123 Main Street",
+        line_2: "",
+        line_3: "",
+        city: "Anytown",
+        state: "NY",
+        country: "US",
+        zip: "12345",
+        phone_number: "",
+        metadata: {},
+        canton: "",
+        district: "",
+      },
+      identification_type: "DL",
+      identification_number: "1234567890",
+      date_of_birth: "",
+      country: "",
+      nationality: "",
+      metadata: {
+        merchant_defined: true,
+      },
+    },
+  };
+}

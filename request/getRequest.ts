@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export function getWallet() {
-  return axios.get("/api/admin/e-wallet");
+  return axios.get("/api/e-wallet");
 }
 
 export function getJobs() {

@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export function createWallet() {
-  return axios.post("/api/admin/e-wallte", {});
+  return axios.post("/api/e-wallet", {});
 }

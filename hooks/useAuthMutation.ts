@@ -1,6 +1,6 @@
 import useRequestMutation from "@/hooks/useRequestMutation";
 import useAuth from "@/hooks/useAuth";
-import { useAppDispatch } from "./useRedux";
+import { useAppDispatch } from "@/hooks/useRedux";
 import { updateSidebar } from "@/redux/ui-slice";
 
 export default function useAuthMutation() {
