@@ -23,7 +23,7 @@ export default function UserPage() {
           <h3 className="text-xl font-bold mb-4">
             {greetUser()}, {auth?.displayName}
           </h3>
-          {displayUserSection(slugItem)}
+          {slugItem && displayUserSection(slugItem)}
         </div>
       </section>
     </DefaultLayout>

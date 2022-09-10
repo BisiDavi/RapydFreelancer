@@ -5,7 +5,7 @@ import SettingsView from "@/views/SettingsView";
 
 export default function displayUserSection(view: string) {
   switch (view) {
-    case "message":
+    case "messages":
       return <MessageView />;
     case "chat":
       return <ChatView />;
@@ -13,5 +13,7 @@ export default function displayUserSection(view: string) {
       return <ProfileVliew />;
     case "settings":
       return <SettingsView />;
+    default:
+      return <ProfileVliew />;
   }
 }
