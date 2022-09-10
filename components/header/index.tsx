@@ -77,7 +77,6 @@ export default function Header() {
                 <Button
                   icon={<BiMessageRoundedDetail color="#3B81F6" size={30} />}
                   href="/user/messages"
-                  // onClick={updateMessagesHander}
                 />
                 <span className="rounded-full h-5 flex items-center justify-center font-bold absolute -top-2 -right-2 w-5  bg-red-500 text-white">
                   {unreadMessages}
