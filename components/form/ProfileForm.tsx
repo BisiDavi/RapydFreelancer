@@ -1,7 +1,7 @@
 import { useForm, FormProvider } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { profileSchema } from "@/components/form/schema/profileSchema";
 
+import { profileSchema } from "@/components/form/schema/profileSchema";
 import profileFormContent from "@/json/profile-form.json";
 import displayFormElement from "@/lib/displayFormElement";
 import Button from "@/components/UI/Button";
