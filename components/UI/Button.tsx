@@ -28,7 +28,10 @@ export default function Button({
     <>
       {href ? (
         <Link href={href}>
-          <a className={className}>{text}</a>
+          <a className={className}>
+            {icon}
+            {text}
+          </a>
         </Link>
       ) : (
         <button

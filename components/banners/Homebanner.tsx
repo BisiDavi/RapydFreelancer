@@ -6,7 +6,7 @@ import Button from "@/components/UI/Button";
 
 export default function Homebanner() {
   return (
-    <section className="banner justify-between flex items-center p-5  bg-gray-100 w-full">
+    <section className="banner mt-10 justify-between flex items-center p-5  bg-gray-100 w-full">
       <div className="w-2/3">
         <TypewriterEffect />
         <p className="font-light text-lg -mt-4 underline text-gray-600">

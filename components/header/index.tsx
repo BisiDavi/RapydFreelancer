@@ -34,7 +34,7 @@ export default function Header() {
 
   return (
     <header
-      className={`flex w-full bg-white z-50 items-center shadow-xl py-3 ${headerClassname}`}
+      className={`flex w-full bg-white z-50 items-center shadow py-3 ${headerClassname}`}
     >
       <div className="container mx-auto flex items-center justify-between">
         <Logo />
@@ -71,10 +71,10 @@ export default function Header() {
                 icon={<BsFillPersonFill className="mr-1" />}
                 className="text-blue-500 font-bold flex  items-center rounded-md hover:text-blue-800"
               />
-              <div className="message relative">
+              <div className="message relative ml-3">
                 <Button
                   icon={<BiMessageRoundedDetail color="#3B81F6" size={30} />}
-                  className="ml-4"
+                  href="/user/messages"
                 />
                 <span className="rounded-full h-5 flex items-center justify-center font-bold absolute -top-2 -right-2 w-5  bg-red-500 text-white">
                   1

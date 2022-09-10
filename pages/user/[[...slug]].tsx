@@ -1,6 +1,6 @@
 import DefaultLayout from "@/layout/DefaultLayout";
 
-const asideArray = ["Profile", "Message", "Chat", "Settings"];
+const asideArray = ["Profile", "Messages", "Chat", "Settings"];
 
 export default function UserPage() {
   return (
