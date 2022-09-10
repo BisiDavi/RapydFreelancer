@@ -5,10 +5,9 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
+import axios from "axios";
 
 import useFirebase from "@/hooks/useFirebase";
-import { DBClient } from "@/db/DBConnection";
-import { saveToDB } from "@/db";
 
 type dataType = {
   email: string;
@@ -24,9 +23,7 @@ export default function useAuth() {
   async function authSignup(data: dataType) {
     const { email, password, name, role } = data;
     const auth: any = getAuth(app);
-    const dbClient = await DBClient();
     try {
-      await saveToDB(dbClient, "users", { email, name, role });
       await createUserWithEmailAndPassword(auth, email, password).then(
         (userCredential) => {
           console.log(
@@ -42,6 +39,11 @@ export default function useAuth() {
       );
       return await updateProfile(auth.currentUser, {
         displayName: name,
+      }).then(() => {
+        axios.post("/api/db", {
+          collection: "users",
+          data: { email, name, role },
+        });
       });
     } catch (err) {
       console.log(err);

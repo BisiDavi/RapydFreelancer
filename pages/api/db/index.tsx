@@ -11,7 +11,6 @@ export default async function handler(
   const dbClient = await DBClient();
 
   switch (req.method) {
-    //create e-wallet
     case "POST": {
       try {
         return await saveToDB(dbClient, collection, data).then((response) => {
