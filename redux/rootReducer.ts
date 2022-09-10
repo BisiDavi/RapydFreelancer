@@ -5,11 +5,13 @@ import { persistReducer } from "redux-persist";
 import UIReducer from "@/redux/ui-slice";
 import FormReducer from "@/redux/form-slice";
 import LayoutReducer from "@/redux/layout-slice";
+import UserReducer from "@/redux/user-slice";
 
 const reducers = combineReducers({
   UI: UIReducer,
   form: FormReducer,
   layout: LayoutReducer,
+  user: UserReducer,
 });
 
 const persistConfig = {
