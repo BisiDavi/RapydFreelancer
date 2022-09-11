@@ -45,5 +45,25 @@
       "name": "country",
       "elementType": "text"
     }
+  ],
+  [
+    {
+      "label": "Sex",
+      "type": "select",
+      "name": "sex",
+      "elementType": "select",
+      "options": [
+        { "text": "Select Sex", "value": "" },
+        { "text": "Male", "value": "MALE" },
+        { "text": "Female", "value": "FEMMALE" }
+      ]
+    },
+    {
+      "label": "Date of Birth",
+      "type": "input",
+      "name": "input",
+      "elementType": "text",
+      "placeholder": "DD/MM/YYYY"
+    }
   ]
 ]
