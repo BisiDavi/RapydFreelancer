@@ -1,8 +1,14 @@
 import useMediaUpload from "@/hooks/useMediaUpload";
 import type { elementType } from "@/types/form-types";
 
-export default function Media({ content }: elementType) {
+interface Props {
+  content: elementType["content"];
+  big?: boolean;
+}
+
+export default function Media({ content, big }: Props) {
   const { uploadMedia } = useMediaUpload();
+  const labelClassname = big ? "text-lg" : "text-xs";
 
   function onClickHandler(e: any) {
     console.log("(e.target.files", e.target.files[0]);
@@ -22,7 +28,7 @@ export default function Media({ content }: elementType) {
         accept="image/* , application/pdf"
       />
       {/* <Button onClick={} text="Upload" /> */}
-      <label htmlFor={content.name} className="text-xs w-2/3">
+      <label htmlFor={content.name} className={`${labelClassname} w-2/3`}>
         {content.label}
       </label>
     </div>

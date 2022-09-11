@@ -1,8 +1,11 @@
+import toSlug from "@/lib/toSlug";
 import Link from "next/link";
+import Button from "../UI/Button";
 
 interface Props {
   showBorder: boolean;
   content: {
+    _id: string;
     title: string;
     description: string;
     minPrice?: number;
@@ -20,6 +23,8 @@ interface Props {
 
 export default function JobListCard({ content, showBorder }: Props) {
   const borderClassname = showBorder ? "border-b" : "";
+  const skillId = toSlug(content.skills[0].label);
+  const title = toSlug(content.title);
   return (
     <Link
       href={`/jobs/projects/${content.skills[0].label}/${content.id}`}
@@ -54,6 +59,11 @@ export default function JobListCard({ content, showBorder }: Props) {
                 : `$${content.minPrice} - $${content.maxPrice}`}
             </h6>
           </div>
+          <Button
+            text="Bid"
+            className="bg-red-500 text-white w-20 h-8 my-4 justify-center items-center flex hover:bg-red-600 font-bold"
+            href={`/bid/${skillId}/${title}?id=${content._id}`}
+          />
           {content.bids && <p>{content.bids} bids</p>}
         </div>
       </a>
