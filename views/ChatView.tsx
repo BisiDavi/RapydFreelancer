@@ -1,7 +1,7 @@
-import React from 'react'
-
 export default function ChatView() {
   return (
-    <div>ChatView</div>
-  )
+    <div>
+      <p>Chat with your Clients, seamlessly</p>
+    </div>
+  );
 }
