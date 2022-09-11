@@ -1,30 +1,12 @@
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-
 import Button from "@/components/UI/Button";
+import JobListingSidebar from "@/components/sidebar/JobListingSidebar";
 import type { jobType } from "@/types";
 
 interface Props {
   job: jobType;
 }
 
-function getUserJobs(email: string) {
-  return axios.get("/api/db", {
-    params: {
-      collection: "jobs",
-      query: { "user.email": email },
-      projection: { title: 1, price: 1, skills: 1 },
-    },
-  });
-}
-
 export default function JobListingView({ job }: Props) {
-  const { data, status } = useQuery(["getUserJobs"], () =>
-    getUserJobs(job.user.email)
-  );
-
-  console.log("getUserJobs-data", data);
-
   return (
     <div className="content w-full mt-4 flex justify-between">
       <div className="details w-3/4 shadow p-4 px-8 bg-white">
@@ -67,17 +49,7 @@ export default function JobListingView({ job }: Props) {
           </ul>
         </div>
       </div>
-      <aside className="w-1/4 ml-8">
-        <Button
-          text="Post a project like this"
-          href="/post-job"
-          className="shadow bg-gray-300 border border-gray-800  w-full flex h-12 py-4 items-center justify-center font-medium text-xl px-4 bg-white hover:bg-gray-200"
-        />
-        <div className="ul mt-4 bg-white shadow px-6 py-2">
-          <h3 className="font-medium text-lg">Other Job from this Client</h3>
-          <hr className="mt-2" />
-        </div>
-      </aside>
+      <JobListingSidebar email={job.user.email} title={job.title} />
     </div>
   );
 }
