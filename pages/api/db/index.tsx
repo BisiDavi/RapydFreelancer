@@ -7,7 +7,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const { collection, data } = req.body;
-
+  console.log("req.query", req.query);
   const dbClient = await DBClient();
 
   switch (req.method) {
@@ -23,8 +23,12 @@ export default async function handler(
       }
     }
     case "GET": {
+      const { collection, query }: any = req.query;
+      console.log("req.query", req.query);
+
+      console.log("collection, data, query ", collection, data, query);
       try {
-        return await getDataDB(dbClient, collection).then((response) => {
+        return await getDataDB(dbClient, collection, query).then((response) => {
           console.log("response", response);
           return res.status(200).send(response);
         });
