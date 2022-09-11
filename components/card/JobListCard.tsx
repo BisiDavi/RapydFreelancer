@@ -30,8 +30,7 @@ export default function JobListCard({ content, showBorder }: Props) {
       >
         <div className="left w-4/5">
           <div className="top flex items-center">
-            <h4 className="font-medium text-lg">{content.title}</h4>{" "}
-            <p className="ml-2">days left</p>
+            <h4 className="font-medium text-lg">{content.title}</h4>
           </div>
           <p className="break-words my-4">{content.description}</p>
           <ul className="flex mb-2">
