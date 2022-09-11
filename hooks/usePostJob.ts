@@ -9,6 +9,8 @@ import {
   updateSelectedSkills,
 } from "@/redux/form-slice";
 import { updateModal } from "@/redux/ui-slice";
+import toSlug from "@/lib/toSlug";
+import { jobType } from "@/types";
 
 export default function usePostJob() {
   const { selectedSkills, jobId, media } = useAppSelector(
@@ -19,11 +21,13 @@ export default function usePostJob() {
   const auth: any = authDetails();
 
   function createJob(jobData: any) {
-    const job = {
+    const job: jobType = {
       ...jobData,
       media,
       skills: selectedSkills,
-      id: jobId,
+      id: toSlug(jobData.title),
+      active: true,
+      paid: false,
       user: {
         email: auth?.providerData[0].email,
         displayName: auth?.providerData[0].displayName,

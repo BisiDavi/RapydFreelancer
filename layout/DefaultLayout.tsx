@@ -8,6 +8,7 @@ import { useAppSelector } from "@/hooks/useRedux";
 
 interface Props {
   title?: string;
+  className?: string;
 }
 
 const DynamicAuthSidebar = dynamic(
@@ -20,9 +21,11 @@ const DynamicAuthSidebar = dynamic(
 export default function DefaultLayout({
   children,
   title,
+  className,
 }: PropsWithChildren<Props>) {
   const siteTitle = title ? title : "The Freelancer Marketplace | Hire now";
   const { sidebar } = useAppSelector((state) => state.UI);
+  const layoutStyle = className ? className : "";
   return (
     <>
       <Head>
@@ -35,7 +38,7 @@ export default function DefaultLayout({
       </Head>
       {sidebar !== null && <DynamicAuthSidebar />}
       <Header />
-      <main>{children}</main>
+      <main className={layoutStyle}>{children}</main>
       <Footer />
     </>
   );
