@@ -49,7 +49,7 @@ export default function BiddingPage({ job }: Props) {
             Write your Proposal for this Job
           </h3>
           <ContentEditable
-            className="w-full my-4 mb-8 border p-4 border-blue-500 rounded-xl h-600"
+            className="w-full my-4 mb-8 border p-4 border-blue-500 rounded-xl h-400"
             html={html}
             onChange={handleChange}
           />
