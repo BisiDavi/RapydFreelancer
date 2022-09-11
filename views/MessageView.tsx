@@ -10,11 +10,12 @@ export default function MessageView() {
 
   function onClickHandler(id: string) {
     setShowMessage(!showMessage);
-    const readMessage = messages.filter((item) => item.id === id)[0];
+    let readMessage: any = messages.filter((item) => item.id === id)[0];
     if (!readMessage.read) {
       const readMessageIndex = messages.findIndex((item) => item.id === id);
+      const updatedMessage = { ...readMessage, read: true };
       dispatch(
-        updateReadMessage({ index: readMessageIndex, message: readMessage })
+        updateReadMessage({ index: readMessageIndex, message: updatedMessage })
       );
     }
   }
