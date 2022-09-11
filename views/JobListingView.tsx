@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+
 import Button from "@/components/UI/Button";
 import type { jobType } from "@/types";
 
@@ -9,7 +10,7 @@ interface Props {
 
 function getUserJobs(email: string) {
   return axios.get("/api/db", {
-    params: { collection: "jobs", query: { user: { email } } },
+    params: { collection: "jobs", query: { "user.email": email } },
   });
 }
 
