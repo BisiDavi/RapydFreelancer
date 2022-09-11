@@ -1,7 +1,8 @@
 import Button from "@/components/UI/Button";
 import JobListingSidebar from "@/components/sidebar/JobListingSidebar";
-import type { jobType } from "@/types";
 import toSlug from "@/lib/toSlug";
+import jobTipContent from "@/json/post-job.json";
+import type { jobType } from "@/types";
 
 interface Props {
   job: jobType;
@@ -10,7 +11,7 @@ interface Props {
 export default function JobListingView({ job }: Props) {
   const skillId = toSlug(job.skills[0].label);
   const title = toSlug(job.title);
-  console.log("job", job);
+  const jobTips = jobTipContent.jobTips;
   const postedOn = new Date(job.createdAt).toDateString();
   return (
     <div className="content w-full mb-8 mt-4 flex justify-between">
@@ -44,17 +45,9 @@ export default function JobListingView({ job }: Props) {
           </div>
           <p className="text-xl underline mb-1">Tips to win jobs:</p>
           <ul>
-            <li>✔ Outline your proposal on this project.</li>
-            <li>
-              ✔ Base your proposal on the client project and proffer possible
-              solution.
-            </li>
-            <li>
-              ✔ Give detailed milestone on how you want to accomplish the
-              project.
-            </li>
-            <li>✔ You can attach documents to buttress your proposal.</li>
-            <li>✔ You can always negotiate the Budget up or down.</li>
+            {jobTips.map((hint) => (
+              <li key={hint}>{hint}</li>
+            ))}
           </ul>
         </div>
       </div>

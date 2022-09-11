@@ -80,5 +80,12 @@
     "label": "Upload a document (pdf/picture), to help the freelancer understand the scope of your job better (optional)",
     "type": "media",
     "elementType": "media"
-  }
+  },
+  "jobTips": [
+    "✔ Outline your proposal on this project.",
+    "✔ Base your proposal on the client project and proffer possible solution.",
+    "✔ Give detailed milestone on how you want to accomplish the project.",
+    "✔ You can attach documents to buttress your proposal.",
+    "✔ You can always negotiate the Budget up or down."
+  ]
 }
