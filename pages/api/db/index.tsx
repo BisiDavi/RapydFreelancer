@@ -7,7 +7,6 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const { collection, data } = req.body;
-  console.log("req.query", req.query);
   const dbClient = await DBClient();
 
   switch (req.method) {
@@ -26,12 +25,18 @@ export default async function handler(
       const { collection, query }: any = req.query;
       console.log("req.query", req.query);
 
-      console.log("collection, data, query ", collection, data, query);
+      console.log("collection, data, query ", collection, query);
+      const parsedQuery = JSON.parse(query);
+
+      console.log("parsedQuery", parsedQuery);
+
       try {
-        return await getDataDB(dbClient, collection, query).then((response) => {
-          console.log("response", response);
-          return res.status(200).send(response);
-        });
+        return await getDataDB(dbClient, collection, parsedQuery).then(
+          (response) => {
+            console.log("response", response);
+            return res.status(200).send(response);
+          }
+        );
       } catch (error: any) {
         console.log("error-data-response", error);
         return res.status(400).send(error);

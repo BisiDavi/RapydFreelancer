@@ -12,6 +12,7 @@ export async function saveToDB(
 }
 
 export async function getDataDB(client: any, collection: string, query?: any) {
+  console.log("query", query);
   const dbQuery = query ? query : {};
   return await client
     .db("rapyd-freelancer")
