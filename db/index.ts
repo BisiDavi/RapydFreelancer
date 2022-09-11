@@ -11,11 +11,12 @@ export async function saveToDB(
     .insertOne(data);
 }
 
-export async function getDataDB(client: any, collection: string) {
+export async function getDataDB(client: any, collection: string, query?: any) {
+  const dbQuery = query ? query : {};
   return await client
     .db("rapyd-freelancer")
     .collection(collection)
-    .find({})
+    .find(dbQuery)
     .toArray();
 }
 
