@@ -40,7 +40,9 @@ export default function MessageView() {
                   return (
                     <Fragment key={index}>
                       {messageGroup.map((message) => (
-                        <p key={message}>{message}</p>
+                        <p key={message} className="my-2">
+                          {message}
+                        </p>
                       ))}
                     </Fragment>
                   );
