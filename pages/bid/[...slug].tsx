@@ -7,9 +7,10 @@ import { getDataDB } from "@/db";
 import Breadcrumb from "@/components/BreadCrumb";
 import JobBanner from "@/components/banners/JobBanner";
 import Button from "@/components/UI/Button";
+import Media from "@/components/form/form-elements/Media";
+import JobDescription from "@/views/JobDescription";
 import type { GetServerSidePropsContext } from "next";
 import type { jobType } from "@/types";
-import Media from "@/components/form/form-elements/Media";
 
 interface Props {
   job: string;
@@ -20,6 +21,7 @@ export default function BiddingPage({ job }: Props) {
   const [html, setHtml] = useState(
     "Get started with your <b>Proposal</b> here !"
   );
+  const postedOn = new Date(parsedJob.createdAt).toDateString();
 
   function handleChange(e: any) {
     setHtml(e.target.value);
@@ -31,23 +33,7 @@ export default function BiddingPage({ job }: Props) {
       <section className="container mx-auto">
         <Breadcrumb title={parsedJob.title} skill={parsedJob.skills[0].label} />
         <div className="content bg-white px-6 py-2 pb-6 rounded my-4 mb-8">
-          <p className="text-lg my-4">{parsedJob.description}</p>
-
-          <ul className="flex items-center my-4">
-            <span className="font-bold">Skills:</span>
-            {parsedJob.skills.map((skill) => (
-              <li
-                key={skill.value}
-                className="mx-2 border border-blue-500 px-2 rounded-md hover:text-white hover:bg-blue-500"
-              >
-                {skill.label}
-              </li>
-            ))}
-          </ul>
-          <hr className="my-4" />
-          <h3 className="text-xl font-bold">
-            Write your Proposal for this Job
-          </h3>
+          <JobDescription job={parsedJob} />
           <ContentEditable
             className="w-full my-4 mb-8 border p-4 border-blue-500 rounded-xl h-400"
             html={html}
@@ -76,7 +62,6 @@ export default function BiddingPage({ job }: Props) {
 export const getServerSideProps = async (
   context: GetServerSidePropsContext | any
 ) => {
-  console.log("context.query.slug", context.query.slug);
   const id = context.query.slug[1];
 
   try {

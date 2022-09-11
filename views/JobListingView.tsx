@@ -2,6 +2,7 @@ import Button from "@/components/UI/Button";
 import JobListingSidebar from "@/components/sidebar/JobListingSidebar";
 import toSlug from "@/lib/toSlug";
 import jobTipContent from "@/json/post-job.json";
+import JobDescription from "@/views/JobDescription";
 import type { jobType } from "@/types";
 
 interface Props {
@@ -12,26 +13,10 @@ export default function JobListingView({ job }: Props) {
   const skillId = toSlug(job.skills[0].label);
   const title = toSlug(job.title);
   const jobTips = jobTipContent.jobTips;
-  const postedOn = new Date(job.createdAt).toDateString();
   return (
     <div className="content w-full mb-8 mt-4 flex justify-between">
       <div className="details w-3/4 shadow p-4 px-8 bg-white">
-        <p className="text-lg my-4">{job.description}</p>
-        <ul className="flex items-center my-4">
-          <span className="font-bold">Skills:</span>
-          {job.skills.map((skill) => (
-            <li
-              key={skill.value}
-              className="mx-2 border border-blue-500 px-2 rounded-md hover:text-white hover:bg-blue-500"
-            >
-              {skill.label}
-            </li>
-          ))}
-        </ul>
-        <p className="text-lg my-2">
-          <span className="font-bold mr-1">Posted on:</span> {postedOn}
-        </p>
-        <hr className="my-4" />
+        <JobDescription job={job} />
         <div className="view">
           <div className="group flex items-center justify-between">
             <h3 className="text-xl">
