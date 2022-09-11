@@ -20,7 +20,10 @@ interface Props {
 export default function JobListCard({ content, showBorder }: Props) {
   const borderClassname = showBorder ? "border-b" : "";
   return (
-    <Link href={`/jobs/project?title=${content.title}`} passHref>
+    <Link
+      href={`/jobs/projects/${content.skills[0].label}?title=${content.title}`}
+      passHref
+    >
       <a
         className={`bg-white ${borderClassname} flex py-3 items-start hover:bg-gray-100 justify-between px-2`}
       >

@@ -19,11 +19,13 @@ interface Props {
 }
 
 export default function JobsListingPage({ job }: Props) {
-  console.log("job", job);
+  const parsedJob = JSON.parse(job);
+  console.log("parsedJob", parsedJob);
+
   const { showFooterAlert } = useAppSelector((state) => state.layout);
   return (
     <DefaultLayout title="Apply for Jobs, get it Done and get Paid.">
-      <JobBanner />
+      <JobBanner title={parsedJob.title} price={parsedJob.price} />
       <h4 className="text-center text-xl">Job Listing Page</h4>
       {showFooterAlert && <DynamicFooterAlert />}
     </DefaultLayout>
