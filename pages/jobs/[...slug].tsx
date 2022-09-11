@@ -33,13 +33,13 @@ export default function JobsListingPage({ job }: Props) {
 }
 
 export const getServerSideProps = async (
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext | any
 ) => {
-  const title = context.query.title;
+  const id = context.query.slug[2];
 
   try {
     const dbClient = await DBClient();
-    const job = await getDataDB(dbClient, "jobs", { title });
+    const job = await getDataDB(dbClient, "jobs", { id });
 
     return {
       props: {

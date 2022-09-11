@@ -11,6 +11,7 @@ interface Props {
     bids: number;
     skills: { label: string; value: string }[];
     price?: number;
+    id: string;
     createdAt: string;
     verified?: boolean;
     type?: string;
@@ -21,7 +22,7 @@ export default function JobListCard({ content, showBorder }: Props) {
   const borderClassname = showBorder ? "border-b" : "";
   return (
     <Link
-      href={`/jobs/projects/${content.skills[0].label}?title=${content.title}`}
+      href={`/jobs/projects/${content.skills[0].label}/${content.id}`}
       passHref
     >
       <a
