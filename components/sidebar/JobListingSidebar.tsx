@@ -36,13 +36,11 @@ export default function JobListingSidebar({ email, title }: Props) {
           ? "loading..."
           : otherJobs.map((item: any) => {
               const id = toSlug(item.title);
+              const skillId = toSlug(item.skills[0].label);
               return (
                 <li key={item.keydata} className="my-2">
-                  <Link
-                    href={`/jobs/projects/${item.skills[0].label}/${id}`}
-                    passHref
-                  >
-                    <a>
+                  <Link href={`/jobs/projects/${skillId}/${id}`} passHref>
+                    <a className="hover:text-blue-500 text-sm my-2">
                       {item.title} (${item.price})
                     </a>
                   </Link>
