@@ -18,7 +18,7 @@ export function defaultMessage(data: dataType) {
         ];
   const message = {
     id: "default",
-    title: `Hello, ${data.name}, Welcome to Rapydfreelancers`,
+    title: `Hello ${data.name}, Welcome to Rapydfreelancers`,
     message: [
       [
         `Glad to have you here as a ${userRole} on RapydFreelancers Platform, to get fully started visit your profile, update your profile so as to be verified,`,

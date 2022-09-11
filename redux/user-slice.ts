@@ -16,8 +16,11 @@ const UserSlice = createSlice({
     updateMessages(state, action) {
       state.messages = [...state.messages, action.payload];
     },
+    updateReadMessage(state, action) {
+      state.messages[action.payload.index] = action.payload.message;
+    },
   },
 });
 
-export const { updateMessages } = UserSlice.actions;
+export const { updateMessages, updateReadMessage } = UserSlice.actions;
 export default UserSlice.reducer;
