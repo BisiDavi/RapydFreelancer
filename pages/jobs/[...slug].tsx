@@ -5,10 +5,10 @@ import { DBClient } from "@/db/DBConnection";
 import JobBanner from "@/components/banners/JobBanner";
 import { useAppSelector } from "@/hooks/useRedux";
 import DefaultLayout from "@/layout/DefaultLayout";
-import { GetServerSidePropsContext } from "next";
 import Breadcrumb from "@/components/BreadCrumb";
-import { jobType } from "@/types";
 import JobListingView from "@/views/JobListingView";
+import type { GetServerSidePropsContext } from "next";
+import type { jobType } from "@/types";
 
 const DynamicFooterAlert = dynamic(
   () =>
@@ -28,7 +28,7 @@ export default function JobsListingPage({ job }: Props) {
   return (
     <DefaultLayout title={parsedJob.title} className="bg-gray-200">
       <JobBanner title={parsedJob.title} price={parsedJob.price} />
-      <section className="container mx-auto mt-4 h-screen">
+      <section className="container mx-auto my-6">
         <Breadcrumb title={parsedJob.title} skill={parsedJob.skills[0].label} />
         <JobListingView job={parsedJob} />
       </section>

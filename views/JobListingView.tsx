@@ -1,12 +1,15 @@
 import Button from "@/components/UI/Button";
 import JobListingSidebar from "@/components/sidebar/JobListingSidebar";
 import type { jobType } from "@/types";
+import toSlug from "@/lib/toSlug";
 
 interface Props {
   job: jobType;
 }
 
 export default function JobListingView({ job }: Props) {
+  const skillId = toSlug(job.skills[0].label);
+  const title = toSlug(job.title);
   return (
     <div className="content w-full mt-4 flex justify-between">
       <div className="details w-3/4 shadow p-4 px-8 bg-white">
@@ -31,6 +34,7 @@ export default function JobListingView({ job }: Props) {
             <Button
               text="Bid on this Job"
               className="bg-red-500 font-bold text-xl text-white py-2 px-6 my-4 hover:opacity-80"
+              href={`/jobs/bid/${skillId}/${title}?id=${job._id}`}
             />
           </div>
           <p className="text-xl underline">Tips to win jobs:</p>
