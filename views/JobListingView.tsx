@@ -10,7 +10,11 @@ interface Props {
 
 function getUserJobs(email: string) {
   return axios.get("/api/db", {
-    params: { collection: "jobs", query: { "user.email": email } },
+    params: {
+      collection: "jobs",
+      query: { "user.email": email },
+      projection: { title: 1, price: 1, skills: 1 },
+    },
   });
 }
 

@@ -22,7 +22,7 @@ export default async function handler(
       }
     }
     case "GET": {
-      const { collection, query }: any = req.query;
+      const { collection, query, projection }: any = req.query;
       console.log("req.query", req.query);
 
       console.log("collection, data, query ", collection, query);
@@ -31,12 +31,15 @@ export default async function handler(
       console.log("parsedQuery", parsedQuery);
 
       try {
-        return await getDataDB(dbClient, collection, parsedQuery).then(
-          (response) => {
-            console.log("response", response);
-            return res.status(200).send(response);
-          }
-        );
+        return await getDataDB(
+          dbClient,
+          collection,
+          parsedQuery,
+          projection
+        ).then((response) => {
+          console.log("response", response);
+          return res.status(200).send(response);
+        });
       } catch (error: any) {
         console.log("error-data-response", error);
         return res.status(400).send(error);

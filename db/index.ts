@@ -11,14 +11,20 @@ export async function saveToDB(
     .insertOne(data);
 }
 
-export async function getDataDB(client: any, collection: string, query?: any) {
+export async function getDataDB(
+  client: any,
+  collection: string,
+  query?: any,
+  projection?: { [key: string]: string }
+) {
   console.log("query", query);
   const dbQuery = query ? query : {};
-  return await client
-    .db("rapyd-freelancer")
-    .collection(collection)
-    .find(dbQuery)
-    .toArray();
+  function getDB() {
+    return client.db("rapyd-freelancer").collection(collection).find(dbQuery);
+  }
+  return projection
+    ? await getDB().project(projection).toArray()
+    : await getDB().toArray();
 }
 
 export async function deleteDataDB(
