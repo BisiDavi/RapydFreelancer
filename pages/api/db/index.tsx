@@ -27,6 +27,7 @@ export default async function handler(
 
       console.log("collection, data, query ", collection, query);
       const parsedQuery = JSON.parse(query);
+      const parsedprojection = JSON.parse(projection);
 
       console.log("parsedQuery", parsedQuery);
 
@@ -35,7 +36,7 @@ export default async function handler(
           dbClient,
           collection,
           parsedQuery,
-          projection
+          parsedprojection
         ).then((response) => {
           console.log("response", response);
           return res.status(200).send(response);
