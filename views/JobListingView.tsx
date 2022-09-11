@@ -10,6 +10,8 @@ interface Props {
 export default function JobListingView({ job }: Props) {
   const skillId = toSlug(job.skills[0].label);
   const title = toSlug(job.title);
+  console.log("job", job);
+  const postedOn = new Date(job.createdAt).toDateString();
   return (
     <div className="content w-full mb-8 mt-4 flex justify-between">
       <div className="details w-3/4 shadow p-4 px-8 bg-white">
@@ -25,6 +27,9 @@ export default function JobListingView({ job }: Props) {
             </li>
           ))}
         </ul>
+        <p className="text-lg my-2">
+          <span className="font-bold mr-1">Posted on:</span> {postedOn}
+        </p>
         <hr className="my-4" />
         <div className="view">
           <div className="group flex items-center justify-between">
@@ -37,7 +42,7 @@ export default function JobListingView({ job }: Props) {
               href={`/bid/${skillId}/${title}?id=${job._id}`}
             />
           </div>
-          <p className="text-xl underline">Tips to win jobs:</p>
+          <p className="text-xl underline mb-1">Tips to win jobs:</p>
           <ul>
             <li>✔ Outline your proposal on this project.</li>
             <li>

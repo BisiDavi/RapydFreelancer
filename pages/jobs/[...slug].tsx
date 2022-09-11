@@ -26,7 +26,7 @@ export default function JobsListingPage({ job }: Props) {
 
   const { showFooterAlert } = useAppSelector((state) => state.layout);
   return (
-    <DefaultLayout title={parsedJob.title} className="bg-gray-200">
+    <DefaultLayout title={parsedJob.title} className="bg-gray-200 pb-4">
       <JobBanner title={parsedJob.title} price={parsedJob.price} />
       <section className="container mx-auto my-6">
         <Breadcrumb title={parsedJob.title} skill={parsedJob.skills[0].label} />
