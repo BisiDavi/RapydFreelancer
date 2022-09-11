@@ -1,4 +1,5 @@
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import useAuth from "@/hooks/useAuth";
@@ -27,6 +28,7 @@ export default function usePostJob() {
       skills: selectedSkills,
       id: toSlug(jobData.title),
       active: true,
+      projectId: uuidv4(),
       paid: false,
       user: {
         email: auth?.providerData[0].email,

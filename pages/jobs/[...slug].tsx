@@ -8,6 +8,7 @@ import DefaultLayout from "@/layout/DefaultLayout";
 import { GetServerSidePropsContext } from "next";
 import Breadcrumb from "@/components/BreadCrumb";
 import { jobType } from "@/types";
+import Button from "@/components/UI/Button";
 
 const DynamicFooterAlert = dynamic(
   () =>
@@ -44,6 +45,32 @@ export default function JobsListingPage({ job }: Props) {
                 </li>
               ))}
             </ul>
+            <hr className="my-4" />
+            <div className="view">
+              <div className="group flex items-center justify-between">
+                <h3 className="text-xl">
+                  Are you interested in this Job? Offer to work on this job now!
+                </h3>
+                <Button
+                  text="Bid on this Job"
+                  className="bg-red-500 font-bold text-xl text-white py-2 px-6 my-4 hover:opacity-80"
+                />
+              </div>
+              <p className="text-xl underline">Tips to win job:</p>
+              <ul>
+                <li>✔ Outline your proposal on this project.</li>
+                <li>
+                  ✔ Base your proposal on the client project and proffer
+                  possible solution.
+                </li>
+                <li>
+                  ✔ Give detailed milestone on how you want to accomplish the
+                  project.
+                </li>
+                <li>✔ You can attach documents to buttress your proposal.</li>
+                <li>✔ You can always negotiate the Budget up or down.</li>
+              </ul>
+            </div>
           </div>
           <aside className="w-1/4"></aside>
         </div>
