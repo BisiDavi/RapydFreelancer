@@ -28,7 +28,7 @@ export default function Header() {
     return mutate({});
   }
 
-  const headerClassname = scroll > 80 ? "fixed" : "";
+  const headerClassname = scroll > 80 ? "fixed top-0" : "";
 
   function authHandler(authValue: UIStateType["sidebar"]) {
     dispatch(updateSidebar(authValue));

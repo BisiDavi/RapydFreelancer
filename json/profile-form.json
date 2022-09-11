@@ -61,7 +61,7 @@
     {
       "label": "Date of Birth",
       "type": "input",
-      "name": "input",
+      "name": "dateOfBirth",
       "elementType": "text",
       "placeholder": "DD/MM/YYYY"
     }
