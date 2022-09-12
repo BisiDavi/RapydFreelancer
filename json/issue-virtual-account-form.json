@@ -7,7 +7,7 @@
     "placeholder": "Which currency do you want for your account"
   },
   {
-    "label": "Select Country",
+    "label": "Select Country (to be associated to your account)",
     "type": "select",
     "name": "country",
     "elementType": "text"

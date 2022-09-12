@@ -4,6 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import accountForm from "@/json/issue-virtual-account-form.json";
 import displayFormElement from "@/lib/displayFormElement";
 import { virtualAccountSchema } from "@/components/form/schema/profileSchema";
+import Button from "@/components/UI/Button";
 
 export default function IssueVirtualAccountForm() {
   const methods = useForm({
@@ -27,6 +28,11 @@ export default function IssueVirtualAccountForm() {
             </div>
           ))}
         </div>
+        <Button
+          text="Submit"
+          className="bg-blue-500 mx-auto flex my-4 px-3 py-1.5 font-bold rounded-lg text-white hover:bg-blue-800"
+          type="submit"
+        />
       </form>
     </FormProvider>
   );
