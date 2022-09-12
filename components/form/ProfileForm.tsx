@@ -15,7 +15,6 @@ export default function ProfileForm() {
   const { createWallet } = useProfileForm();
 
   function onSubmitHandler(data: any) {
-    console.log("data", data);
     createWallet(data);
   }
 

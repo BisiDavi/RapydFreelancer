@@ -29,7 +29,7 @@ export default async function handler(
             .then((response) => console.log("db-response", response))
             .catch((error) => console.log("db-error", error));
         }
-        return res.status(200).send(createWalletResponse);
+        return res.status(200).send(createWalletResponse?.body.data);
       } catch (error: any) {
         console.log("error-data-response", error);
         return res.status(400).send(error);
