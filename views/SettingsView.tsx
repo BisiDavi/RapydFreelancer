@@ -1,25 +1,28 @@
 /* eslint-disable @next/next/no-img-element */
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { BiUpload } from "react-icons/bi";
 import Button from "@/components/UI/Button";
 import useMediaUpload from "@/hooks/useMediaUpload";
+import useToast from "@/hooks/useToast";
 
 // upload to cloudinary
 // save the data in database.
 
 export default function SettingsView() {
-  const formData = new FormData();
   const [image, setImage] = useState<null | string>(null);
   const { uploadImage } = useMediaUpload();
+  const { updateToast, loadingToast } = useToast();
+  const toastID = useRef(null);
 
   function uploadImageHandler(e: any) {
     const imageData = URL.createObjectURL(e.target.files[0]);
     console.log("e.target.files[0]", e.target.files[0]);
-    uploadImage(e.target.files[0]);
     setImage(imageData);
+    loadingToast(toastID);
+    uploadImage(e.target.files[0]).then((response) => {
+      updateToast(toastID, "success", "profile picture uploaded, successful");
+    });
   }
-
-  console.log("image,", image);
 
   return (
     <div>

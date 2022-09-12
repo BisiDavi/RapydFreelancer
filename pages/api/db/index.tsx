@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { DBClient } from "@/db/DBConnection";
-import { deleteDataDB, getDataDB, saveToDB } from "@/db";
+import { deleteDataDB, getDataDB, saveToDB, updateDataDB } from "@/db";
 
 export default async function handler(
   req: NextApiRequest,
@@ -13,7 +13,6 @@ export default async function handler(
     case "POST": {
       try {
         return await saveToDB(dbClient, collection, data).then((response) => {
-          console.log("response", response);
           return res.status(200).send(response);
         });
       } catch (error: any) {
@@ -23,13 +22,8 @@ export default async function handler(
     }
     case "GET": {
       const { collection, query, projection }: any = req.query;
-      console.log("req.query", req.query);
-
-      console.log("collection, data, query ", collection, query);
       const parsedQuery = JSON.parse(query);
       const parsedprojection = JSON.parse(projection);
-
-      console.log("parsedQuery", parsedQuery);
 
       try {
         return await getDataDB(
@@ -41,6 +35,20 @@ export default async function handler(
           console.log("response", response);
           return res.status(200).send(response);
         });
+      } catch (error: any) {
+        console.log("error-data-response", error);
+        return res.status(400).send(error);
+      }
+    }
+    case "PUT": {
+      const { query } = req.body;
+      try {
+        return await updateDataDB(dbClient, collection, query, data).then(
+          (response) => {
+            console.log("response", response);
+            return res.status(200).send(response);
+          }
+        );
       } catch (error: any) {
         console.log("error-data-response", error);
         return res.status(400).send(error);

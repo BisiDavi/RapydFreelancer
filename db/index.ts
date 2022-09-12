@@ -37,3 +37,15 @@ export async function deleteDataDB(
     .collection(collection)
     .deleteOne(data);
 }
+
+export async function updateDataDB(
+  client: any,
+  collection: string,
+  query: { [key: string]: string },
+  data: { [key: string]: string }
+) {
+  return await client
+    .db("rapyd-freelancer")
+    .collection(collection)
+    .updateOne(query, data);
+}
