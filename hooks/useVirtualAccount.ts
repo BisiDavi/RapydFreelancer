@@ -16,6 +16,9 @@ export default function useVirtualAccount() {
       ...data,
       ewallet: walletId,
       merchant_reference_id: uuidv4(),
+      metadata: {
+        merchant_defined: true,
+      },
     };
     return issueVirtualAccount(dataObj)
       .then((response) => {
