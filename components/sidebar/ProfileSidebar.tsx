@@ -5,7 +5,7 @@ const asideArray = ["Profile", "Messages", "Chat", "Settings"];
 export default function ProfileSidebar() {
   const router = useRouter();
   const { slug }: any = router.query;
-  const slugItem: string = slug[0];
+  const slugItem: string = slug ? slug[0] : "";
 
   const getActiveLink = (item: string) =>
     item.toLocaleLowerCase().includes(slugItem) ? "text-red-500" : "";

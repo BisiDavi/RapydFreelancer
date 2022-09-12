@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import ContentEditable from "react-contenteditable";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import DefaultLayout from "@/layout/DefaultLayout";
 import { DBClient } from "@/db/DBConnection";
@@ -9,6 +10,9 @@ import JobBanner from "@/components/banners/JobBanner";
 import Button from "@/components/UI/Button";
 import Media from "@/components/form/form-elements/Media";
 import JobDescription from "@/views/JobDescription";
+import useAuth from "@/hooks/useAuth";
+import { useAppDispatch } from "@/redux/store";
+import { updateModal } from "@/redux/ui-slice";
 import type { GetServerSidePropsContext } from "next";
 import type { jobType } from "@/types";
 
@@ -18,6 +22,9 @@ interface Props {
 
 export default function BiddingPage({ job }: Props) {
   const parsedJob: jobType = JSON.parse(job);
+  const { authDetails } = useAuth();
+  const auth = authDetails();
+  const dispatch = useAppDispatch();
   const [html, setHtml] = useState(
     "Get started with your <b>Proposal</b> here !"
   );
@@ -26,6 +33,12 @@ export default function BiddingPage({ job }: Props) {
   function handleChange(e: any) {
     setHtml(e.target.value);
   }
+
+  useEffect(() => {
+    if (!auth) {
+      dispatch(updateModal("auth-modal"));
+    }
+  }, [auth]);
 
   return (
     <DefaultLayout className="bg-gray-200 pb-4">

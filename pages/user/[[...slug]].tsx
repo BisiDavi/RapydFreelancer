@@ -9,7 +9,9 @@ import greetUser from "@/lib/greetUser";
 export default function UserPage() {
   const router = useRouter();
   const { slug }: any = router.query;
-  const slugItem: string = slug[0];
+  const slugItem: string = slug ? slug[0] : "";
+
+  console.log("router.query", router.query);
 
   const { authDetails } = useAuth();
 
