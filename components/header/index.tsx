@@ -14,6 +14,7 @@ import { UIStateType } from "@/types/redux-types";
 import useAuthMutation from "@/hooks/useAuthMutation";
 import { getUserProfile } from "@/request/getRequest";
 import { updateUserProfile } from "@/redux/user-slice";
+import getUserInitials from "@/lib/getUserInitials";
 
 export default function Header() {
   const { scroll } = useScroll();
@@ -28,16 +29,17 @@ export default function Header() {
     () => getUserProfile(auth?.email),
     {
       enabled: !!auth?.email && profile === null,
+      onSuccess(data) {
+        if (!profile) {
+          dispatch(updateUserProfile(data?.data[0]));
+        }
+      },
     }
   );
 
-  if (!profile && status === "success") {
-    dispatch(updateUserProfile(data?.data[0]));
-  }
+  console.log("messages", messages);
 
   const unreadMessages = messages.filter((item) => !item?.read).length;
-
-  const authStyle = auth ? "w-4/5" : "w-2/5";
 
   function signoutHandler() {
     return mutate({});
@@ -55,7 +57,7 @@ export default function Header() {
     >
       <div className="container mx-auto flex items-center justify-between">
         <Logo />
-        <div className={`${authStyle} items-center  justify-between flex`}>
+        <div className={`w-4/5 items-center  justify-between flex`}>
           <div>
             <Button
               text="Find Work"
@@ -69,18 +71,18 @@ export default function Header() {
             />
           </div>
           {auth === null ? (
-            <>
+            <div className="w-2/5 items-center flex justify-end">
               <Button
                 text="Login"
                 onClick={() => authHandler("login-sidebar")}
-                className="text-blue-500 font-bold rounded-md hover:text-blue-800"
+                className="text-blue-500 mr-4 font-bold rounded-md hover:text-blue-800"
               />
               <Button
                 text="Sign Up"
                 onClick={() => authHandler("signup-sidebar")}
-                className="border border-blue-500 px-6 py-1.5 font-bold rounded-full text-blue-500 hover:bg-blue-800 hover:text-white"
+                className="border border-blue-500 px-3 py-1 ml-4 font-bold rounded-full text-blue-500 hover:bg-blue-800 hover:text-white"
               />
-            </>
+            </div>
           ) : (
             <div className="justify-between items-center flex">
               <Button
@@ -93,6 +95,7 @@ export default function Header() {
                 <Button
                   icon={<BiMessageRoundedDetail color="#3B81F6" size={30} />}
                   href="/user/messages"
+                  title="unread messages"
                 />
                 <span className="rounded-full h-5 flex items-center justify-center font-bold absolute -top-2 -right-2 w-5  bg-red-500 text-white">
                   {unreadMessages}
@@ -102,14 +105,21 @@ export default function Header() {
                 icon={<FaSignOutAlt className="mr-1" />}
                 className="border flex items-center mx-4 border-blue-500 px-3 py-1 font-bold rounded-full text-blue-500 hover:bg-blue-800 hover:text-white"
                 onClick={signoutHandler}
+                title="Sign out"
               />
-              {profile && (
+              {profile ? (
                 <img
                   src={profile.profileImage}
                   alt={profile.name}
                   title={profile.name}
                   className="h-14 w-14 rounded-full"
                 />
+              ) : (
+                auth && (
+                  <div className="user-initials rounded-full text-white bg-gray-500 h-14 w-14 font-bold text-xl flex justify-center items-center">
+                    {getUserInitials(auth.displayName)}
+                  </div>
+                )
               )}
             </div>
           )}

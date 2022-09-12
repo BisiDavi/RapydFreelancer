@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from "uuid";
-
 import { NextApiRequest, NextApiResponse } from "next";
 import { DBClient } from "@/db/DBConnection";
 import { saveToDB } from "@/db";

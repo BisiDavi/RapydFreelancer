@@ -11,6 +11,7 @@ interface Props {
   disabled?: boolean;
   loading?: boolean;
   href?: string;
+  title?:string
 }
 
 export default function Button({
@@ -22,13 +23,14 @@ export default function Button({
   disabled,
   loading,
   href,
+  title
 }: Props) {
   const buttonType = type ? type : "button";
   return (
     <>
       {href ? (
         <Link href={href}>
-          <a className={className}>
+          <a className={className} title={title}>
             {icon}
             {text}
           </a>
@@ -39,6 +41,7 @@ export default function Button({
           onClick={onClick}
           type={buttonType}
           disabled={disabled}
+          title={title}
         >
           {loading && <ButtonSpinner />} {icon} {!loading && text}
         </button>
