@@ -27,11 +27,7 @@ export async function getDataDB(
     : await getDB().toArray();
 }
 
-export async function deleteDataDB(
-  client: any,
-  collection: string,
-  data: { [key: string]: string }
-) {
+export async function deleteDataDB(client: any, collection: string, data: any) {
   return await client
     .db("rapyd-freelancer")
     .collection(collection)
@@ -42,7 +38,7 @@ export async function updateDataDB(
   client: any,
   collection: string,
   query: { [key: string]: string },
-  data: { [key: string]: string }
+  data: any
 ) {
   return await client
     .db("rapyd-freelancer")
