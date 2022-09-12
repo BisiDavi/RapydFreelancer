@@ -1,8 +1,8 @@
 import type { MenubarType } from "@/types";
 
-const Hamburger = ({ btnClick, className }: MenubarType) => {
+export default function MenuBar({ onClick, className }: MenubarType) {
   return (
-    <button className={className} onClick={btnClick} aria-label="Main Menu">
+    <button className={className} onClick={onClick} aria-label="Main Menu">
       <svg width="100" height="100" viewBox="0 0 100 100">
         <path
           className="line line1"
@@ -73,6 +73,4 @@ const Hamburger = ({ btnClick, className }: MenubarType) => {
       </style>
     </button>
   );
-};
-
-export default Hamburger;
+}

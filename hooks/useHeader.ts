@@ -17,6 +17,7 @@ export default function useHeader() {
   const { useSignoutMutation } = useAuthMutation();
   const { mutate } = useSignoutMutation();
   const { messages, profile } = useAppSelector((state) => state.user);
+  const { sidebar } = useAppSelector((state) => state.UI);
   const auth: any = authDetails();
   useQuery(["getUserProfile"], () => getUserProfile(auth?.email), {
     enabled: !!auth?.email && profile === null,
@@ -46,5 +47,6 @@ export default function useHeader() {
     profile,
     unreadMessages,
     headerClassname,
+    sidebar,
   };
 }

@@ -4,7 +4,7 @@ export type UIStateType = {
   modal: modalStateType;
   accordion: null | string;
   apploaded: boolean;
-  sidebar: null | "signup-sidebar" | "login-sidebar";
+  sidebar: null | "signup-sidebar" | "login-sidebar" | "mobile-sidebar";
   mediaUpload: boolean;
 };
 

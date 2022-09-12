@@ -1,9 +1,22 @@
+import dynamic from "next/dynamic";
+
 import Logo from "@/components/logo";
 import useHeader from "@/hooks/useHeader";
-import Nav from "@/components/nav";
+import useMediaQuery from "@/hooks/useMediaQuery";
+
+const DynamicNav = dynamic(
+  () => import(/* webpackChunkName: 'DynamicNav' */ "@/components/nav")
+);
+
+const MenuBar = dynamic(
+  () => import(/* webpackChunkName: 'MenuBar' */ "@/components/UI/MenuBar")
+);
 
 export default function Header() {
-  const { headerClassname } = useHeader();
+  const { headerClassname, sidebar } = useHeader();
+  const mobileDevice = useMediaQuery("(max-width:768px)");
+
+  const sidebarState = sidebar === "mobile-sidebar" ? "menu opened" : "menu";
 
   return (
     <header
@@ -11,7 +24,11 @@ export default function Header() {
     >
       <div className="container mx-auto flex items-center justify-between px-4 lg:px-0">
         <Logo />
-        <Nav />
+        {!mobileDevice ? (
+          <DynamicNav />
+        ) : (
+          <MenuBar className={sidebarState} onClick={() => null} />
+        )}
       </div>
     </header>
   );

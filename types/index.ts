@@ -16,6 +16,6 @@ export type jobType = {
 };
 
 export interface MenubarType {
-  btnClick: () => void;
+  onClick: () => void;
   className: string;
 }
