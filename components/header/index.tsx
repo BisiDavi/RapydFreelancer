@@ -49,9 +49,9 @@ export default function Header() {
     <header
       className={`flex w-full bg-white z-50 items-center shadow py-3 ${headerClassname}`}
     >
-      <div className="container mx-auto flex items-center justify-between">
+      <div className="container mx-auto flex items-center justify-between px-4 lg:px-0">
         <Logo />
-        <div className={`w-4/5 items-center  justify-between flex`}>
+        <div className={`w-4/5 items-center  justify-between lg:flex hidden`}>
           <div>
             <Button
               text="Find Work"
