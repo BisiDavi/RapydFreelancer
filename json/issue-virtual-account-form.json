@@ -1,0 +1,15 @@
+[
+  {
+    "label": "Currency (for the account)",
+    "type": "currency",
+    "name": "currency",
+    "elementType": "text",
+    "placeholder": "Which currency do you want for your account"
+  },
+  {
+    "label": "Select Country",
+    "type": "select",
+    "name": "country",
+    "elementType": "text"
+  }
+]

@@ -10,3 +10,8 @@ export const profileSchema = yup.object({
   dateOfBirth: yup.string().required("Your date of birth is required"),
   country: yup.string().required("Enter your country"),
 });
+
+export const virtualAccountSchema = yup.object({
+  currency: yup.string().required("Currency is required"),
+  cpuntry: yup.string().required("Country is required"),
+});

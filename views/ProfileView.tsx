@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import ProfileForm from "@/components/form/ProfileForm";
 import { useAppSelector } from "@/hooks/useRedux";
 import { getWallet } from "@/request/getRequest";
+import IssueVirtualAccountForm from "@/components/form/IssueVirtualAccountForm";
 
 export default function ProfileView() {
   const { isProfileFormFilled } = useAppSelector((state) => state.form);
@@ -21,13 +22,17 @@ export default function ProfileView() {
         jobs.
       </p>
       {!isProfileFormFilled && <ProfileForm />}
-      <p className="mt-4">
+      <p>
         <span className="text-3xl">✌🏼</span> Congrats, you now have a wallet
-        with us.{" "}
-        <span className="font-semibold">
-          Open an account with us to make you wallet active, fill the form below
-        </span>
+        with us
       </p>
+      <h2 className="text-xl">Account Details</h2>
+      
+      <p className="font-semibol mt-4">
+        Open an account with us to make you wallet active, fill the form below
+      </p>
+
+      <IssueVirtualAccountForm />
     </div>
   );
 }
