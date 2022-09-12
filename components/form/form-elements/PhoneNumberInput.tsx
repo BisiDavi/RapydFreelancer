@@ -1,10 +1,21 @@
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
+import { useFormContext } from "react-hook-form";
 import { useState } from "react";
 
 import type { elementType } from "@/types/form-types";
 
 export default function PhoneNumberInput({ content }: elementType) {
-  const [phonenumber, setPhoneNumber] = useState<any>("");
+  const [phonenumber, setPhonenumber] = useState<any>("");
+  const { register, setValue } = useFormContext();
+
+  console.log("phonenumber", phonenumber);
+  register("phonenumber");
+
+  function onChangeHandler(value: string) {
+    setPhonenumber(value);
+    setValue("phonenumber", value);
+  }
+
   return (
     <div className="form-group w-full">
       <div className="form flex flex-col relative my-2">
@@ -12,11 +23,11 @@ export default function PhoneNumberInput({ content }: elementType) {
           {content.label}
         </label>
         <PhoneInput
-          value={phonenumber}
-          placeholder="Enter your phone number"
-          onChange={setPhoneNumber}
-          className="rounded-lg h-10 px-4 flex items-center"
           international
+          placeholder="Enter your phone number"
+          className="rounded-lg h-10 px-4 flex items-center"
+          onChange={onChangeHandler}
+          value={phonenumber}
           error={
             phonenumber ? (
               isValidPhoneNumber(phonenumber) ? undefined : (
