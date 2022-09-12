@@ -3,6 +3,7 @@ import Media from "@/components/form/form-elements/Media";
 import PhoneNumberInput from "@/components/form/form-elements/PhoneNumberInput";
 import PriceRange from "@/components/form/form-elements/PriceRange";
 import Select from "@/components/form/form-elements/Select";
+import SelectCurrency from "@/components/form/form-elements/SelectCurrency";
 import SelectSkill from "@/components/form/form-elements/SelectSkill";
 import Textarea from "@/components/form/form-elements/Textarea";
 
@@ -24,5 +25,7 @@ export default function displayFormElement(content: elementType["content"]) {
       return <Media content={content} />;
     case "phonenumber":
       return <PhoneNumberInput content={content} />;
+    case "currency":
+      return <SelectCurrency content={content} />;
   }
 }

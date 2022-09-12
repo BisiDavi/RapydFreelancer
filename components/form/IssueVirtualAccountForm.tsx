@@ -16,12 +16,17 @@ export default function IssueVirtualAccountForm() {
   };
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)} className="bg-white p-4 my-4 rounded-lg">
-        {accountForm.map((formElement) => (
-          <div key={formElement.name} className="w-1/2">
-            {displayFormElement(formElement)}
-          </div>
-        ))}
+      <form
+        onSubmit={methods.handleSubmit(onSubmit)}
+        className="bg-white p-4 my-4 rounded-lg"
+      >
+        <div className="form-elements flex items-center">
+          {accountForm.map((formElement) => (
+            <div key={formElement.name} className="w-1/2 mx-4">
+              {displayFormElement(formElement)}
+            </div>
+          ))}
+        </div>
       </form>
     </FormProvider>
   );

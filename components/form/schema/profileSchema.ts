@@ -13,5 +13,5 @@ export const profileSchema = yup.object({
 
 export const virtualAccountSchema = yup.object({
   currency: yup.string().required("Currency is required"),
-  cpuntry: yup.string().required("Country is required"),
+  country: yup.string().required("Country is required"),
 });

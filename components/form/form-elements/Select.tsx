@@ -33,6 +33,7 @@ export default function Select({ content }: elementType) {
         aria-invalid={errors[content.name] ? "true" : "false"}
         {...register(content.name)}
       >
+        {content.name === "country" && <option value="">Select Country</option>}
         {optionsArray?.map((item: any) => {
           const option =
             item?.text === "Total"
