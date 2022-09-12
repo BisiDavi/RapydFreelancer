@@ -11,8 +11,6 @@ export default function UserPage() {
   const { slug }: any = router.query;
   const slugItem: string = slug ? slug[0] : "";
 
-  console.log("router.query", router.query);
-
   const { authDetails } = useAuth();
 
   const auth = authDetails();

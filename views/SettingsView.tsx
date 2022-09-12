@@ -4,6 +4,8 @@ import { BiUpload } from "react-icons/bi";
 import Button from "@/components/UI/Button";
 import useMediaUpload from "@/hooks/useMediaUpload";
 import useToast from "@/hooks/useToast";
+import axios from "axios";
+import useAuth from "@/hooks/useAuth";
 
 // upload to cloudinary
 // save the data in database.
@@ -13,6 +15,8 @@ export default function SettingsView() {
   const { uploadImage } = useMediaUpload();
   const { updateToast, loadingToast } = useToast();
   const toastID = useRef(null);
+  const { authDetails } = useAuth();
+  const userEmail = authDetails()?.email;
 
   function uploadImageHandler(e: any) {
     const imageData = URL.createObjectURL(e.target.files[0]);
@@ -20,7 +24,20 @@ export default function SettingsView() {
     setImage(imageData);
     loadingToast(toastID);
     uploadImage(e.target.files[0]).then((response) => {
-      updateToast(toastID, "success", "profile picture uploaded, successful");
+      axios
+        .put("/api/db", {
+          collection: "users",
+          query: { email: userEmail },
+          data: { $set: { profileImage: response.data.secure_url } },
+        })
+        .then((response) => {
+          console.log("db-response", response);
+          updateToast(
+            toastID,
+            "success",
+            "profile picture uploaded, successful"
+          );
+        });
     });
   }
 
