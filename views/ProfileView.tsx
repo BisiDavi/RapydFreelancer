@@ -6,9 +6,9 @@ import { getWallet } from "@/request/getRequest";
 
 export default function ProfileView() {
   const { isProfileFormFilled } = useAppSelector((state) => state.form);
-  // const { data, status } = useQuery(["getWallet"], getWallet);
+  // const { data, status } = useQuery(["getWallet"],() => getWallet("ewallet_01e695aea411dad4e75ebf3ddd5fd4ff"));
 
-  // console.log("data", data?.data?.body?.data);
+  // console.log("data", data?.data);
 
   return (
     <div className="w-full flex flex-col">

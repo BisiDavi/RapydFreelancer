@@ -7,49 +7,34 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { wallet, data, userData } = req.body;
+  const { wallet } = req.body;
+  const { id, userData }: any = req.query;
+  const parsedUserData = JSON.parse(userData);
 
   switch (req.method) {
-    //create e-wallet
-    case "POST": {
+    //get e-wallet
+    case "GET": {
       try {
         const dbClient = await DBClient();
-        const createWalletResponse: any = await makeRequest(
-          "post",
-          "/v1/user",
-          data
-        );
-
-        console.log("createWalletResponse", createWalletResponse);
-
-        if (createWalletResponse?.body.data) {
+        const getWallet: any = await makeRequest("get", `/v1/user/${id}`);
+        console.log("getWallet", getWallet?.body.data);
+        if (getWallet?.body.data) {
           await updateDataDB(
             dbClient,
             "users",
-            { email: createWalletResponse?.body.data.email },
+            { email: getWallet?.body.data.contacts.data[0].email },
             {
               $set: {
-                ...userData,
-                ewallet: createWalletResponse?.body.data.id,
-                accounts: createWalletResponse?.body.data.accounts,
+                ...parsedUserData,
+                ewallet: getWallet?.body.data.id,
+                accounts: getWallet?.body.data.accounts,
               },
             }
           )
             .then((response) => console.log("db-response", response))
             .catch((error) => console.log("db-error", error));
         }
-        return res.status(200).send(createWalletResponse?.body.data);
-      } catch (error: any) {
-        console.log("error-data-response", error);
-        return res.status(400).send(error);
-      }
-    }
-    case "GET": {
-      try {
-        return await makeRequest("get", "/v1/user/wallets").then((response) => {
-          console.log("response", response);
-          return res.status(200).send(response);
-        });
+        return res.status(200).send(getWallet?.body.data);
       } catch (error: any) {
         console.log("error-data-response", error);
         return res.status(400).send(error);

@@ -1,15 +1,16 @@
 /* eslint-disable no-param-reassign */
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type initialStateType = {
   messages: any[];
   profile: null | { [key: string]: string };
-  
+  walletId: string;
 };
 
 const initialState: initialStateType = {
   messages: [],
   profile: null,
+  walletId: "",
 };
 
 const UserSlice = createSlice({
@@ -25,9 +26,15 @@ const UserSlice = createSlice({
     updateUserProfile(state, action) {
       state.profile = action.payload;
     },
+    updateWallet(
+      state,
+      action: PayloadAction<string>
+    ) {
+      state.walletId = action.payload;
+    },
   },
 });
 
-export const { updateMessages, updateReadMessage, updateUserProfile } =
+export const { updateMessages, updateReadMessage, updateUserProfile, updateWallet } =
   UserSlice.actions;
 export default UserSlice.reducer;

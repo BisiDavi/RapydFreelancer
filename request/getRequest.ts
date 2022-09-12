@@ -1,7 +1,8 @@
 import axios from "axios";
 
-export function getWallet() {
-  return axios.get("/api/e-wallet");
+export function getWallet(walletId?: string) {
+  const url = walletId ? `/api/e-wallet/${walletId}` : "/api/e-wallet";
+  return axios.get(url);
 }
 
 export function getJobs() {

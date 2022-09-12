@@ -24,18 +24,14 @@ export default function Header() {
   const { mutate } = useSignoutMutation();
   const { messages, profile } = useAppSelector((state) => state.user);
   const auth: any = authDetails();
-  const { data, status } = useQuery(
-    ["getUserProfile"],
-    () => getUserProfile(auth?.email),
-    {
-      enabled: !!auth?.email && profile === null,
-      onSuccess(data) {
-        if (!profile) {
-          dispatch(updateUserProfile(data?.data[0]));
-        }
-      },
-    }
-  );
+  useQuery(["getUserProfile"], () => getUserProfile(auth?.email), {
+    enabled: !!auth?.email && profile === null,
+    onSuccess(data) {
+      if (!profile) {
+        dispatch(updateUserProfile(data?.data[0]));
+      }
+    },
+  });
 
   const unreadMessages = messages.filter((item) => !item?.read).length;
 

@@ -6,6 +6,7 @@ import { formatWalletData } from "@/lib/rapyd-data";
 import useToast from "@/hooks/useToast";
 import { useAppDispatch } from "@/redux/store";
 import { updateProfileForm } from "@/redux/form-slice";
+import { updateWallet } from "@/redux/user-slice";
 
 export default function useProfileForm() {
   const { profile } = useAppSelector((state) => state.user);
@@ -21,10 +22,14 @@ export default function useProfileForm() {
     const walletData = formatWalletData(userDetails);
     loadingToast(toastId);
     return axios
-      .post("/api/e-wallet", { data: walletData, userData })
+      .post("/api/e-wallet", {
+        data: walletData,
+        userData,
+      })
       .then((response) => {
         console.log("response-wallet", response);
         dispatch(updateProfileForm());
+        dispatch(updateWallet(response.data.id));
         resetForm();
         updateToast(
           toastId,
