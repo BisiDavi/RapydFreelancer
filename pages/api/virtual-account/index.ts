@@ -9,6 +9,8 @@ export default async function handler(
 ) {
   const { data } = req.body;
 
+  console.log("data", data);
+
   switch (req.method) {
     //create e-wallet
     case "POST": {
@@ -16,7 +18,7 @@ export default async function handler(
         const dbClient = await DBClient();
         const createVirtualAccountResponse: any = await makeRequest(
           "post",
-          "/v1/user",
+          "/v1/issuing/bankaccounts",
           data
         );
 
@@ -32,7 +34,9 @@ export default async function handler(
             { ewallet: createVirtualAccountResponse?.body.data.ewallet },
             {
               $set: {
-                $push: { account: createVirtualAccountResponse?.body.data },
+                $push: {
+                  account: createVirtualAccountResponse?.body.data,
+                },
               },
             }
           )

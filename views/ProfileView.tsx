@@ -13,6 +13,8 @@ export default function ProfileView() {
     enabled: !!walletId,
   });
 
+  console.log("data", data?.data);
+
   return (
     <div className="w-full flex flex-col">
       <p className="font-thin">
