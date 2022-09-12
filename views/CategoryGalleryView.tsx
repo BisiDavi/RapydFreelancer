@@ -4,15 +4,15 @@ import categoryGalleryArray from "@/json/category-gallery.json";
 
 export default function CategoryGalleryView() {
   return (
-    <section>
-      <h3 className="text-3xl font-bold my-4">
+    <section className="px-4 lg:px-0">
+      <h3 className="text-xl lg:text-3xl font-bold my-4">
         Hire Professionals with RapydFreelancer
       </h3>
-      <div className="categorygalleryview my-10">
+      <div className="categorygalleryview my-4 lg:my-10 grid lg:grid-cols-4 grid-cols-2 gap-4">
         {categoryGalleryArray.map((categoryItem) => (
           <div
             key={categoryItem.image}
-            className="image-view flex hover:bg-gray-900 flex-col relative justify-center items-center"
+            className="image-view flex hover:bg-gray-900  flex-col relative justify-center items-center"
           >
             <div className="shadow-effect rounded-lg"></div>
             <Image
@@ -30,11 +30,6 @@ export default function CategoryGalleryView() {
       </div>
       <style jsx>
         {`
-          .categorygalleryview {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-          }
           .shadow-effect {
             height: 100%;
             width: 100%;
