@@ -1,6 +1,8 @@
+/* eslint-disable @next/next/no-img-element */
 import { BsFillPersonFill } from "react-icons/bs";
 import { FaSignOutAlt } from "react-icons/fa";
 import { BiMessageRoundedDetail } from "react-icons/bi";
+import { useQuery } from "@tanstack/react-query";
 
 import Logo from "@/components/logo";
 import Button from "@/components/UI/Button";
@@ -10,6 +12,8 @@ import useScroll from "@/hooks/useScroll";
 import { updateSidebar } from "@/redux/ui-slice";
 import { UIStateType } from "@/types/redux-types";
 import useAuthMutation from "@/hooks/useAuthMutation";
+import { getUserProfile } from "@/request/getRequest";
+import { updateUserProfile } from "@/redux/user-slice";
 
 export default function Header() {
   const { scroll } = useScroll();
@@ -17,9 +21,20 @@ export default function Header() {
   const { authDetails } = useAuth();
   const { useSignoutMutation } = useAuthMutation();
   const { mutate } = useSignoutMutation();
-  const { messages } = useAppSelector((state) => state.user);
-
+  const { messages, profile } = useAppSelector((state) => state.user);
   const auth: any = authDetails();
+  const { data, status } = useQuery(
+    ["getUserProfile"],
+    () => getUserProfile(auth?.email),
+    {
+      enabled: !!auth?.email && profile === null,
+    }
+  );
+
+  if (!profile && status === "success") {
+    dispatch(updateUserProfile(data?.data[0]));
+  }
+
   const unreadMessages = messages.filter((item) => !item?.read).length;
 
   const authStyle = auth ? "w-4/5" : "w-2/5";
@@ -84,11 +99,18 @@ export default function Header() {
                 </span>
               </div>
               <Button
-                text="Sign out"
                 icon={<FaSignOutAlt className="mr-1" />}
                 className="border flex items-center mx-4 border-blue-500 px-3 py-1 font-bold rounded-full text-blue-500 hover:bg-blue-800 hover:text-white"
                 onClick={signoutHandler}
               />
+              {profile && (
+                <img
+                  src={profile.profileImage}
+                  alt={profile.name}
+                  title={profile.name}
+                  className="h-14 w-14 rounded-full"
+                />
+              )}
             </div>
           )}
         </div>

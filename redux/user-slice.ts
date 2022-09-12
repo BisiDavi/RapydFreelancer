@@ -3,10 +3,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 type initialStateType = {
   messages: any[];
+  profile: null | { [key: string]: string };
 };
 
 const initialState: initialStateType = {
   messages: [],
+  profile: null,
 };
 
 const UserSlice = createSlice({
@@ -19,8 +21,12 @@ const UserSlice = createSlice({
     updateReadMessage(state, action) {
       state.messages[action.payload.index] = action.payload.message;
     },
+    updateUserProfile(state, action) {
+      state.profile = action.payload;
+    },
   },
 });
 
-export const { updateMessages, updateReadMessage } = UserSlice.actions;
+export const { updateMessages, updateReadMessage, updateUserProfile } =
+  UserSlice.actions;
 export default UserSlice.reducer;

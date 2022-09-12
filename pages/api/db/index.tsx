@@ -23,7 +23,7 @@ export default async function handler(
     case "GET": {
       const { collection, query, projection }: any = req.query;
       const parsedQuery = JSON.parse(query);
-      const parsedprojection = JSON.parse(projection);
+      const parsedprojection = projection ? JSON.parse(projection) : "";
 
       try {
         return await getDataDB(

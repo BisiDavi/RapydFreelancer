@@ -1,12 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 import { useRef, useState } from "react";
-import axios from "axios";
 import { BiUpload } from "react-icons/bi";
 
 import Button from "@/components/UI/Button";
 import useMediaUpload from "@/hooks/useMediaUpload";
 import useToast from "@/hooks/useToast";
 import useAuth from "@/hooks/useAuth";
+import { updateUserDB } from "@/request/getRequest";
 
 // upload to cloudinary
 // save the data in database.
@@ -18,7 +18,7 @@ export default function SettingsView() {
   const { updateToast, loadingToast } = useToast();
   const toastID = useRef(null);
   const { authDetails } = useAuth();
-  const userEmail = authDetails()?.email;
+  const userEmail: string | any = authDetails()?.email;
 
   function uploadImageHandler(e: any) {
     const imageData = URL.createObjectURL(e.target.files[0]);
@@ -30,20 +30,17 @@ export default function SettingsView() {
   function onUploadHandler() {
     loadingToast(toastID);
     uploadImage(targetFile).then((response) => {
-      axios
-        .put("/api/db", {
-          collection: "users",
-          query: { email: userEmail },
-          data: { $set: { profileImage: response.data.secure_url } },
-        })
-        .then((response) => {
-          console.log("db-response", response);
+      return updateUserDB(userEmail, response.data.secure_url)
+        .then(() => {
           updateToast(
             toastID,
             "success",
             "profile picture uploaded, successful"
           );
-        });
+        })
+        .catch(() =>
+          updateToast(toastID, "error", "error uploading profile picture")
+        );
     });
   }
 
