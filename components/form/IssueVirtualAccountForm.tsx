@@ -5,7 +5,7 @@ import accountForm from "@/json/issue-virtual-account-form.json";
 import displayFormElement from "@/lib/displayFormElement";
 import { virtualAccountSchema } from "@/components/form/schema/profileSchema";
 import Button from "@/components/UI/Button";
-import useVirtualAccount from "@/hooks/useVirtualAccount";
+import useVirtualAccount from "@/hooks/useRapydVirtualAccount";
 
 export default function IssueVirtualAccountForm() {
   const { applyForVirtualAccount } = useVirtualAccount();
