@@ -13,7 +13,10 @@ export default function useProfileForm() {
   const toastId = useRef(null);
   const dispatch = useAppDispatch();
 
-  function createWallet(userData: { [key: string]: string }) {
+  function createWallet(
+    userData: { [key: string]: string },
+    resetForm: () => void
+  ) {
     const userDetails = { ...userData, ...profile };
     const walletData = formatWalletData(userDetails);
     loadingToast(toastId);
@@ -22,6 +25,7 @@ export default function useProfileForm() {
       .then((response) => {
         console.log("response-wallet", response);
         dispatch(updateProfileForm());
+        resetForm();
         updateToast(
           toastId,
           "success",

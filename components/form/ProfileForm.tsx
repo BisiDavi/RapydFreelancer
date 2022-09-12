@@ -8,6 +8,7 @@ import Button from "@/components/UI/Button";
 import useProfileForm from "@/hooks/useProfileForm";
 
 export default function ProfileForm() {
+
   const methods = useForm({
     resolver: yupResolver(profileSchema),
     mode: "all",
@@ -15,7 +16,7 @@ export default function ProfileForm() {
   const { createWallet } = useProfileForm();
 
   function onSubmitHandler(data: any) {
-    createWallet(data);
+    createWallet(data, methods.reset);
   }
 
   return (

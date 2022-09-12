@@ -1,10 +1,9 @@
 import ProfileForm from "@/components/form/ProfileForm";
-import useAuth from "@/hooks/useAuth";
+import { useAppSelector } from "@/hooks/useRedux";
 
 export default function ProfileView() {
-  const { authDetails } = useAuth();
+  const { isProfileFormFilled } = useAppSelector((state) => state.form);
 
-  const auth = authDetails();
   return (
     <div className="w-full flex flex-col">
       <p className="font-thin">
@@ -12,7 +11,7 @@ export default function ProfileView() {
         your KYC, this will enable you create your wallet and eligible to post
         jobs.
       </p>
-      <ProfileForm />
+      {!isProfileFormFilled && <ProfileForm />}
     </div>
   );
 }
