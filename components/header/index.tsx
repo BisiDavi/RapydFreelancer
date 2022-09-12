@@ -37,8 +37,6 @@ export default function Header() {
     }
   );
 
-  console.log("messages", messages);
-
   const unreadMessages = messages.filter((item) => !item?.read).length;
 
   function signoutHandler() {

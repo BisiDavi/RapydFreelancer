@@ -12,11 +12,11 @@ export default function ProfileForm() {
     resolver: yupResolver(profileSchema),
     mode: "all",
   });
-
   const { createWallet } = useProfileForm();
 
   function onSubmitHandler(data: any) {
     console.log("data", data);
+    createWallet(data);
   }
 
   return (

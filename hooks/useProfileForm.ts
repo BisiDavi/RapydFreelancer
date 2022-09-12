@@ -8,8 +8,8 @@ export default function useProfileForm() {
 
   function createWallet(userData: { [key: string]: string }) {
     const userDetails = { ...userData, ...profile };
-    console.log("userDetails", userDetails);
     const walletData = formatWalletData(userDetails);
+    console.log("userDetails", userDetails);
     console.log("walletData", walletData);
     return axios
       .post("/api/e-wallet", { data: walletData })

@@ -16,17 +16,20 @@ export default async function handler(
     case "POST": {
       try {
         const dbClient = await DBClient();
-        return await makeRequest("post", "/v1/user", data).then(
-          async (response: any) => {
-            console.log("response", response);
-            if (response.data) {
-              await saveToDB(dbClient, "wallet", response.data) 
-                .then((response) => console.log("db-response", response))
-                .catch((error) => console.log("db-error", error));
-            }
-            return res.status(200).send(response);
-          }
+        const createWalletResponse: any = await makeRequest(
+          "post",
+          "/v1/user",
+          data
         );
+
+        console.log("createWalletResponse", createWalletResponse);
+
+        if (createWalletResponse.data) {
+          await saveToDB(dbClient, "wallet", createWalletResponse.data)
+            .then((response) => console.log("db-response", response))
+            .catch((error) => console.log("db-error", error));
+        }
+        return res.status(200).send(createWalletResponse);
       } catch (error: any) {
         console.log("error-data-response", error);
         return res.status(400).send(error);
