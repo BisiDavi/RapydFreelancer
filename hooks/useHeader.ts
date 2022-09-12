@@ -19,6 +19,7 @@ export default function useHeader() {
   const { messages, profile } = useAppSelector((state) => state.user);
   const { sidebar } = useAppSelector((state) => state.UI);
   const auth: any = authDetails();
+
   useQuery(["getUserProfile"], () => getUserProfile(auth?.email), {
     enabled: !!auth?.email && profile === null,
     onSuccess(data) {
@@ -40,6 +41,14 @@ export default function useHeader() {
     dispatch(updateSidebar(authValue));
   }
 
+  function toggleMenu() {
+    if (sidebar === "mobile-sidebar") {
+      dispatch(updateSidebar(null));
+    } else {
+      dispatch(updateSidebar("mobile-sidebar"));
+    }
+  }
+
   return {
     authHandler,
     auth,
@@ -48,5 +57,6 @@ export default function useHeader() {
     unreadMessages,
     headerClassname,
     sidebar,
+    toggleMenu,
   };
 }

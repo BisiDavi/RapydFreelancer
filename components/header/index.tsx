@@ -13,7 +13,7 @@ const MenuBar = dynamic(
 );
 
 export default function Header() {
-  const { headerClassname, sidebar } = useHeader();
+  const { headerClassname, sidebar, toggleMenu } = useHeader();
   const mobileDevice = useMediaQuery("(max-width:768px)");
 
   const sidebarState = sidebar === "mobile-sidebar" ? "menu opened" : "menu";
@@ -27,7 +27,7 @@ export default function Header() {
         {!mobileDevice ? (
           <DynamicNav />
         ) : (
-          <MenuBar className={sidebarState} onClick={() => null} />
+          <MenuBar className={sidebarState} onClick={toggleMenu} />
         )}
       </div>
     </header>
