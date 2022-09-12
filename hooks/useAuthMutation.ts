@@ -2,6 +2,7 @@ import useRequestMutation from "@/hooks/useRequestMutation";
 import useAuth from "@/hooks/useAuth";
 import { useAppDispatch } from "@/hooks/useRedux";
 import { updateSidebar } from "@/redux/ui-slice";
+import { updateUserProfile } from "@/redux/user-slice";
 
 export default function useAuthMutation() {
   const { authSignup, authSignIn, authSignOut } = useAuth();
@@ -39,6 +40,9 @@ export default function useAuthMutation() {
       mutationKey: ["useSignoutMutation"],
       success: "logout successful",
       error: "oops, an error occured",
+      onSuccessMethod: () => {
+        dispatch(updateUserProfile(null));
+      },
     });
   }
 

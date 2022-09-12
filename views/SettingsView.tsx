@@ -7,6 +7,7 @@ import useMediaUpload from "@/hooks/useMediaUpload";
 import useToast from "@/hooks/useToast";
 import useAuth from "@/hooks/useAuth";
 import { updateUserDB } from "@/request/getRequest";
+import { useAppSelector } from "@/hooks/useRedux";
 
 // upload to cloudinary
 // save the data in database.
@@ -19,6 +20,9 @@ export default function SettingsView() {
   const toastID = useRef(null);
   const { authDetails } = useAuth();
   const userEmail: string | any = authDetails()?.email;
+  const { profile } = useAppSelector((state) => state.user);
+
+  const previewImage = profile ? profile?.profileImage : image;
 
   function uploadImageHandler(e: any) {
     const imageData = URL.createObjectURL(e.target.files[0]);
@@ -50,9 +54,9 @@ export default function SettingsView() {
       <p>This will boost your chance of get jobs</p>
       <p>click on the circle below to upload your profile picture</p>
       <div className="image rounded-full bg-gray-500 h-52 flex items-center justify-center relative my-4 w-52">
-        {image && (
+        {previewImage && (
           <img
-            src={image}
+            src={previewImage}
             alt="preview"
             className="absolute z-40 rounded-full"
           />
@@ -75,7 +79,7 @@ export default function SettingsView() {
       </div>
       <Button
         text="Upload"
-        className="bg-blue-500 py-2 px-4 text-white rounded w-52"
+        className="bg-blue-500 py-2 px-4 text-white rounded w-52 hover:opacity-80 text-xl"
         onClick={onUploadHandler}
       />
       <style jsx>

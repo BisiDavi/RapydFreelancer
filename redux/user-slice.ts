@@ -4,6 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 type initialStateType = {
   messages: any[];
   profile: null | { [key: string]: string };
+  
 };
 
 const initialState: initialStateType = {

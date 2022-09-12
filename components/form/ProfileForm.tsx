@@ -5,12 +5,15 @@ import { profileSchema } from "@/components/form/schema/profileSchema";
 import profileFormContent from "@/json/profile-form.json";
 import displayFormElement from "@/lib/displayFormElement";
 import Button from "@/components/UI/Button";
+import useProfileForm from "@/hooks/useProfileForm";
 
 export default function ProfileForm() {
   const methods = useForm({
     resolver: yupResolver(profileSchema),
     mode: "all",
   });
+
+  const { createWallet } = useProfileForm();
 
   function onSubmitHandler(data: any) {
     console.log("data", data);
