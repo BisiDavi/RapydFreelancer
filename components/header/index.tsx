@@ -20,7 +20,7 @@ export default function Header() {
 
   return (
     <header
-      className={`flex w-full bg-white z-50 items-center shadow py-3 ${headerClassname}`}
+      className={`flex w-full bg-white z-40 items-center shadow py-3 ${headerClassname}`}
     >
       <div className="container mx-auto flex items-center justify-between px-4 lg:px-0">
         <Logo />

@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { BsFillPersonFill } from "react-icons/bs";
 import { FaSignOutAlt } from "react-icons/fa";
-import { BiMessageRoundedDetail } from "react-icons/bi";
+import { BiLogOut, BiMessageRoundedDetail } from "react-icons/bi";
 
 import Button from "@/components/UI/Button";
 import getUserInitials from "@/lib/getUserInitials";
@@ -57,7 +57,7 @@ export default function Nav() {
             </span>
           </div>
           <Button
-            icon={<FaSignOutAlt className="mr-1" />}
+            icon={<BiLogOut className="mr-1" />}
             className="border flex items-center mx-4 border-blue-500 px-3 py-1 font-bold rounded-full text-blue-500 hover:bg-blue-800 hover:text-white"
             onClick={signoutHandler}
             title="Sign out"
