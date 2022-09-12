@@ -21,7 +21,7 @@ export default function useProfileForm() {
     const walletData = formatWalletData(userDetails);
     loadingToast(toastId);
     return axios
-      .post("/api/e-wallet", { data: walletData })
+      .post("/api/e-wallet", { data: walletData, userData })
       .then((response) => {
         console.log("response-wallet", response);
         dispatch(updateProfileForm());

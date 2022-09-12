@@ -1,15 +1,13 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { DBClient } from "@/db/DBConnection";
-import { saveToDB } from "@/db";
+import { updateDataDB } from "@/db";
 import makeRequest from "@/request/makeRequest";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { wallet, data } = req.body;
-
-  console.log("wallet", wallet);
+  const { wallet, data, userData } = req.body;
 
   switch (req.method) {
     //create e-wallet
@@ -24,8 +22,17 @@ export default async function handler(
 
         console.log("createWalletResponse", createWalletResponse);
 
-        if (createWalletResponse.data) {
-          await saveToDB(dbClient, "wallet", createWalletResponse.data)
+        if (createWalletResponse?.body.data) {
+          await updateDataDB(
+            dbClient,
+            "users",
+            { email: createWalletResponse?.body.data.email },
+            {
+              ...userData,
+              ewallet: createWalletResponse?.body.data.id,
+              accounts: createWalletResponse?.body.data.accounts,
+            }
+          )
             .then((response) => console.log("db-response", response))
             .catch((error) => console.log("db-error", error));
         }
