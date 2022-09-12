@@ -15,6 +15,7 @@ export default function PhoneNumberInput({ content }: elementType) {
           value={phonenumber}
           placeholder="Enter your phone number"
           onChange={setPhoneNumber}
+          className="rounded-lg h-10 px-4 flex items-center"
           international
           error={
             phonenumber ? (

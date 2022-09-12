@@ -13,3 +13,29 @@
 .h-400 {
   height: 400px;
 }
+
+img.PhoneInputCountryIconImg {
+  height: 40px;
+  width: 40px;
+}
+
+select.PhoneInputCountrySelect {
+  width: 120px;
+}
+
+input.PhoneInputInput {
+  height: 100%;
+  width: 90%;
+  border: 1px solid rgb(224, 218, 218);
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.PhoneInputCountry {
+  display: flex;
+  align-items: center;
+}
+
+.PhoneInputCountryIcon.PhoneInputCountryIcon--border {
+  margin-right: 10px;
+}

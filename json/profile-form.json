@@ -9,7 +9,7 @@
     },
     {
       "label": "Phone Number",
-      "type": "input",
+      "type": "phonenumber",
       "name": "phonenumber",
       "elementType": "phonenumber",
       "placeholder": "Your Phonenumber"
