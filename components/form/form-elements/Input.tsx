@@ -1,8 +1,8 @@
 import { useFormContext } from "react-hook-form";
 import { useState } from "react";
 
-import type { elementType } from "@/types/form-types";
 import ToggleEye from "@/components/form/form-elements/ToggleEye";
+import type { elementType } from "@/types/form-types";
 
 export default function Input({ content }: elementType) {
   const [passwordVisiblity, setPasswordVisibility] = useState(false);

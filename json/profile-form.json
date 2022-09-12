@@ -11,7 +11,7 @@
       "label": "Phone Number",
       "type": "input",
       "name": "phonenumber",
-      "elementType": "text",
+      "elementType": "phonenumber",
       "placeholder": "Your Phonenumber"
     }
   ],
