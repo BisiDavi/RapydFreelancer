@@ -1,16 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
+import { useState } from "react";
 import { BiUpload } from "react-icons/bi";
 import Button from "@/components/UI/Button";
-import { useState } from "react";
+import useMediaUpload from "@/hooks/useMediaUpload";
+
+// upload to cloudinary
+// save the data in database.
 
 export default function SettingsView() {
   const formData = new FormData();
   const [image, setImage] = useState<null | string>(null);
+  const { uploadImage } = useMediaUpload();
 
   function uploadImageHandler(e: any) {
     const imageData = URL.createObjectURL(e.target.files[0]);
     console.log("e.target.files[0]", e.target.files[0]);
-    formData.append("file", e.target.files[0]);
+    uploadImage(e.target.files[0]);
     setImage(imageData);
   }
 
@@ -31,7 +36,7 @@ export default function SettingsView() {
         )}
         <label
           htmlFor="uploadImage"
-          className="wrapper flex items-center  w-32 flex-col font-bold cursor-pointer border py-1 hover:bg-gray-900 hover:text-white border-gray-100 text-white px-2 rounded-md"
+          className="wrapper z-50 flex items-center  w-32 flex-col font-bold cursor-pointer border py-1 hover:bg-gray-900 hover:text-white border-gray-100 text-white px-2 rounded-md"
         >
           <BiUpload className="mr-1" size={40} />
           <input

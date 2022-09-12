@@ -12,24 +12,24 @@ export default function useMediaUpload() {
   const dispatch = useAppDispatch();
   const { media } = useAppSelector((state) => state.form);
 
+  function uploadImage(image: any) {
+    const formData = new FormData();
+    formData.append("file", image);
+    formData.append("api_key", `${process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY}`);
+    formData.append("upload_preset", "raypd-freelancer");
+
+    return axios.post(
+      `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+      formData
+    );
+  }
+
   function uploadMedia(mediaArray: any[]) {
     console.log("media", mediaArray);
     console.log("typeof-media", typeof mediaArray);
     loadingToast(toastID);
     [mediaArray].map((mediaItem: Blob | any) => {
-      const formData = new FormData();
-      formData.append("file", mediaItem);
-      formData.append(
-        "api_key",
-        `${process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY}`
-      );
-      formData.append("upload_preset", "raypd-freelancer");
-
-      return axios
-        .post(
-          `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
-          formData
-        )
+      return uploadImage(mediaItem)
         .then((response) => {
           console.log("upload-response", response.data);
           dispatch(updateMedia(response.data.secure_url));
@@ -42,5 +42,5 @@ export default function useMediaUpload() {
     });
   }
 
-  return { uploadMedia, media };
+  return { uploadMedia, uploadImage, media };
 }
