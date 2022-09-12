@@ -32,7 +32,7 @@ export default async function handler(
             { ewallet: createVirtualAccountResponse?.body.data.ewallet },
             {
               $set: {
-                account: [createVirtualAccountResponse?.body.data],
+                $push: { account: createVirtualAccountResponse?.body.data },
               },
             }
           )

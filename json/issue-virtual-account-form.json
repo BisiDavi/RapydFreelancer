@@ -1,13 +1,13 @@
 [
   {
-    "label": "Currency (for the account)",
+    "label": "Select Currency of Bank",
     "type": "currency",
     "name": "currency",
     "elementType": "text",
     "placeholder": "Which currency do you want for your account"
   },
   {
-    "label": "Select Country (to be associated to your account)",
+    "label": "Select Country of Bank",
     "type": "select",
     "name": "country",
     "elementType": "text"
