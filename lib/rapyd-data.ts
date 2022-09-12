@@ -18,6 +18,7 @@ export function formatWalletData(data: any) {
     last_name: formatName[1],
     ewallet_reference_id: uuidv4(),
     phone_number: phonenumber,
+    email: email,
     metadata: {
       merchant_defined: true,
     },
