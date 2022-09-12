@@ -31,6 +31,7 @@ export default function usePostJob() {
       projectId: uuidv4(),
       paid: false,
       bids: [],
+      freelancer: {},
       user: {
         email: auth?.providerData[0].email,
         displayName: auth?.providerData[0].displayName,
