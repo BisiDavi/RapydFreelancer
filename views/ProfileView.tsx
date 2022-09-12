@@ -22,12 +22,12 @@ export default function ProfileView() {
         jobs.
       </p>
       {!isProfileFormFilled && <ProfileForm />}
-      <p>
-        <span className="text-3xl">✌🏼</span> Congrats, you now have a wallet
+      <p className="text-xl my-2">
+        <span className="text-2xl">🎉</span> Congrats, you now have a wallet
         with us
       </p>
       <h2 className="text-xl">Account Details</h2>
-      
+
       <p className="font-semibol mt-4">
         Open an account with us to make you wallet active, fill the form below
       </p>

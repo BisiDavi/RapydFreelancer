@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -17,11 +16,11 @@ export default function IssueVirtualAccountForm() {
   };
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)}>
+      <form onSubmit={methods.handleSubmit(onSubmit)} className="bg-white p-4 my-4 rounded-lg">
         {accountForm.map((formElement) => (
-          <Fragment key={formElement.name}>
+          <div key={formElement.name} className="w-1/2">
             {displayFormElement(formElement)}
-          </Fragment>
+          </div>
         ))}
       </form>
     </FormProvider>
