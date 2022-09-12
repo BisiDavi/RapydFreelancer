@@ -22,7 +22,7 @@ export default async function handler(
     }
     case "GET": {
       const { collection, query, projection }: any = req.query;
-      const parsedQuery = JSON.parse(query);
+      const parsedQuery = query ? JSON.parse(query) : "";
       const parsedprojection = projection ? JSON.parse(projection) : "";
 
       try {

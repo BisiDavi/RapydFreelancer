@@ -2,48 +2,21 @@
 import { BsFillPersonFill } from "react-icons/bs";
 import { FaSignOutAlt } from "react-icons/fa";
 import { BiMessageRoundedDetail } from "react-icons/bi";
-import { useQuery } from "@tanstack/react-query";
 
 import Logo from "@/components/logo";
 import Button from "@/components/UI/Button";
-import useAuth from "@/hooks/useAuth";
-import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
-import useScroll from "@/hooks/useScroll";
-import { updateSidebar } from "@/redux/ui-slice";
-import { UIStateType } from "@/types/redux-types";
-import useAuthMutation from "@/hooks/useAuthMutation";
-import { getUserProfile } from "@/request/getRequest";
-import { updateUserProfile } from "@/redux/user-slice";
 import getUserInitials from "@/lib/getUserInitials";
+import useHeader from "@/hooks/useHeader";
 
 export default function Header() {
-  const { scroll } = useScroll();
-  const dispatch = useAppDispatch();
-  const { authDetails } = useAuth();
-  const { useSignoutMutation } = useAuthMutation();
-  const { mutate } = useSignoutMutation();
-  const { messages, profile } = useAppSelector((state) => state.user);
-  const auth: any = authDetails();
-  useQuery(["getUserProfile"], () => getUserProfile(auth?.email), {
-    enabled: !!auth?.email && profile === null,
-    onSuccess(data) {
-      if (!profile) {
-        dispatch(updateUserProfile(data?.data[0]));
-      }
-    },
-  });
-
-  const unreadMessages = messages.filter((item) => !item?.read).length;
-
-  function signoutHandler() {
-    return mutate({});
-  }
-
-  const headerClassname = scroll > 80 ? "fixed top-0" : "";
-
-  function authHandler(authValue: UIStateType["sidebar"]) {
-    dispatch(updateSidebar(authValue));
-  }
+  const {
+    authHandler,
+    auth,
+    profile,
+    signoutHandler,
+    unreadMessages,
+    headerClassname,
+  } = useHeader();
 
   return (
     <header
@@ -51,7 +24,7 @@ export default function Header() {
     >
       <div className="container mx-auto flex items-center justify-between px-4 lg:px-0">
         <Logo />
-        <div className={`w-4/5 items-center  justify-between lg:flex hidden`}>
+        <nav className={`w-4/5 items-center  justify-between lg:flex hidden`}>
           <div>
             <Button
               text="Find Work"
@@ -117,7 +90,7 @@ export default function Header() {
               )}
             </div>
           )}
-        </div>
+        </nav>
       </div>
     </header>
   );
