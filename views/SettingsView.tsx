@@ -1,10 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 import { useRef, useState } from "react";
+import axios from "axios";
 import { BiUpload } from "react-icons/bi";
+
 import Button from "@/components/UI/Button";
 import useMediaUpload from "@/hooks/useMediaUpload";
 import useToast from "@/hooks/useToast";
-import axios from "axios";
 import useAuth from "@/hooks/useAuth";
 
 // upload to cloudinary
@@ -12,6 +13,7 @@ import useAuth from "@/hooks/useAuth";
 
 export default function SettingsView() {
   const [image, setImage] = useState<null | string>(null);
+  const [targetFile, setTargetFile] = useState<null | string>(null);
   const { uploadImage } = useMediaUpload();
   const { updateToast, loadingToast } = useToast();
   const toastID = useRef(null);
@@ -22,8 +24,12 @@ export default function SettingsView() {
     const imageData = URL.createObjectURL(e.target.files[0]);
     console.log("e.target.files[0]", e.target.files[0]);
     setImage(imageData);
+    setTargetFile(e.target.files[0]);
+  }
+
+  function onUploadHandler() {
     loadingToast(toastID);
-    uploadImage(e.target.files[0]).then((response) => {
+    uploadImage(targetFile).then((response) => {
       axios
         .put("/api/db", {
           collection: "users",
@@ -73,6 +79,7 @@ export default function SettingsView() {
       <Button
         text="Upload"
         className="bg-blue-500 py-2 px-4 text-white rounded w-52"
+        onClick={onUploadHandler}
       />
       <style jsx>
         {`

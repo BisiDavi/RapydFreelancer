@@ -72,7 +72,7 @@ export default function Header() {
                 text={`Hello ${auth?.displayName}`}
                 icon={<BsFillPersonFill className="mr-1" />}
                 className="text-blue-500 font-bold flex  items-center rounded-md hover:text-blue-800"
-                href="/user/"
+                href="/user/profile"
               />
               <div className="message relative ml-3 hover:opacity-70">
                 <Button
