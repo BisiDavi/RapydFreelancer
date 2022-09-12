@@ -6,9 +6,12 @@ import { getWallet } from "@/request/getRequest";
 
 export default function ProfileView() {
   const { isProfileFormFilled } = useAppSelector((state) => state.form);
-  // const { data, status } = useQuery(["getWallet"],() => getWallet("ewallet_01e695aea411dad4e75ebf3ddd5fd4ff"));
+  const { walletId } = useAppSelector((state) => state.user);
+  const { data, status } = useQuery(["getWallet"], () => getWallet(walletId), {
+    enabled: !!walletId,
+  });
 
-  // console.log("data", data?.data);
+  console.log("data", data?.data);
 
   return (
     <div className="w-full flex flex-col">
@@ -18,6 +21,13 @@ export default function ProfileView() {
         jobs.
       </p>
       {!isProfileFormFilled && <ProfileForm />}
+      <p className="mt-4">
+        <span className="text-3xl">✌🏼</span> Congrats, you now have a wallet
+        with us.{" "}
+        <span className="font-semibold">
+          Open an account with us to make you wallet active, fill the form below
+        </span>
+      </p>
     </div>
   );
 }

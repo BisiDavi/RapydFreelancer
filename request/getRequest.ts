@@ -21,7 +21,11 @@ export function getUserJobs(email: string) {
 
 export function getUserProfile(userEmail: string) {
   return axios.get("/api/db", {
-    params: { collection: "users", query: { email: userEmail } },
+    params: {
+      collection: "users",
+      query: { email: userEmail },
+      projection: { _id: 1, email: 1, name: 1, role: 1, profileImage: 1 },
+    },
   });
 }
 
