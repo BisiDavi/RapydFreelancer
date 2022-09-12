@@ -14,3 +14,8 @@ export type jobType = {
   active: boolean;
   paid: boolean;
 };
+
+export interface MenubarType {
+  btnClick: () => void;
+  className: string;
+}
