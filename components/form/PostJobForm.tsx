@@ -21,9 +21,9 @@ const DynamicPostJobModal = dynamic(
 );
 
 interface FormInputsProps {
+  media: string;
   title: string;
   description: string;
-  media: string;
   pricingModel: string;
   duration: string;
   price: number;

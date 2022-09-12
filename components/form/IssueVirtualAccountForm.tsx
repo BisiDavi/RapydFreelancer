@@ -5,8 +5,10 @@ import accountForm from "@/json/issue-virtual-account-form.json";
 import displayFormElement from "@/lib/displayFormElement";
 import { virtualAccountSchema } from "@/components/form/schema/profileSchema";
 import Button from "@/components/UI/Button";
+import useVirtualAccount from "@/hooks/useVirtualAccount";
 
 export default function IssueVirtualAccountForm() {
+  const { applyForVirtualAccount } = useVirtualAccount();
   const methods = useForm({
     resolver: yupResolver(virtualAccountSchema),
     mode: "all",
@@ -14,6 +16,7 @@ export default function IssueVirtualAccountForm() {
 
   const onSubmit = (data: any) => {
     console.log("data", data);
+    return applyForVirtualAccount(data);
   };
   return (
     <FormProvider {...methods}>
