@@ -64,5 +64,6 @@ export const {
   updateMedia,
   updateProfileForm,
   updateBidMedia,
+  resetBidMedia,
 } = FormSlice.actions;
 export default FormSlice.reducer;

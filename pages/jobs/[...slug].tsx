@@ -8,6 +8,7 @@ import DefaultLayout from "@/layout/DefaultLayout";
 import Breadcrumb from "@/components/BreadCrumb";
 import JobListingView from "@/views/JobListingView";
 import ErrorView from "@/views/ErrorView";
+
 import type { GetServerSidePropsContext } from "next";
 import type { jobType } from "@/types";
 
