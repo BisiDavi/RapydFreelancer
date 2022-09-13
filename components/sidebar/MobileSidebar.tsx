@@ -32,7 +32,7 @@ export default function MobileSidebar() {
               className="h-32 w-32 rounded-full"
             />
           ) : auth ? (
-            <div className="user-initials rounded-full text-white bg-gray-500 h-32 w-32 font-bold text-xl flex justify-center items-center">
+            <div className="user-initials rounded-full text-white bg-gray-500 h-32 w-32 font-bold text-4xl flex justify-center items-center">
               {getUserInitials(auth.displayName)}
             </div>
           ) : (

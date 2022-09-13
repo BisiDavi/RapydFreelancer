@@ -8,9 +8,12 @@ interface Props {
 
 export default function JobBanner({ title, price }: Props) {
   const bannerTitle = title ? title : "Top Jobs";
+  const bannerClassname = title ? "lg:flex-row flex-col " : "flex-row";
   return (
     <div className="w-full bg-blue-500 h-24 flex items-center">
-      <Container className="items-center lg:flex-row flex-col justify-between px-4 lg:px-0">
+      <Container
+        className={`items-center ${bannerClassname} justify-between px-4 lg:px-0`}
+      >
         <h1 className="text-xl text-center lg:text-left lg:text-3xl font-bold text-white">
           {bannerTitle}
         </h1>
