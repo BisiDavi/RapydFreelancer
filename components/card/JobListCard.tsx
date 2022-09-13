@@ -33,13 +33,15 @@ export default function JobListCard({ content, showBorder, auth }: Props) {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
+  console.log("auth", auth);
+
   function bidJobHandler() {
     if (auth === null) {
       return dispatch(updateModal("auth-modal"));
     } else {
       return router.push(`/bid/${skillId}/${title}?id=${content._id}`);
     }
-}
+  }
 
   return (
     <Link

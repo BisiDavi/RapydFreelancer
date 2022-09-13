@@ -6,6 +6,7 @@ import Footer from "@/components/footer";
 import Header from "@/components/header";
 import { useAppSelector } from "@/hooks/useRedux";
 import useMediaQuery from "@/hooks/useMediaQuery";
+import AuthLayout from "./AuthLayout";
 
 const DynamicMobileSidebar = dynamic(
   () =>
@@ -37,7 +38,7 @@ export default function DefaultLayout({
   const mobileDevice = useMediaQuery("(max-width:768px)");
 
   return (
-    <>
+    <AuthLayout>
       <Head>
         <title>Rapyd Freelancers | {siteTitle}</title>
         <meta
@@ -53,6 +54,6 @@ export default function DefaultLayout({
       <Header />
       <main className={layoutStyle}>{children}</main>
       <Footer />
-    </>
+    </AuthLayout>
   );
 }

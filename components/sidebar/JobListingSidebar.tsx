@@ -18,8 +18,6 @@ export default function JobListingSidebar({ email, title }: Props) {
       ? data?.data.filter((item: any) => item.title !== title)
       : [];
 
-  console.log("data", data);
-
   return (
     <aside className="lg:w-1/4 lg:mx-0 lg:ml-8 mx-4">
       <Button
