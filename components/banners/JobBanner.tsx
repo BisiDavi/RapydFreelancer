@@ -10,7 +10,7 @@ export default function JobBanner({ title, price }: Props) {
   const bannerTitle = title ? title : "Top Jobs";
   return (
     <div className="w-full bg-blue-500 h-24 flex items-center">
-      <Container className="items-center justify-between">
+      <Container className="items-center justify-between px-4 lg:px-0">
         <h1 className="text-3xl font-bold text-white">{bannerTitle}</h1>
         {!title ? (
           <Button
