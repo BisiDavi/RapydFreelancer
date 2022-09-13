@@ -29,7 +29,7 @@ export default function JobsListingPage({ job }: Props) {
     <DefaultLayout title={parsedJob.title} className="bg-gray-200 pb-4">
       <JobBanner title={parsedJob.title} price={parsedJob.price} />
       <section className="container mx-auto my-6">
-        <Breadcrumb title={parsedJob.title} skill={parsedJob.skills[0].label} />
+        <Breadcrumb title={parsedJob.title} />
         <JobListingView job={parsedJob} />
       </section>
 
