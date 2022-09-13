@@ -46,8 +46,9 @@ export default function DefaultLayout({
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {sidebar === "login-sidebar" ||
-        (sidebar === "signup-sidebar" && <DynamicAuthSidebar />)}
+      {(sidebar === "login-sidebar" || sidebar === "signup-sidebar") && (
+        <DynamicAuthSidebar />
+      )}
       {mobileDevice && sidebar === "mobile-sidebar" && <DynamicMobileSidebar />}
       <Header />
       <main className={layoutStyle}>{children}</main>

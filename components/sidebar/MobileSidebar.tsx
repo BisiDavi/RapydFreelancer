@@ -19,9 +19,10 @@ export default function MobileSidebar() {
   mobileSidebarArray[0].text = auth
     ? `Welcome, ${auth.displayName}`
     : "Hello, Guest";
+
   return (
     <aside className="w-full h-screen flex items-center fixed top-0 h-screen z-50">
-      <div className="content bg-white w-4/5 h-full px-4">
+      <div className="content bg-white w-5/6 h-full px-4">
         <div className="flex item-center mx-auto my-10 justify-center">
           {profile ? (
             <img
@@ -43,16 +44,20 @@ export default function MobileSidebar() {
         {mobileSidebarArray.map((item, index) => {
           return item.text === "Unread messages" ? (
             <div key={index} className="message relative my-2 hover:opacity-70">
-              <Button
-                icon={item.icon}
-                href={item?.link}
-                title={item.text}
-                text={item.text}
-                className="flex items-center text-blue-500 text-xl my-3 my-2 font-bold"
-              />
-              <span className="rounded-full h-5 flex items-center justify-center font-bold absolute -top-1 left-5 w-5 bg-red-500 text-white">
-                {unreadMessages}
-              </span>
+              {auth !== null && (
+                <>
+                  <Button
+                    icon={item.icon}
+                    href={item?.link}
+                    title={item.text}
+                    text={item.text}
+                    className="flex items-center text-blue-500 text-xl my-3 my-2 font-bold"
+                  />
+                  <span className="rounded-full h-5 flex items-center justify-center font-bold absolute -top-1 left-5 w-5 bg-red-500 text-white">
+                    {unreadMessages}
+                  </span>
+                </>
+              )}
             </div>
           ) : (
             <Button
@@ -81,7 +86,7 @@ export default function MobileSidebar() {
         </div>
       </div>
       <div
-        className="overlay w-1/5 bg-gray-900 opacity-30 h-full cursor-pointer"
+        className="overlay w-1/6 bg-gray-900 opacity-30 h-full cursor-pointer"
         onClick={toggleMenu}
       ></div>
     </aside>

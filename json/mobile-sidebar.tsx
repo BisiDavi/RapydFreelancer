@@ -7,7 +7,7 @@ export const getMobileSidebarArray = (signoutHandler: () => void) => [
   {
     text: "",
     icon: <BsFillPersonFill className="mr-2 text-xl" size={30} />,
-    link: "/user/profile",
+    link: "/",
   },
   {
     text: "Unread messages",
@@ -22,7 +22,7 @@ export const getMobileSidebarArray = (signoutHandler: () => void) => [
   {
     text: "Post a Job",
     icon: <BsBriefcase className="mr-2 text-xl" size={30} />,
-    link: "/jobs",
+    link: "/post-job",
   },
   {
     text: "Sign out",
@@ -30,4 +30,3 @@ export const getMobileSidebarArray = (signoutHandler: () => void) => [
     method: signoutHandler,
   },
 ];
-
