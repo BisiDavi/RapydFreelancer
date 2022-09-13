@@ -46,7 +46,10 @@ const FormSlice = createSlice({
       state.isProfileFormFilled = true;
     },
     updateBidMedia(state, action) {
-      state.media = [...state.bidMedia, action.payload];
+      state.bidMedia = [...state.bidMedia, action.payload];
+    },
+    resetBidMedia(state) {
+      state.bidMedia = [];
     },
   },
 });

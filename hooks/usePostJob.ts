@@ -14,9 +14,7 @@ import toSlug from "@/lib/toSlug";
 import { jobType } from "@/types";
 
 export default function usePostJob() {
-  const { selectedSkills, jobId, media } = useAppSelector(
-    (state) => state.form
-  );
+  const { selectedSkills, media } = useAppSelector((state) => state.form);
   const dispatch = useAppDispatch();
   const { authDetails } = useAuth();
   const auth: any = authDetails();

@@ -33,6 +33,8 @@ export default function BiddingPage({ job }: Props) {
     setHtml(e.target.value);
   }
 
+  console.log("html", html);
+
   useEffect(() => {
     if (!auth) {
       dispatch(updateModal("auth-modal"));
