@@ -47,8 +47,8 @@ export default function PostJob({ skills }: Props) {
         />
       )}
       <div className="banner w-full py-12">
-        <div className=" w-1/2 mx-auto h-72">
-          <div className="logo-wrapper w-1/3 my-1">
+        <div className="w-5/6 lg:w-1/2 mx-auto lg:h-72">
+          <div className="logo-wrapper w-3/4 lg:w-1/3 my-1">
             <Logo />
           </div>
           <h2 className="text-white text-2xl my-4">

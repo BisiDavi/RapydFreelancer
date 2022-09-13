@@ -65,7 +65,7 @@ export default function PostJobForm() {
 
           <div>{displayFormElement(formContent.media)}</div>
 
-          <div className="button-Group flex items-center my-2 mt-4 justify-between w-2/3 justify-center mx-auto">
+          <div className="button-Group flex items-center my-2 mt-4 justify-between  lg:w-2/3 justify-center mx-auto">
             <Button
               text="Cancel"
               className="bg-red-600 text-white w-24 h-10 hover:bg-red-400 font-bold"
