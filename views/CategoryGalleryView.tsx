@@ -5,7 +5,7 @@ import categoryGalleryArray from "@/json/category-gallery.json";
 export default function CategoryGalleryView() {
   return (
     <section className="px-4 lg:px-0">
-      <h3 className="text-xl lg:text-3xl font-bold my-4">
+      <h3 className="text-lg text-center lg:text-left lg:text-3xl font-bold lg:my-4">
         Hire Professionals with RapydFreelancer
       </h3>
       <div className="categorygalleryview my-4 lg:my-10 grid lg:grid-cols-4 grid-cols-2 gap-4">
@@ -22,7 +22,7 @@ export default function CategoryGalleryView() {
               width={300}
               className="rounded-lg"
             />
-            <span className="absolute mx-auto text-white justify-center items-center font-bold text-xl px-4 py-1">
+            <span className="absolute mx-auto text-white justify-center items-center font-bold text-xs lg:text-xl px-4 py-1">
               {categoryItem.name}
             </span>
           </div>
