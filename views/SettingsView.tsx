@@ -26,7 +26,6 @@ export default function SettingsView() {
 
   function uploadImageHandler(e: any) {
     const imageData = URL.createObjectURL(e.target.files[0]);
-    console.log("e.target.files[0]", e.target.files[0]);
     setImage(imageData);
     setTargetFile(e.target.files[0]);
   }

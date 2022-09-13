@@ -4,15 +4,23 @@ import type { elementType } from "@/types/form-types";
 interface Props {
   content: elementType["content"];
   big?: boolean;
+  previewMedia?: any;
+  setPreviewMedia?: any;
 }
 
-export default function Media({ content, big }: Props) {
+export default function Media({
+  content,
+  big,
+  previewMedia,
+  setPreviewMedia,
+}: Props) {
   const { uploadMedia } = useMediaUpload();
   const labelClassname = big ? "lg:text-lg text-sm" : "lg:text-xs text-md";
 
   function onClickHandler(e: any) {
-    console.log("(e.target.files", e.target.files[0]);
     if (e.target.files) {
+      const imageData = URL.createObjectURL(e.target.files[0]);
+      setPreviewMedia([...previewMedia, imageData]);
       return uploadMedia(e.target.files[0]);
     }
   }
@@ -24,8 +32,8 @@ export default function Media({ content, big }: Props) {
         placeholder={content.placeholder}
         className="rounded-lg px-10 border-2 h-8 w-full my-2 lg:my-0 lg:w-1/3 mx-4"
         type="file"
-        onChange={onClickHandler}
         accept="image/* , application/pdf"
+        onChange={onClickHandler}
       />
       <label
         htmlFor={content.name}

@@ -15,12 +15,10 @@ export default function useBidJob() {
   const toastID = useRef(null);
   const date = new Date();
 
-  const proposalMedia = bidMedia.length ? { media: bidMedia } : "";
-
   function createBid(proposal: string, jobId: string) {
     const data = {
-      ...proposalMedia,
       proposal,
+      media: bidMedia,
       user: {
         email: auth?.providerData[0].email,
         displayName: auth?.providerData[0].displayName,
