@@ -25,6 +25,7 @@ export default function JobListCard({ content, showBorder }: Props) {
   const borderClassname = showBorder ? "border-b" : "";
   const skillId = toSlug(content.skills[0].label);
   const title = toSlug(content.title);
+
   return (
     <Link
       href={`/jobs/projects/${content.skills[0].label}/${content.id}`}
@@ -38,7 +39,7 @@ export default function JobListCard({ content, showBorder }: Props) {
             <h4 className="font-medium text-lg">{content.title}</h4>
             <h6 className="font-bold">
               {content?.price
-                ? `$${content.price} ${
+                ? `$${content.price.toFixed(2)} ${
                     content?.type === "hourly" ? "/ hr" : ""
                   }`
                 : `$${content.minPrice} - $${content.maxPrice}`}

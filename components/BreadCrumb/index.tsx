@@ -6,7 +6,7 @@ interface Props {
 
 export default function Breadcrumb({ title }: Props) {
   return (
-    <ul className="flex items-center mx-auto justify-center lg:mx-0 lg:justify-start text-xs  font-thin my-2">
+    <ul className="flex items-center mx-auto justify-center lg:mx-0 lg:justify-start text-xs lg:text-xl  font-thin my-2">
       <li className="hover:underline flex items-center">
         <Link href="/" passHref>
           <a>RapydFreelancer</a>
