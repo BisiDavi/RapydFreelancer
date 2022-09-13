@@ -10,17 +10,19 @@ export default function JobDescription({ job }: Props) {
   return (
     <>
       <p className="text-lg my-4">{job.description}</p>
-      <ul className="flex items-center my-4">
+      <div className="lg:flex  items-center my-4">
         <span className="font-bold">Skills:</span>
-        {job.skills.map((skill) => (
-          <li
-            key={skill.value}
-            className="mx-2 border border-blue-500 px-2 rounded-md hover:text-white hover:bg-blue-500"
-          >
-            {skill.label}
-          </li>
-        ))}
-      </ul>
+        <ul className="group lg:flex grid grid-cols-2 gap-2">
+          {job.skills.map((skill) => (
+            <li
+              key={skill.value}
+              className="lg:mx-2 flex items-center justify-center border border-blue-500 px-2 rounded-md hover:text-white hover:bg-blue-500"
+            >
+              {skill.label}
+            </li>
+          ))}
+        </ul>
+      </div>
       <p className="text-lg my-2">
         <span className="font-bold mr-1">Posted on:</span> {postedOn}
       </p>

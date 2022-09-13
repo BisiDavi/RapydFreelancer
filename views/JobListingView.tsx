@@ -14,11 +14,11 @@ export default function JobListingView({ job }: Props) {
   const title = toSlug(job.title);
   const jobTips = jobTipContent.jobTips;
   return (
-    <div className="content w-full mb-8 mt-4 flex justify-between">
-      <div className="details w-3/4 shadow p-4 px-8 bg-white">
+    <div className="content w-full lg:flex-row flex-col mb-8 mt-4 flex justify-between">
+      <div className="details mx-4 lg:mx-0 lg:w-3/4 shadow p-4 px-8 bg-white">
         <JobDescription job={job} />
         <div className="view">
-          <div className="group flex items-center justify-between">
+          <div className="group flex flex-col lg:flex-row items-center justify-between">
             <h3 className="text-xl">
               Are you interested in this Job? Offer to work on this job now!
             </h3>

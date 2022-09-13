@@ -21,11 +21,11 @@ export default function JobListingSidebar({ email, title }: Props) {
   console.log("data", data);
 
   return (
-    <aside className="w-1/4 ml-8">
+    <aside className="lg:w-1/4 lg:mx-0 lg:ml-8 mx-4">
       <Button
         text="Post a project like this"
         href="/post-job"
-        className="shadow bg-gray-300 border border-gray-800  w-full flex h-12 py-4 items-center justify-center font-medium text-xl px-4 bg-white hover:bg-gray-200"
+        className="shadow mt-4 lg:mt-0 bg-gray-300 border border-gray-800  w-full flex h-12 py-4 items-center justify-center font-medium text-xl px-4 bg-white hover:bg-gray-200"
       />
       <div className="ul mt-4 bg-white shadow px-6 py-2">
         <h3 className="font-medium text-lg">Other Job from this Client</h3>
