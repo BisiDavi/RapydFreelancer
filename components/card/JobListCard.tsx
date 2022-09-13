@@ -1,6 +1,10 @@
-import toSlug from "@/lib/toSlug";
 import Link from "next/link";
-import Button from "../UI/Button";
+import { useRouter } from "next/router";
+
+import toSlug from "@/lib/toSlug";
+import Button from "@/components/UI/Button";
+import { useAppDispatch } from "@/hooks/useRedux";
+import { updateModal } from "@/redux/ui-slice";
 
 interface Props {
   showBorder: boolean;
@@ -11,7 +15,7 @@ interface Props {
     minPrice?: number;
     maxPrice?: number;
     duration?: string;
-    bids: number;
+    bids: any[];
     skills: { label: string; value: string }[];
     price?: number;
     id: string;
@@ -19,12 +23,22 @@ interface Props {
     verified?: boolean;
     type?: string;
   };
+  auth?: any;
 }
 
-export default function JobListCard({ content, showBorder }: Props) {
+export default function JobListCard({ content, showBorder, auth }: Props) {
   const borderClassname = showBorder ? "border-b" : "";
   const skillId = toSlug(content.skills[0].label);
   const title = toSlug(content.title);
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+
+  function bidJobHandler() {
+    if (auth === null) {
+      return dispatch(updateModal("auth-modal"));
+    }
+    return router.push(`/bid/${skillId}/${title}?id=${content._id}`);
+  }
 
   return (
     <Link
@@ -63,9 +77,9 @@ export default function JobListCard({ content, showBorder }: Props) {
               <Button
                 text="Bid"
                 className="bg-red-500 text-white w-20 h-8 my-4 justify-center items-center flex hover:bg-red-600 font-bold"
-                href={`/bid/${skillId}/${title}?id=${content._id}`}
+                onClick={bidJobHandler}
               />
-              {content.bids && <p>{content.bids} bids</p>}
+              {content.bids && <p>{content.bids.length} bids</p>}
             </div>
           </div>
           <div className="bid lg:hidden">
