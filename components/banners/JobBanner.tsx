@@ -11,7 +11,7 @@ export default function JobBanner({ title, price }: Props) {
   return (
     <div className="w-full bg-blue-500 h-24 flex items-center">
       <Container className="items-center lg:flex-row flex-col justify-between px-4 lg:px-0">
-        <h1 className="text-xl lg:text-left lg:text-3xl font-bold text-white">
+        <h1 className="text-xl text-center lg:text-left lg:text-3xl font-bold text-white">
           {bannerTitle}
         </h1>
         <div className="right-text">

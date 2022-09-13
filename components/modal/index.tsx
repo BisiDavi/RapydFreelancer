@@ -1,12 +1,12 @@
 import { PropsWithChildren } from "react";
 
 import type { modalStateType } from "@/types/redux-types";
+import useMediaQuery from "@/hooks/useMediaQuery";
 
 interface Props {
   title?: string;
   toggleModal: (modalStateType: modalStateType) => void;
   modal: modalStateType;
-  size?: "large" | "small";
   persistModal?: boolean;
 }
 
@@ -15,9 +15,10 @@ export default function Modal({
   title,
   modal,
   toggleModal,
-  size,
 }: PropsWithChildren<Props>) {
-  const modalSize = size ? `${size} w-auto` : "max-w-2xl w-screen";
+  const mobileDevice = useMediaQuery("(max-width:768px)");
+
+  const modalSize = mobileDevice ? ` w-5/6` : "max-w-xl w-screen";
 
   return (
     <>
@@ -28,7 +29,7 @@ export default function Modal({
             className="justify-center h-4/5 site-modal items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
           >
             <div className={`relative my-6 mx-auto ${modalSize}`}>
-              <div className="border-0 z-40  rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+              <div className="border-0 z-40  rounded-lg pt-3 lg:pt-0 shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {title && (
                   <div className="flex items-start justify-between px-5 py-2 border-b border-solid border-slate-200 rounded-t">
                     <h3 className="text-xl flex mx-auto text-center mr-4 pb-0 mb-0 font-semibold">

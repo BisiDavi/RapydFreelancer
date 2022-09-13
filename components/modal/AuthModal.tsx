@@ -1,8 +1,8 @@
 import Modal from "@/components/modal";
-import { modalStateType } from "@/types/redux-types";
 import Tabs from "@/components/tab";
 import SignupForm from "@/components/form/SignupForm";
 import LoginForm from "@/components/form/LoginForm";
+import type { modalStateType } from "@/types/redux-types";
 
 interface Props {
   modal: modalStateType | null;

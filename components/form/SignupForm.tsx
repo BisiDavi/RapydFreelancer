@@ -8,7 +8,6 @@ import {
   displayModalSignupForm,
   displaySignupForm,
 } from "@/lib/displaySignupForm";
-import useAuthModal from "@/hooks/useAuthModal";
 import { useAppDispatch } from "@/hooks/useRedux";
 import { defaultMessage } from "@/lib/user";
 import { updateMessages } from "@/redux/user-slice";
@@ -31,14 +30,10 @@ export default function SignupForm({ type }: Props) {
     mode: "all",
   });
 
-  const { modal, toggleModal } = useAuthModal();
   const { useSignupMutation } = useAuthMutation();
   const { mutate, isLoading } = useSignupMutation();
 
   const onSubmit = (data: any) => {
-    if (modal === "auth-modal") {
-      toggleModal(null);
-    }
     return mutate(data, {
       onSuccess: (data, variables) => {
         console.log("mutate-onSuccess", data);

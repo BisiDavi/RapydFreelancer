@@ -1,11 +1,13 @@
 import useRequestMutation from "@/hooks/useRequestMutation";
 import useAuth from "@/hooks/useAuth";
-import { useAppDispatch } from "@/hooks/useRedux";
+import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import { updateSidebar } from "@/redux/ui-slice";
 import { updateUserProfile } from "@/redux/user-slice";
+import useAuthModal from "./useAuthModal";
 
 export default function useAuthMutation() {
   const { authSignup, authSignIn, authSignOut } = useAuth();
+  const { modal, toggleModal } = useAuthModal();
   const dispatch = useAppDispatch();
 
   function closeSidebar() {
@@ -17,7 +19,12 @@ export default function useAuthMutation() {
       mutationKey: ["useSignupMutation"],
       success: "Sign up Successful",
       error: "Sign up error",
-      onSuccessMethod: () => closeSidebar(),
+      onSuccessMethod: () => {
+        if (modal === "auth-modal") {
+          toggleModal(null);
+        }
+        closeSidebar();
+      },
     });
   }
 
@@ -29,6 +36,9 @@ export default function useAuthMutation() {
         success: "Sign in successful",
         error: "oops, an error occured",
         onSuccessMethod() {
+          if (modal === "auth-modal") {
+            toggleModal(null);
+          }
           return closeSidebar();
         },
       }

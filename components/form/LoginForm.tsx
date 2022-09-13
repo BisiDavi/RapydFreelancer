@@ -7,14 +7,12 @@ import displayFormElement from "@/lib/displayFormElement";
 import Button from "@/components/UI/Button";
 import { loginSchema } from "@/components/form/schema/authSchema";
 import useAuthMutation from "@/hooks/useAuthMutation";
-import useAuthModal from "@/hooks/useAuthModal";
 
 type FormInputsProps = {
   email: string;
   password: string;
 };
 export default function LoginForm() {
-  const { modal, toggleModal } = useAuthModal();
   const methods = useForm<FormInputsProps>({
     resolver: yupResolver(loginSchema),
     mode: "all",
@@ -24,9 +22,6 @@ export default function LoginForm() {
 
   const onSubmit = (data: any) => {
     const { email, password } = data;
-    if (modal === "auth-modal") {
-      toggleModal(null);
-    }
     return mutate({ email, password });
   };
   return (
