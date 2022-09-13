@@ -35,6 +35,11 @@ export default function JobListCard({ content, showBorder, auth }: Props) {
 
   console.log("auth", auth);
 
+  const jobLink =
+    auth === null
+      ? "/jobs"
+      : `/jobs/projects/${content.skills[0].label}/${content.id}`;
+
   function bidJobHandler() {
     if (auth === null) {
       return dispatch(updateModal("auth-modal"));
@@ -44,10 +49,7 @@ export default function JobListCard({ content, showBorder, auth }: Props) {
   }
 
   return (
-    <Link
-      href={`/jobs/projects/${content.skills[0].label}/${content.id}`}
-      passHref
-    >
+    <Link href={jobLink} passHref>
       <a
         className={`bg-white ${borderClassname} flex py-3 items-start hover:bg-gray-100 justify-between px-2`}
       >

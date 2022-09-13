@@ -16,20 +16,22 @@ export default function AuthLayout({ children }: PropsWithChildren) {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
-  const userName = auth ? `Hello 👋  ${auth?.displayName},` : "";
-
   const DynamicAuthModal = dynamic(
     () =>
       import(/* webpackChunkName:'AuthModal'  */ "@/components/modal/AuthModal")
   );
+  const viewRoute = router.asPath.includes("/jobs");
+
+  const closeModal = viewRoute ? null : "auth-modal";
 
   const privateRoute =
     router.asPath.includes("pages/bid") ||
     router.asPath.includes("post-job") ||
-    router.asPath.includes("user");
+    router.asPath.includes("user") ||
+    viewRoute;
 
   useEffect(() => {
-    if (!auth) {
+    if (!auth && !viewRoute) {
       dispatch(updateModal("auth-modal"));
     }
   }, [auth]);
@@ -38,7 +40,7 @@ export default function AuthLayout({ children }: PropsWithChildren) {
       {auth === null && modal === "auth-modal" && privateRoute && (
         <DynamicAuthModal
           modal={modal}
-          toggleModal={() => toggleModal("auth-modal")}
+          toggleModal={() => toggleModal(closeModal)}
         />
       )}
       {children}

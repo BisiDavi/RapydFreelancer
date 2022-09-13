@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import dynamic from "next/dynamic";
 import { useEffect } from "react";
 
 import Logo from "@/components/logo";
@@ -9,13 +8,7 @@ import { DBClient } from "@/db/DBConnection";
 import { getSkillsDB } from "@/db/skills";
 import { useAppDispatch } from "@/hooks/useRedux";
 import { updateSkills } from "@/redux/form-slice";
-import useAuthModal from "@/hooks/useAuthModal";
-import { updateModal } from "@/redux/ui-slice";
-
-const DynamicAuthModal = dynamic(
-  () =>
-    import(/* webpackChunkName:'AuthModal'  */ "@/components/modal/AuthModal")
-);
+import AuthLayout from "@/layout/AuthLayout";
 
 interface Props {
   skills: { label: string; value: string; id: string }[];
@@ -24,7 +17,6 @@ interface Props {
 export default function PostJob({ skills }: Props) {
   const { authDetails } = useAuth();
   const auth = authDetails();
-  const { modal, toggleModal } = useAuthModal();
   const userName = auth ? `Hello 👋  ${auth?.displayName},` : "";
   const dispatch = useAppDispatch();
 
@@ -32,20 +24,8 @@ export default function PostJob({ skills }: Props) {
     dispatch(updateSkills(skills));
   }, []);
 
-  useEffect(() => {
-    if (!auth) {
-      dispatch(updateModal("auth-modal"));
-    }
-  }, [auth]);
-
   return (
-    <>
-      {auth === null && modal === "auth-modal" && (
-        <DynamicAuthModal
-          modal={modal}
-          toggleModal={() => toggleModal("auth-modal")}
-        />
-      )}
+    <AuthLayout>
       <div className="banner w-full py-12">
         <div className="w-5/6 lg:w-1/2 mx-auto lg:h-72">
           <div className="logo-wrapper w-3/4 lg:w-1/3 my-1">
@@ -78,7 +58,7 @@ export default function PostJob({ skills }: Props) {
           }
         `}
       </style>
-    </>
+    </AuthLayout>
   );
 }
 

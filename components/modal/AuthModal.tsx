@@ -12,7 +12,7 @@ interface Props {
 export default function AuthModal({ modal, toggleModal }: Props) {
   return (
     <Modal
-      title="You need to Login or Signup before posting job"
+      title="You need to Login or Signup before posting or bidding for job"
       modal={modal}
       toggleModal={toggleModal}
     >

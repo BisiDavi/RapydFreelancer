@@ -32,7 +32,7 @@ export default function Modal({
               <div className="border-0 z-40  rounded-lg pt-3 lg:pt-0 shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {title && (
                   <div className="flex items-start justify-between px-5 py-2 border-b border-solid border-slate-200 rounded-t">
-                    <h3 className="text-xl flex mx-auto text-center mr-4 pb-0 mb-0 font-semibold">
+                    <h3 className="text-xl my-3 flex mx-auto text-center mr-4 pb-0 mb-0 font-semibold">
                       {title}
                     </h3>
                     <button
