@@ -6,6 +6,8 @@ import Footer from "@/components/footer";
 import Header from "@/components/header";
 import { useAppSelector } from "@/hooks/useRedux";
 import useMediaQuery from "@/hooks/useMediaQuery";
+import useAuthModal from "@/hooks/useAuthModal";
+import useAuth from "@/hooks/useAuth";
 
 const DynamicMobileSidebar = dynamic(
   () =>
@@ -26,6 +28,11 @@ const DynamicAuthSidebar = dynamic(
     )
 );
 
+const DynamicAuthModal = dynamic(
+  () =>
+    import(/* webpackChunkName:'AuthModal'  */ "@/components/modal/AuthModal")
+);
+
 export default function DefaultLayout({
   children,
   title,
@@ -35,6 +42,9 @@ export default function DefaultLayout({
   const { sidebar } = useAppSelector((state) => state.UI);
   const layoutStyle = className ? className : "";
   const mobileDevice = useMediaQuery("(max-width:768px)");
+  const { modal, toggleModal } = useAuthModal();
+  const { authDetails } = useAuth();
+  const auth = authDetails();
 
   return (
     <>
@@ -48,6 +58,12 @@ export default function DefaultLayout({
       </Head>
       {(sidebar === "login-sidebar" || sidebar === "signup-sidebar") && (
         <DynamicAuthSidebar />
+      )}
+      {auth === null && modal === "auth-modal" && (
+        <DynamicAuthModal
+          modal={modal}
+          toggleModal={() => toggleModal("auth-modal")}
+        />
       )}
       {mobileDevice && sidebar === "mobile-sidebar" && <DynamicMobileSidebar />}
       <Header />

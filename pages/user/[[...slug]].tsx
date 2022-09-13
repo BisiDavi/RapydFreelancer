@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from "react";
 import { useRouter } from "next/router";
 
 import DefaultLayout from "@/layout/DefaultLayout";
@@ -5,15 +7,24 @@ import displayUserSection from "@/components/tab/displayUserSection";
 import ProfileSidebar from "@/components/sidebar/ProfileSidebar";
 import useAuth from "@/hooks/useAuth";
 import greetUser from "@/lib/greetUser";
+import { useAppDispatch } from "@/hooks/useRedux";
+import { updateModal } from "@/redux/ui-slice";
 
 export default function UserPage() {
   const router = useRouter();
   const { slug }: any = router.query;
   const slugItem: string = slug ? slug[0] : "";
+  const dispatch = useAppDispatch();
 
   const { authDetails } = useAuth();
 
   const auth = authDetails();
+
+  useEffect(() => {
+    if (!auth) {
+      dispatch(updateModal("auth-modal"));
+    }
+  }, [auth]);
 
   return (
     <DefaultLayout title="Your Profile">
