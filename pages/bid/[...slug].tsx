@@ -13,9 +13,9 @@ import JobDescription from "@/views/JobDescription";
 import useAuth from "@/hooks/useAuth";
 import { useAppDispatch } from "@/redux/store";
 import { updateModal } from "@/redux/ui-slice";
+import ErrorView from "@/views/ErrorView";
 import type { GetServerSidePropsContext } from "next";
 import type { jobType } from "@/types";
-import ErrorView from "@/views/ErrorView";
 
 interface Props {
   job: string;

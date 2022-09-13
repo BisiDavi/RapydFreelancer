@@ -1,16 +1,18 @@
 /* eslint-disable no-console */
 import axios from "axios";
+import { useRouter } from "next/router";
 import { useRef } from "react";
 
 import useToast from "@/hooks/useToast";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
-import { updateMedia } from "@/redux/form-slice";
+import { updateBidMedia, updateMedia } from "@/redux/form-slice";
 
 export default function useMediaUpload() {
   const toastID = useRef(null);
   const { updateToast, loadingToast } = useToast();
   const dispatch = useAppDispatch();
   const { media } = useAppSelector((state) => state.form);
+  const router = useRouter();
 
   function uploadImage(image: any) {
     const formData = new FormData();
@@ -25,14 +27,16 @@ export default function useMediaUpload() {
   }
 
   function uploadMedia(mediaArray: any[]) {
-    console.log("media", mediaArray);
-    console.log("typeof-media", typeof mediaArray);
     loadingToast(toastID);
     [mediaArray].map((mediaItem: Blob | any) => {
       return uploadImage(mediaItem)
         .then((response) => {
           console.log("upload-response", response.data);
-          dispatch(updateMedia(response.data.secure_url));
+          if (router.asPath.includes("post-job")) {
+            dispatch(updateMedia(response.data.secure_url));
+          } else if (router.asPath.includes("/bid")) {
+            dispatch(updateBidMedia(response.data.secure_url));
+          }
           updateToast(toastID, "success", "document upload, successful");
         })
         .catch((err) => {

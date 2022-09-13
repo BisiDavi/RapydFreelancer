@@ -27,7 +27,6 @@ export default function Media({ content, big }: Props) {
         onChange={onClickHandler}
         accept="image/* , application/pdf"
       />
-      {/* <Button onClick={} text="Upload" /> */}
       <label
         htmlFor={content.name}
         className={`${labelClassname} w-full lg:w-2/3`}
