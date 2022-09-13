@@ -44,7 +44,7 @@ export default function JobDescription({ job }: Props) {
           {job.user.displayName}
         </p>
       )}
-      {job?.media && (
+      {job?.media.length > 0 && (
         <div className="text-lg my-4">
           <span className="font-bold mr-1">Attached Document:</span>
           {job.media.map((item, index) => (

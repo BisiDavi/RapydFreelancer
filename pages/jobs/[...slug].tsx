@@ -9,6 +9,7 @@ import Breadcrumb from "@/components/BreadCrumb";
 import JobListingView from "@/views/JobListingView";
 import type { GetServerSidePropsContext } from "next";
 import type { jobType } from "@/types";
+import ErrorView from "@/views/ErrorView";
 
 const DynamicFooterAlert = dynamic(
   () =>
@@ -22,17 +23,22 @@ interface Props {
 }
 
 export default function JobsListingPage({ job }: Props) {
-  const parsedJob: jobType = JSON.parse(job);
+  const parsedJob: jobType = job ? JSON.parse(job) : null;
 
   const { showFooterAlert } = useAppSelector((state) => state.layout);
   return (
     <DefaultLayout title={parsedJob.title} className="bg-gray-200 pb-4">
-      <JobBanner title={parsedJob.title} price={parsedJob.price} />
-      <section className="container mx-auto my-6">
-        <Breadcrumb title={parsedJob.title} />
-        <JobListingView job={parsedJob} />
-      </section>
-
+      {job ? (
+        <>
+          <JobBanner title={parsedJob.title} price={parsedJob.price} />
+          <section className="container mx-auto my-6">
+            <Breadcrumb title={parsedJob.title} />
+            <JobListingView job={parsedJob} />
+          </section>
+        </>
+      ) : (
+        <ErrorView error="Unable to fetch jobs at the moment, please check your internet connection and refresh the page" />
+      )}
       {showFooterAlert && <DynamicFooterAlert />}
     </DefaultLayout>
   );

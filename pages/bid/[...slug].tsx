@@ -15,21 +15,20 @@ import { useAppDispatch } from "@/redux/store";
 import { updateModal } from "@/redux/ui-slice";
 import type { GetServerSidePropsContext } from "next";
 import type { jobType } from "@/types";
+import ErrorView from "@/views/ErrorView";
 
 interface Props {
   job: string;
 }
 
 export default function BiddingPage({ job }: Props) {
-  const parsedJob: jobType = JSON.parse(job);
+  const parsedJob: jobType = job ? JSON.parse(job) : null;
   const { authDetails } = useAuth();
   const auth = authDetails();
   const dispatch = useAppDispatch();
   const [html, setHtml] = useState(
     "Get started with your <b>Proposal</b> here !"
   );
-  const postedOn = new Date(parsedJob.createdAt).toDateString();
-
   function handleChange(e: any) {
     setHtml(e.target.value);
   }
@@ -42,32 +41,38 @@ export default function BiddingPage({ job }: Props) {
 
   return (
     <DefaultLayout className="bg-gray-200 pb-4">
-      <JobBanner title={parsedJob.title} price={parsedJob.price} />
-      <section className="container mx-auto">
-        <Breadcrumb title={parsedJob.title} />
-        <div className="content bg-white px-6 py-2 pb-6 rounded my-4 mb-8">
-          <JobDescription job={parsedJob} />
-          <ContentEditable
-            className="w-full my-4 mb-8 border p-4 border-blue-500 rounded-xl h-400"
-            html={html}
-            onChange={handleChange}
-          />
-          <Media
-            content={{
-              name: "media",
-              placeholder: "Attach document (optional)",
-              label: "Upload a document (docs/pdf/picture) - (optional)",
-              type: "media",
-              elementType: "media",
-            }}
-            big
-          />
-          <Button
-            text="Submit"
-            className="bg-green-600 text-white mt-8 w-24 h-10 mx-auto justify-center items-center flex hover:bg-green-400 font-bold"
-          />
-        </div>
-      </section>
+      {job ? (
+        <>
+          <JobBanner title={parsedJob.title} price={parsedJob.price} />
+          <section className="container mx-auto">
+            <Breadcrumb title={parsedJob.title} />
+            <div className="content bg-white px-6 py-2 pb-6 rounded my-4 mb-8">
+              <JobDescription job={parsedJob} />
+              <ContentEditable
+                className="w-full my-4 mb-8 border p-4 border-blue-500 rounded-xl h-400"
+                html={html}
+                onChange={handleChange}
+              />
+              <Media
+                content={{
+                  name: "media",
+                  placeholder: "Attach document (optional)",
+                  label: "Upload a document (docs/pdf/picture) - (optional)",
+                  type: "media",
+                  elementType: "media",
+                }}
+                big
+              />
+              <Button
+                text="Submit"
+                className="bg-green-600 text-white mt-8 w-24 h-10 mx-auto justify-center items-center flex hover:bg-green-400 font-bold"
+              />
+            </div>
+          </section>
+        </>
+      ) : (
+        <ErrorView />
+      )}
     </DefaultLayout>
   );
 }
