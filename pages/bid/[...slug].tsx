@@ -44,7 +44,7 @@ export default function BiddingPage({ job }: Props) {
     <DefaultLayout className="bg-gray-200 pb-4">
       <JobBanner title={parsedJob.title} price={parsedJob.price} />
       <section className="container mx-auto">
-        <Breadcrumb title={parsedJob.title} skill={parsedJob.skills[0].label} />
+        <Breadcrumb title={parsedJob.title} />
         <div className="content bg-white px-6 py-2 pb-6 rounded my-4 mb-8">
           <JobDescription job={parsedJob} />
           <ContentEditable
