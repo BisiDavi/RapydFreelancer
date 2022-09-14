@@ -21,7 +21,7 @@ export default function PostedJobsView() {
           <div className="ripple h-20 flex justify-center items-center">
             <SpinnerRipple centerRipple />
           </div>
-          <p className="text-center font-bold">Fetching bids...</p>
+          <p className="text-center font-bold">Fetching posted jobs...</p>
         </div>
       ) : (
         <div className="bids">

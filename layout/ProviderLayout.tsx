@@ -1,10 +1,10 @@
 import { Provider } from "react-redux";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { PropsWithChildren } from "react";
 import { ToastContainer } from "react-toastify";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
+import type { PropsWithChildren } from "react";
 
 import store from "@/redux/store";
 import NextNProgress from "@/components/loader/NextNProgress";
