@@ -1,12 +1,30 @@
+import { useQuery } from "@tanstack/react-query";
 import { Fragment, useState } from "react";
 
+import useAuth from "@/hooks/useAuth";
 import { useAppSelector, useAppDispatch } from "@/hooks/useRedux";
-import { updateReadMessage } from "@/redux/user-slice";
+import { updateReadMessage, updateUserProfile } from "@/redux/user-slice";
+import { getUserProfile } from "@/request/getRequest";
 
 export default function MessageView() {
-  const { messages } = useAppSelector((state) => state.user);
+  const { authDetails } = useAuth();
+  const auth: any = authDetails();
+  const { messages, profile } = useAppSelector((state) => state.user);
   const [showMessage, setShowMessage] = useState(false);
   const dispatch = useAppDispatch();
+
+  const { data, status } = useQuery(
+    ["getUserProfile"],
+    () => getUserProfile(auth?.email),
+    {
+      enabled: !!auth?.email && profile === null,
+      onSuccess(data) {
+        if (!profile) {
+          dispatch(updateUserProfile(data?.data[0]));
+        }
+      },
+    }
+  );
 
   function isMessageRead(id: string) {
     let readMessage: any = messages.filter((item) => item.id === id)[0];
