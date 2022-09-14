@@ -12,7 +12,7 @@ export default async function handler(
   switch (req.method) {
     case "POST": {
       try {
-        return await saveToDB(dbClient, collection, data).then((response) => {
+        await saveToDB(dbClient, collection, data).then((response) => {
           return res.status(200).send(response);
         });
       } catch (error: any) {

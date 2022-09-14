@@ -8,9 +8,7 @@ import {
   displayModalSignupForm,
   displaySignupForm,
 } from "@/lib/displaySignupForm";
-import { useAppDispatch } from "@/hooks/useRedux";
-import { defaultMessage } from "@/lib/user";
-import { updateMessages } from "@/redux/user-slice";
+import { defaultMessage } from "@/lib/messages";
 
 interface FormInputsProps {
   fullname: string;
@@ -24,7 +22,6 @@ interface Props {
 }
 
 export default function SignupForm({ type }: Props) {
-  const dispatch = useAppDispatch();
   const methods = useForm<FormInputsProps>({
     resolver: yupResolver(signupSchema),
     mode: "all",
@@ -34,18 +31,18 @@ export default function SignupForm({ type }: Props) {
   const { mutate, isLoading } = useSignupMutation();
 
   const onSubmit = (data: any) => {
+    const message = defaultMessage(data);
+
     const userData = {
       ...data,
       bids: [],
       hires: [],
-      messages: [],
+      messages: [message],
       connects: 5,
     };
     return mutate(userData, {
-      onSuccess: (data, variables) => {
+      onSuccess: (data) => {
         console.log("mutate-onSuccess", data);
-        const message = defaultMessage(variables);
-        dispatch(updateMessages(message));
       },
     });
   };
