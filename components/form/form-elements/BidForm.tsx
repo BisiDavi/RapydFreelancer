@@ -50,18 +50,20 @@ export default function BidForm({ job }: Props) {
           {words.length} {wordCount}
         </span>
       </div>
-      <Media
-        big
-        previewMedia={previewMedia}
-        setPreviewMedia={setPreviewMedia}
-        content={{
-          name: "media",
-          placeholder: "Attach document (optional)",
-          label: "Upload a document (docs/pdf/picture) - (optional)",
-          type: "media",
-          elementType: "media",
-        }}
-      />
+      {words.length >= 50 && (
+        <Media
+          big
+          previewMedia={previewMedia}
+          setPreviewMedia={setPreviewMedia}
+          content={{
+            name: "media",
+            placeholder: "Attach document (optional)",
+            label: "Upload a document (docs/pdf/picture) - (optional)",
+            type: "media",
+            elementType: "media",
+          }}
+        />
+      )}
       {previewMedia.length > 0 && (
         <div className={`attached-document ${previewClassname}`}>
           {previewMedia.map((item, index) => (
