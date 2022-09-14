@@ -33,7 +33,12 @@ export default function BidView() {
       {status === "error" ? (
         "error fetching bids"
       ) : status === "loading" ? (
-        <SpinnerRipple />
+        <div className="flex flex-col">
+          <div className="ripple h-20 flex justify-center items-center">
+            <SpinnerRipple centerRipple />
+          </div>
+          <p className="text-center font-bold">Fetching bids...</p>
+        </div>
       ) : (
         ""
       )}
