@@ -21,7 +21,7 @@ interface Props {
 export default function PostJobModal({ modal, toggleModal, methods }: Props) {
   const dispatch = useAppDispatch();
   const { useCreateJobMutation } = usePostJob();
-  const { mutate, isSuccess } = useCreateJobMutation();
+  const { mutate, isSuccess , isLoading} = useCreateJobMutation();
   const { formData } = useAppSelector((state) => state.form);
 
   function postJobHandler() {
@@ -47,7 +47,7 @@ export default function PostJobModal({ modal, toggleModal, methods }: Props) {
           <ConfirmJobList
             toggleModal={toggleModal}
             postJobHandler={postJobHandler}
-            isLoading
+            isLoading={isLoading}
           />
         )}
         {isSuccess && (
