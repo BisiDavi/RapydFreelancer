@@ -37,7 +37,9 @@ export default function BidForm({ job }: Props) {
       );
     }
     if (words.length > 50) {
-      createBid(html, job);
+      createBid(html, job).then(() => {
+        setHtml("Get started with your <b>Proposal</b> here !");
+      });
     } else {
       toast.error(
         "Your Proposal is important and it must be at least 50 words"

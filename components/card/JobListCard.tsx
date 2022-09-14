@@ -33,8 +33,6 @@ export default function JobListCard({ content, showBorder, auth }: Props) {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
-  console.log("auth", auth);
-
   const jobLink =
     auth === null
       ? "/jobs"
@@ -93,7 +91,7 @@ export default function JobListCard({ content, showBorder, auth }: Props) {
               className="bg-red-500 text-white mx-auto w-20 h-8 my-4 justify-center items-center flex hover:bg-red-600 font-bold"
               href={`/bid/${skillId}/${title}?id=${content._id}`}
             />
-            {content.bids && <p>{content.bids} bids</p>}
+            {content.bids && <p>{content.bids.length} bids</p>}
           </div>
         </div>
       </a>

@@ -7,8 +7,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { id, data }: any = req.query;
-  const parsedData = JSON.parse(data);
+  const { id }: any = req.query;
+  const { data } = req.body;
 
   switch (req.method) {
     case "POST": {
@@ -19,10 +19,10 @@ export default async function handler(
           "jobs",
           { id },
           {
-            $set: { bids: [parsedData] },
+            $set: { bids: [data] },
           }
         );
-        const updateUser = await updateDataDB(
+        await updateDataDB(
           dbClient,
           "users",
           { email: data.freelancer.email },
@@ -40,7 +40,7 @@ export default async function handler(
           }
         );
         const freelancerMessage = await bidMessageToFreelancer(data);
-        const sendFreelancerMessage = await updateDataDB(
+        await updateDataDB(
           dbClient,
           "users",
           { email: data.freelancer.email },
@@ -51,7 +51,7 @@ export default async function handler(
           }
         );
         const recruiterMessage = await bidMessageToRecruiter(data);
-        const sendRecruiterMessage = await updateDataDB(
+        await updateDataDB(
           dbClient,
           "users",
           { email: data.recruiter.email },
@@ -61,10 +61,6 @@ export default async function handler(
             },
           }
         );
-        console.log("updateUser", updateUser);
-        console.log("updateBid", updateBid);
-        console.log("sendFreelancerMessage", sendFreelancerMessage);
-        console.log("sendRecruiterMessage", sendRecruiterMessage);
         return res.status(200).send(updateBid);
       } catch (error) {
         console.log("error");

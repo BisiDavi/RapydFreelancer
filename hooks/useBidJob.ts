@@ -5,6 +5,7 @@ import useAuth from "@/hooks/useAuth";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import useToast from "@/hooks/useToast";
 import { resetBidMedia } from "@/redux/form-slice";
+
 import type { jobType } from "@/types";
 
 export default function useBidJob() {
@@ -30,7 +31,8 @@ export default function useBidJob() {
       createdAt: date,
     };
     loadingToast(toastID);
-    axios
+    console.log("data", data);
+    return axios
       .post(`/api/bid/${job.id}`, { data })
       .then((response) => {
         console.log("response-create-bid", response.data);
