@@ -12,7 +12,7 @@ export default function PostJobFormElement({ type }: Props) {
       {formContent[type].map((formElementContent, index) => {
         const marginStyle = spaceRow(formContent.price, index);
         return (
-          <div key={index} className={`lg:w-1/2 w-full ${marginStyle}`}>
+          <div key={index} className={`lg:w-1/2 lg:mx-2 w-full ${marginStyle}`}>
             {displayFormElement(formElementContent)}
           </div>
         );

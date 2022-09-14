@@ -12,6 +12,7 @@ import PostJobFormElement from "@/components/form/form-elements/PostJobFormEleme
 import { updateFormData, updateJobId } from "@/redux/form-slice";
 import { updateModal } from "@/redux/ui-slice";
 import useUI from "@/hooks/useUI";
+import usePostJob from "@/hooks/usePostJob";
 
 const DynamicPostJobModal = dynamic(
   () =>
@@ -37,8 +38,12 @@ export default function PostJobForm() {
   });
   const { modal, toggleModal } = useUI();
   const { selectedSkills } = useAppSelector((state) => state.form);
+  const { useCreateJobMutation } = usePostJob();
+  const { mutate } = useCreateJobMutation();
 
   const onSubmit = (data: any) => {
+    console.log("data", data);
+    mutate(data);
     dispatch(updateJobId());
     dispatch(updateFormData(data));
     dispatch(updateModal("confirm-job-modal"));
@@ -66,14 +71,6 @@ export default function PostJobForm() {
           <div>{displayFormElement(formContent.media)}</div>
 
           <div className="button-Group flex items-center my-2 mt-4 justify-between  lg:w-2/3 justify-center mx-auto">
-            <Button
-              text="Cancel"
-              className="bg-red-600 text-white w-24 h-10 hover:bg-red-400 font-bold"
-            />
-            <Button
-              text="Next"
-              className="bg-green-600 text-white w-24 h-10 mx-auto justify-center items-center flex hover:bg-green-400 font-bold"
-            />
             {selectedSkills.length >= 2 && (
               <Button
                 text="Submit"
