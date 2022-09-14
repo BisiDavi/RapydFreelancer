@@ -5,7 +5,8 @@ import { toast } from "react-toastify";
 
 import Button from "@/components/UI/Button";
 import Media from "@/components/form/form-elements/Media";
-import useBidJob from "@/hooks/useBidJob";
+import useBidMutation from "@/hooks/useBidMutation";
+import useAuth from "@/hooks/useAuth";
 import type { jobType } from "@/types";
 
 interface Props {
@@ -18,7 +19,9 @@ export default function BidForm({ job }: Props) {
     "Get started with your <b>Proposal</b> here !"
   );
 
-  const { createBid, auth } = useBidJob();
+  const { mutate, isLoading } = useBidMutation();
+  const { authDetails } = useAuth();
+  const auth: any = authDetails();
 
   function handleChange(e: any) {
     setHtml(e.target.value);
@@ -37,9 +40,14 @@ export default function BidForm({ job }: Props) {
       );
     }
     if (words.length > 50) {
-      createBid(html, job).then(() => {
-        setHtml("Get started with your <b>Proposal</b> here !");
-      });
+      mutate(
+        { proposal: html, job },
+        {
+          onSuccess: () => {
+            setHtml("Get started with your <b>Proposal</b> here !");
+          },
+        }
+      );
     } else {
       toast.error(
         "Your Proposal is important and it must be at least 50 words"
@@ -84,6 +92,7 @@ export default function BidForm({ job }: Props) {
         text="Submit"
         className="bg-green-600 text-white mt-8 w-24 h-10 mx-auto justify-center items-center flex hover:bg-green-400 font-bold"
         onClick={createBidHandler}
+        loading={isLoading}
       />
     </>
   );
