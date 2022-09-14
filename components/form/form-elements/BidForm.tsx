@@ -6,9 +6,10 @@ import { toast } from "react-toastify";
 import Button from "@/components/UI/Button";
 import Media from "@/components/form/form-elements/Media";
 import useBidJob from "@/hooks/useBidJob";
+import type { jobType } from "@/types";
 
 interface Props {
-  job: { id: string };
+  job: jobType;
 }
 
 export default function BidForm({ job }: Props) {
@@ -30,7 +31,7 @@ export default function BidForm({ job }: Props) {
 
   function createBidHandler() {
     if (words.length > 50) {
-      createBid(html, job.id);
+      createBid(html, job);
     } else {
       toast.error(
         "Your Proposal is important and it must be at least 50 words"

@@ -5,6 +5,7 @@ import useAuth from "@/hooks/useAuth";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import useToast from "@/hooks/useToast";
 import { resetBidMedia } from "@/redux/form-slice";
+import type { jobType } from "@/types";
 
 export default function useBidJob() {
   const { bidMedia } = useAppSelector((state) => state.form);
@@ -15,11 +16,14 @@ export default function useBidJob() {
   const toastID = useRef(null);
   const date = new Date();
 
-  function createBid(proposal: string, jobId: string) {
+  function createBid(proposal: string, job: jobType) {
     const data = {
       proposal,
+      title: job.title,
+      price: job.price,
       media: bidMedia,
-      user: {
+      recruiter: job.user,
+      freelancer: {
         email: auth?.providerData[0].email,
         displayName: auth?.providerData[0].displayName,
       },
@@ -27,7 +31,7 @@ export default function useBidJob() {
     };
     loadingToast(toastID);
     axios
-      .post(`/api/bid/${jobId}`, { data })
+      .post(`/api/bid/${job.id}`, { data })
       .then((response) => {
         console.log("response-create-bid", response.data);
         updateToast(
