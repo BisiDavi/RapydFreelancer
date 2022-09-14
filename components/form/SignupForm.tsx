@@ -34,7 +34,14 @@ export default function SignupForm({ type }: Props) {
   const { mutate, isLoading } = useSignupMutation();
 
   const onSubmit = (data: any) => {
-    return mutate(data, {
+    const userData = {
+      ...data,
+      bids: [],
+      hires: [],
+      messages: [],
+      connects: 5,
+    };
+    return mutate(userData, {
       onSuccess: (data, variables) => {
         console.log("mutate-onSuccess", data);
         const message = defaultMessage(variables);

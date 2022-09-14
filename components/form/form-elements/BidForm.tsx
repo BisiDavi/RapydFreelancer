@@ -18,7 +18,8 @@ export default function BidForm({ job }: Props) {
     "Get started with your <b>Proposal</b> here !"
   );
 
-  const { createBid } = useBidJob();
+  const { createBid, auth } = useBidJob();
+
   function handleChange(e: any) {
     setHtml(e.target.value);
   }
@@ -30,6 +31,11 @@ export default function BidForm({ job }: Props) {
   const wordCount = words.length > 1 ? "words" : "word";
 
   function createBidHandler() {
+    if (auth?.providerData[0].email === job.user.email) {
+      return toast.error(
+        "You posted this job, you can't bid on the job you posted"
+      );
+    }
     if (words.length > 50) {
       createBid(html, job);
     } else {

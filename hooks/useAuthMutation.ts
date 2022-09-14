@@ -1,9 +1,9 @@
 import useRequestMutation from "@/hooks/useRequestMutation";
 import useAuth from "@/hooks/useAuth";
-import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
+import { useAppDispatch } from "@/hooks/useRedux";
 import { updateSidebar } from "@/redux/ui-slice";
 import { updateUserProfile } from "@/redux/user-slice";
-import useAuthModal from "./useAuthModal";
+import useAuthModal from "@/hooks/useAuthModal";
 
 export default function useAuthMutation() {
   const { authSignup, authSignIn, authSignOut } = useAuth();

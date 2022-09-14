@@ -21,7 +21,7 @@ export default function useAuth() {
   const app = initFB();
 
   async function authSignup(data: dataType) {
-    const { email, password, name, role } = data;
+    const { email, password, name } = data;
     const auth: any = getAuth(app);
     try {
       await createUserWithEmailAndPassword(auth, email, password).then(
@@ -42,7 +42,7 @@ export default function useAuth() {
       }).then(() => {
         axios.post("/api/db", {
           collection: "users",
-          data: { email, name, role },
+          data,
         });
       });
     } catch (err) {

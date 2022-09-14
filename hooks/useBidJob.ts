@@ -51,5 +51,5 @@ export default function useBidJob() {
       });
   }
 
-  return { createBid };
+  return { createBid, auth };
 }
