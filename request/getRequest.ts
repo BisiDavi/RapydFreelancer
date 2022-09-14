@@ -24,7 +24,6 @@ export function getUserProfile(userEmail: string) {
     params: {
       collection: "users",
       query: { email: userEmail },
-      projection: { _id: 1, email: 1, name: 1, role: 1, profileImage: 1 },
     },
   });
 }

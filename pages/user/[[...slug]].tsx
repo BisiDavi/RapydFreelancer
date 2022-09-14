@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import axios from "axios";
 
 import DefaultLayout from "@/layout/DefaultLayout";
 import displayUserSection from "@/components/tab/displayUserSection";

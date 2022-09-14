@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 
-const asideArray = ["Profile", "Messages", "Chat", "Settings"];
+const asideArray = ["Profile", "Bids", "Messages", "Chat", "Settings"];
 
 export default function ProfileSidebar() {
   const router = useRouter();
