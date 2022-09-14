@@ -1,10 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Modal from "@/components/modal";
 import { modalStateType } from "@/types/redux-types";
-import ListElement, {
-  ListElementMedia,
-} from "@/components/form/form-elements/ListElement";
-import Button from "@/components/UI/Button";
 import usePostJob from "@/hooks/usePostJob";
 import { useAppDispatch } from "@/redux/store";
 import { updateJobId } from "@/redux/form-slice";
@@ -14,7 +10,7 @@ import {
   updateFormData,
   updateSelectedSkills,
 } from "@/redux/form-slice";
-import { updateModal } from "@/redux/ui-slice";
+import ConfirmJobList from "@/views/ConfirmJobList";
 
 interface Props {
   modal: modalStateType | null;
@@ -25,10 +21,8 @@ interface Props {
 export default function PostJobModal({ modal, toggleModal, methods }: Props) {
   const dispatch = useAppDispatch();
   const { useCreateJobMutation } = usePostJob();
-  const { mutate, isLoading } = useCreateJobMutation();
-  const { media, selectedSkills, formData } = useAppSelector(
-    (state) => state.form
-  );
+  const { mutate, isSuccess } = useCreateJobMutation();
+  const { formData } = useAppSelector((state) => state.form);
 
   function postJobHandler() {
     dispatch(updateJobId());
@@ -37,7 +31,6 @@ export default function PostJobModal({ modal, toggleModal, methods }: Props) {
         methods.reset();
         dispatch(resetMedia());
         dispatch(updateSelectedSkills([]));
-        dispatch(updateModal(null));
         dispatch(updateFormData(null));
       },
     });
@@ -45,52 +38,28 @@ export default function PostJobModal({ modal, toggleModal, methods }: Props) {
 
   return (
     <>
-      {formData !== null && (
-        <Modal
-          title="Review before posting Job"
-          modal={modal}
-          toggleModal={toggleModal}
-        >
-          <ul className="flex flex-col -mt-4">
-            <h3 className="text-center text-lg font-bold mb-2">
-              Job Listing Review
-            </h3>
-            <ListElement title="Title" value={formData.title} />
-            <ListElement title="Description" value={formData.description} />
-            <ListElement
-              title="Period"
-              value={formData.duration.toLocaleLowerCase()}
-            />
-            <ListElement title="Price" value={`$${formData.price}`} />
-            <ListElement
-              title="Rate"
-              value={`$${
-                formData.price
-              } (${formData.pricePeriod.toLocaleLowerCase()})`}
-            />
-            <ListElement title="Skills" mapItem={selectedSkills} />
-            {media.length > 0 && (
-              <ListElementMedia title="Media" mapMedia={media} />
-            )}
-
-            <div className="button-Group flex items-center my-2 mt-4 justify-between w-2/3 justify-center mx-auto">
-              <Button
-                text="Cancel Job"
-                className="bg-red-600 text-white w-24 h-10 hover:bg-red-400 font-bold"
-                onClick={() => toggleModal(null)}
-              />
-
-              <Button
-                text="Post Job"
-                type="submit"
-                className="bg-green-600 text-white w-24 h-10 mx-auto justify-center items-center flex hover:bg-green-400 font-bold"
-                onClick={postJobHandler}
-                loading={isLoading}
-              />
-            </div>
-          </ul>
-        </Modal>
-      )}
+      <Modal
+        title="Review before posting Job"
+        modal={modal}
+        toggleModal={() => toggleModal(null)}
+      >
+        {formData !== null && (
+          <ConfirmJobList
+            toggleModal={toggleModal}
+            postJobHandler={postJobHandler}
+            isLoading
+          />
+        )}
+        {isSuccess && (
+          <div className="success flex mx-auto justify-center items-center">
+            <img src="/checkmark.gif" alt="Job posted successfully" />
+            <p className="text-center font-bold my-2">
+              Job posted successfully, you can post more jobs or visit your
+              admin to read freelancers proposals to your job listing
+            </p>
+          </div>
+        )}
+      </Modal>
     </>
   );
 }

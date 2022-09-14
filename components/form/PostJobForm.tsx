@@ -12,7 +12,6 @@ import PostJobFormElement from "@/components/form/form-elements/PostJobFormEleme
 import { updateFormData, updateJobId } from "@/redux/form-slice";
 import { updateModal } from "@/redux/ui-slice";
 import useUI from "@/hooks/useUI";
-import usePostJob from "@/hooks/usePostJob";
 
 const DynamicPostJobModal = dynamic(
   () =>
@@ -38,12 +37,8 @@ export default function PostJobForm() {
   });
   const { modal, toggleModal } = useUI();
   const { selectedSkills } = useAppSelector((state) => state.form);
-  const { useCreateJobMutation } = usePostJob();
-  const { mutate } = useCreateJobMutation();
 
   const onSubmit = (data: any) => {
-    console.log("data", data);
-    mutate(data);
     dispatch(updateJobId());
     dispatch(updateFormData(data));
     dispatch(updateModal("confirm-job-modal"));

@@ -11,7 +11,7 @@ import {
 } from "@/redux/form-slice";
 import { updateModal } from "@/redux/ui-slice";
 import toSlug from "@/lib/toSlug";
-import { jobType } from "@/types";
+import type { jobType } from "@/types";
 
 export default function usePostJob() {
   const { selectedSkills, media } = useAppSelector((state) => state.form);
