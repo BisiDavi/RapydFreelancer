@@ -4,7 +4,7 @@ import { getBidsFromPostedJobs } from "@/request/getRequest";
 import useAuth from "@/hooks/useAuth";
 import SpinnerRipple from "@/components/loader/SpinnerRipple";
 
-export default function BidView() {
+export default function PostedJobsView() {
   const { authDetails } = useAuth();
   const auth: any = authDetails();
 
@@ -12,7 +12,6 @@ export default function BidView() {
     getBidsFromPostedJobs(auth?.email)
   );
 
-  console.log("bids", data?.data);
   return (
     <div>
       {status === "error" ? (
