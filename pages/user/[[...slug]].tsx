@@ -36,7 +36,7 @@ export default function UserPage() {
     <DefaultLayout title="Your Profile">
       <section className="container flex items-start mx-auto my-10">
         <ProfileSidebar />
-        <div className="content w-4/5  p-6 item-start ml-4 rounded h-600 bg-gray-100">
+        <div className="content w-4/5  p-6 item-start ml-4 rounded  bg-gray-100">
           <h3 className="text-xl font-bold mb-4">
             {greetUser()}, {auth?.displayName}
           </h3>
