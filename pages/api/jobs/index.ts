@@ -30,9 +30,11 @@ export default async function handler(
     }
     // get jobs
     case "GET": {
+      const { query }: any = req.query;
+      const parsedQuery = query ? JSON.parse(query) : null;
       try {
         const dbClient = await DBClient();
-        return await getJobsDB(dbClient)
+        return await getJobsDB(dbClient, parsedQuery)
           .then((response) => {
             return res.status(200).json(response);
           })

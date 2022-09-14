@@ -7,6 +7,7 @@ import { useAppSelector } from "@/hooks/useRedux";
 import { useAppDispatch } from "@/redux/store";
 import SpinnerRipple from "@/components/loader/SpinnerRipple";
 
+
 export default function BidView() {
   const { authDetails } = useAuth();
   const auth: any = authDetails();

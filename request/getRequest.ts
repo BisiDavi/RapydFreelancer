@@ -35,3 +35,9 @@ export function updateUserDB(userEmail: string, url: string) {
     data: { $set: { profileImage: url } },
   });
 }
+
+export function getBidsFromPostedJobs(email: string) {
+  return axios.get("/api/jobs", {
+    params: { query: { "user.email": email } },
+  });
+}
