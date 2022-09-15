@@ -30,7 +30,7 @@ export default function useBidMutation() {
     return axios.post(`/api/bid/${job.id}`, { data });
   }
   return useRequestMutation(({ proposal, job }) => createBid(proposal, job), {
-    mutationKey: ["useCreateSkillMutation"],
+    mutationKey: ["useBidMutation"],
     success: "Congrats, you've successfully bidded for the job",
     error: "Oops, unable to place your bid, please try again",
     onSuccessMethod: () => {

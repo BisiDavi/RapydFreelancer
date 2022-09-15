@@ -41,7 +41,7 @@ export default function useRequestMutation(
       updateToast(toastID, "success", mutationData.success);
     },
     onError: (err: any) => {
-      console.log("err", err);
+      console.log("err-onError", err);
       if (mutationData.onErrorMethod) {
         mutationData.onErrorMethod();
       }
