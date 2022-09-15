@@ -1,10 +1,7 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
 
 import toSlug from "@/lib/toSlug";
 import Button from "@/components/UI/Button";
-import { useAppDispatch } from "@/hooks/useRedux";
-import { updateModal } from "@/redux/ui-slice";
 
 interface Props {
   showBorder: boolean;
@@ -30,24 +27,12 @@ export default function JobListCard({ content, showBorder, auth }: Props) {
   const borderClassname = showBorder ? "border-b" : "";
   const skillId = toSlug(content.skills[0].label);
   const title = toSlug(content.title);
-  const dispatch = useAppDispatch();
-  const router = useRouter();
-
-  const jobLink =
-    auth === null
-      ? "/jobs"
-      : `/jobs/projects/${content.skills[0].label}/${content.id}`;
-
-  function bidJobHandler() {
-    if (auth === null) {
-      return dispatch(updateModal("auth-modal"));
-    } else {
-      return router.push(`/bid/${skillId}/${title}?id=${content._id}`);
-    }
-  }
 
   return (
-    <Link href={jobLink} passHref>
+    <Link
+      href={`/jobs/projects/${content.skills[0].label}/${content.id}`}
+      passHref
+    >
       <a
         className={`bg-white ${borderClassname} flex py-3 items-start hover:bg-gray-100 justify-between px-2`}
       >
@@ -80,7 +65,7 @@ export default function JobListCard({ content, showBorder, auth }: Props) {
               <Button
                 text="Bid"
                 className="bg-red-500 text-white w-20 h-8 my-4 justify-center items-center flex hover:bg-red-600 font-bold"
-                onClick={bidJobHandler}
+                href={`/bid/${skillId}/${title}?id=${content._id}`}
               />
               {content.bids && <p>{content.bids.length} bids</p>}
             </div>
