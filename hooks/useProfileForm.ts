@@ -7,12 +7,14 @@ import useToast from "@/hooks/useToast";
 import { useAppDispatch } from "@/redux/store";
 import { updateProfileForm } from "@/redux/form-slice";
 import { updateWallet } from "@/redux/user-slice";
+import useWalletMutation from "@/hooks/useWalletMutation";
 
 export default function useProfileForm() {
   const { profile } = useAppSelector((state) => state.user);
   const { loadingToast, updateToast } = useToast();
   const toastId = useRef(null);
   const dispatch = useAppDispatch();
+  const { useCreateWalletMutation } = useWalletMutation();
 
   function createWallet(
     userData: { [key: string]: string },
@@ -43,5 +45,5 @@ export default function useProfileForm() {
       });
   }
 
-  return { createWallet };
+  return { createWallet, useCreateWalletMutation };
 }

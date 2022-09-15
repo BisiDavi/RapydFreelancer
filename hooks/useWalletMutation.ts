@@ -9,7 +9,7 @@ export default function useWalletMutation() {
   const { profile } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
 
-  function useCreateWalletMutation(resetForm: any) {
+  function useCreateWalletMutation(resetForm: () => void) {
     return useRequestMutation((userData) => createWallet(userData, profile), {
       mutationKey: ["useWalletMutation"],
       success: "KYC submitted, wallet created successfully",

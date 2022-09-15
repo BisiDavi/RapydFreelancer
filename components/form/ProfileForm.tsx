@@ -5,18 +5,18 @@ import { profileSchema } from "@/components/form/schema/profileSchema";
 import profileFormContent from "@/json/profile-form.json";
 import displayFormElement from "@/lib/displayFormElement";
 import Button from "@/components/UI/Button";
-import useProfileForm from "@/hooks/useProfileForm";
+import useWalletMutation from "@/hooks/useWalletMutation";
 
 export default function ProfileForm() {
-
   const methods = useForm({
     resolver: yupResolver(profileSchema),
     mode: "all",
   });
-  const { createWallet } = useProfileForm();
+  const { useCreateWalletMutation } = useWalletMutation();
+  const { mutate, isLoading } = useCreateWalletMutation(methods.reset);
 
   function onSubmitHandler(data: any) {
-    createWallet(data, methods.reset);
+    return mutate(data);
   }
 
   return (
@@ -38,6 +38,7 @@ export default function ProfileForm() {
           text="Submit"
           type="submit"
           className="bg-blue-500 text-white mt-4 px-4 py-1 mx-auto flex rounded hover:bg-blue-900"
+          loading={isLoading}
         />
       </form>
     </FormProvider>
