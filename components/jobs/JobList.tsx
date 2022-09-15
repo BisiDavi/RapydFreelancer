@@ -4,12 +4,9 @@ import JobListCard from "@/components/card/JobListCard";
 import Container from "@/components/UI/Container";
 import { getJobs } from "@/request/getRequest";
 import JobListLoader from "@/components/loader/JobListLoader";
-import useAuth from "@/hooks/useAuth";
 
 export default function JobList() {
   const { data, status } = useQuery(["getJobs"], getJobs);
-  const { authDetails } = useAuth();
-  const auth = authDetails();
 
   return (
     <Container className="mb-6 px-6 flex-col flex py-4">
@@ -27,7 +24,6 @@ export default function JobList() {
                 key={job.title}
                 content={job}
                 showBorder={showBorder}
-                auth={auth}
               />
             );
           })

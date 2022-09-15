@@ -20,13 +20,13 @@ interface Props {
     verified?: boolean;
     type?: string;
   };
-  auth?: any;
 }
 
-export default function JobListCard({ content, showBorder, auth }: Props) {
+export default function JobListCard({ content, showBorder }: Props) {
   const borderClassname = showBorder ? "border-b" : "";
   const skillId = toSlug(content.skills[0].label);
   const title = toSlug(content.title);
+  const bids = content.bids.length > 1 ? "bids" : "bid";
 
   return (
     <Link
@@ -61,13 +61,15 @@ export default function JobListCard({ content, showBorder, auth }: Props) {
                 ))}
               </ul>
             </div>
-            <div className="bid hidden lg:flex">
+            <div className="bid hidden lg:flex items-end flex-col">
               <Button
                 text="Bid"
-                className="bg-red-500 text-white w-20 h-8 my-4 justify-center items-center flex hover:bg-red-600 font-bold"
+                className="order-2 bg-red-500 text-white w-20 h-8 my-4 justify-center items-center flex hover:bg-red-600 font-bold"
                 href={`/bid/${skillId}/${title}?id=${content._id}`}
               />
-              {content.bids && <p>{content.bids.length} bids</p>}
+              <p>
+                {content.bids.length} {bids}
+              </p>
             </div>
           </div>
           <div className="bid lg:hidden">
