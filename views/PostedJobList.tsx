@@ -20,7 +20,7 @@ export default function PostedJobList({ jobs }:Props) {
             <p>{jobItem.description}</p>
             <p>Price: ${jobItem.price}</p>
             <ul className="lg:flex mb-2 grid grid-cols-2 gap-2">
-              {jobItem.skills.map((skill) => (
+              {jobItem.skills.map((skill) => ( 
                 <li
                   key={skill.value}
                   className="font-light text-sm border px-2 py-1 flex items-center justify-center lg:px-2 rounded text-blue-400 hover:bg-blue-800 hover:text-white"
