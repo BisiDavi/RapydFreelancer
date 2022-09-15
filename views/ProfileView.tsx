@@ -1,10 +1,10 @@
 import ProfileForm from "@/components/form/ProfileForm";
 import { useAppSelector } from "@/hooks/useRedux";
 import IssueVirtualAccountForm from "@/components/form/IssueVirtualAccountForm";
-import AccountDetailsView from "./AccountDetailsView";
+import AccountDetailsView from "@/views/AccountDetailsView";
 
 export default function ProfileView() {
-  const { walletId, profile } = useAppSelector((state) => state.user);
+  const { profile } = useAppSelector((state) => state.user);
 
   return (
     <div className="w-full flex flex-col">

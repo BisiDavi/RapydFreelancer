@@ -28,10 +28,10 @@ export default function useRequestMutation(
       loadingToast(toastID);
     },
     onSuccess: (data: any) => {
-      if (mutationData.onSuccessMethod) {
+      if (mutationData?.onSuccessMethod) {
         mutationData.onSuccessMethod();
       }
-      if (mutationData.onSuccessMethodWithData) {
+      if (mutationData?.onSuccessMethodWithData) {
         if (data?.data) {
           mutationData.onSuccessMethodWithData(data?.data);
         } else {
@@ -42,7 +42,7 @@ export default function useRequestMutation(
     },
     onError: (err: any) => {
       console.log("err-onError", err);
-      if (mutationData.onErrorMethod) {
+      if (mutationData?.onErrorMethod) {
         mutationData.onErrorMethod();
       }
       updateToast(toastID, "error", mutationData.error);
