@@ -12,10 +12,20 @@ export type jobType = {
   user: { email: string; displayName: string };
   createdAt: string;
   active: boolean;
+  projectId: string;
   paid: boolean;
+  bids: [];
 };
 
 export interface MenubarType {
   onClick: () => void;
   className: string;
 }
+
+
+/**
+ * active
+ * projectId
+ * paid
+ * bids
+ */

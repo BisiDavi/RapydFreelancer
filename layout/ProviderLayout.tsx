@@ -13,6 +13,12 @@ import NextNProgress from "@/components/loader/NextNProgress";
 
 import "react-toastify/dist/ReactToastify.css";
 
+function accessLocalStorage() {
+  if (typeof window !== "undefined") {
+    return localStorage;
+  }
+}
+
 export default function Providerlayout({ children }: PropsWithChildren<{}>) {
   const queryClient: any = new QueryClient({
     defaultOptions: {
@@ -25,7 +31,7 @@ export default function Providerlayout({ children }: PropsWithChildren<{}>) {
   let persistor = persistStore(store);
 
   const localStoragePersister = createSyncStoragePersister({
-    storage: window.localStorage,
+    storage: accessLocalStorage(),
   });
 
   persistQueryClient({
