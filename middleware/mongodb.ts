@@ -8,7 +8,7 @@ export default async function connectDB() {
     await client.connect();
     console.log("Connected successfully to server");
     return client;
-  } finally {
-    await client.close();
+  } catch (e) {
+    console.error("db-error", e);
   }
 }
