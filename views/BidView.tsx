@@ -15,22 +15,23 @@ export default function BidView() {
   console.log("bids", data?.data);
   return (
     <div>
-    {status === "error" ? (
-      "error fetching bids"
-    ) : status === "loading" ? (
-      <div className="flex flex-col">
-        <div className="ripple h-20 flex justify-center items-center">
-          <SpinnerRipple centerRipple />
+      {status === "error" ? (
+        "error fetching bids"
+      ) : status === "loading" ? (
+        <div className="flex flex-col">
+          <div className="ripple h-20 flex justify-center items-center">
+            <SpinnerRipple centerRipple />
+          </div>
+          <p className="text-center font-bold">Fetching bids...</p>
         </div>
-        <p className="text-center font-bold">Fetching bids...</p>
-      </div>
-    ) : (
-      <div className="bids">
-        <h4 className="font-bold text-xl">
-          Posted Jobs ({data?.data.length})
-        </h4>
-      </div>
-    )}
+      ) : (
+        <div className="bids">
+          <h4 className="font-medium text-xl">
+            Posted Jobs ({data?.data.length}),
+            <span className="font-bold ml-1">click on jobs to view bids</span>
+          </h4>
+        </div>
+      )}
     </div>
   );
 }

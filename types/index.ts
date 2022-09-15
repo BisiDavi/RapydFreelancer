@@ -21,11 +21,3 @@ export interface MenubarType {
   onClick: () => void;
   className: string;
 }
-
-
-/**
- * active
- * projectId
- * paid
- * bids
- */
