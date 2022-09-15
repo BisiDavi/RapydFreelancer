@@ -4,6 +4,8 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ToastContainer } from "react-toastify";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
+import { persistQueryClient } from "@tanstack/react-query-persist-client";
+import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 import type { PropsWithChildren } from "react";
 
 import store from "@/redux/store";
@@ -12,9 +14,24 @@ import NextNProgress from "@/components/loader/NextNProgress";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function Providerlayout({ children }: PropsWithChildren<{}>) {
-  const queryClient = new QueryClient();
+  const queryClient: any = new QueryClient({
+    defaultOptions: {
+      queries: {
+        cacheTime: 1000 * 60 * 60 * 24,
+      },
+    },
+  });
 
   let persistor = persistStore(store);
+
+  const localStoragePersister = createSyncStoragePersister({
+    storage: window.localStorage,
+  });
+
+  persistQueryClient({
+    queryClient,
+    persister: localStoragePersister,
+  });
 
   return (
     <>
