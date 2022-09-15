@@ -29,17 +29,17 @@ export default function AuthLayout({ children }: PropsWithChildren) {
   const protectedRoutes =
     router.asPath.includes("bid") ||
     router.asPath.includes("post-job") ||
-    router.asPath.includes("user") ||
-    router.asPath.includes("jobs/projects");
+    router.asPath.includes("user");
 
   useEffect(() => {
-    if (!auth) {
+    if (!auth && protectedRoutes) {
       dispatch(updateModal("auth-modal"));
     }
   }, [auth]);
   return (
     <>
-      {auth === null && modal === "auth-modal" && protectedRoutes && (
+      {((auth === null && modal === "auth-modal" && protectedRoutes) ||
+        (auth === null && modal === "auth-modal" && viewRoute)) && (
         <DynamicAuthModal
           modal={modal}
           toggleModal={() => toggleModal(modalState)}
@@ -49,3 +49,4 @@ export default function AuthLayout({ children }: PropsWithChildren) {
     </>
   );
 }
+ 

@@ -56,6 +56,9 @@ export default function BidView() {
                       text="View Bids"
                     />
                   )}
+                  <div className="bid-view">
+                    
+                  </div>
                 </li>
               );
             })}
