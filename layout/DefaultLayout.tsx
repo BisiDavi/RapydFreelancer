@@ -6,7 +6,7 @@ import Footer from "@/components/footer";
 import Header from "@/components/header";
 import { useAppSelector } from "@/hooks/useRedux";
 import useMediaQuery from "@/hooks/useMediaQuery";
-import AuthLayout from "./AuthLayout";
+import AuthLayout from "@/layout/AuthLayout";
 
 const DynamicMobileSidebar = dynamic(
   () =>
