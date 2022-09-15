@@ -4,11 +4,11 @@ import { useEffect } from "react";
 import Logo from "@/components/logo";
 import PostJobForm from "@/components/form/PostJobForm";
 import useAuth from "@/hooks/useAuth";
-import { DBClient } from "@/db/DBConnection";
 import { getSkillsDB } from "@/db/skills";
 import { useAppDispatch } from "@/hooks/useRedux";
 import { updateSkills } from "@/redux/form-slice";
 import AuthLayout from "@/layout/AuthLayout";
+import connectDB from "@/middleware/mongodb";
 
 interface Props {
   skills: { label: string; value: string; id: string }[];
@@ -64,7 +64,7 @@ export default function PostJob({ skills }: Props) {
 
 export async function getServerSideProps() {
   try {
-    const dbClient = await DBClient();
+    const dbClient = await connectDB();
     return await getSkillsDB(dbClient).then((response) => {
       const defaultOptions: { label: string; value: string }[] = [];
       response.map((item: { label: string; value: string }) => {

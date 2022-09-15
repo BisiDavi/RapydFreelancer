@@ -1,10 +1,14 @@
+import { useQueryClient } from "@tanstack/react-query";
+
 import ProfileForm from "@/components/form/ProfileForm";
-import { useAppSelector } from "@/hooks/useRedux";
 import IssueVirtualAccountForm from "@/components/form/IssueVirtualAccountForm";
 import AccountDetailsView from "@/views/AccountDetailsView";
 
 export default function ProfileView() {
-  const { profile } = useAppSelector((state) => state.user);
+  const queryClient = useQueryClient();
+  const userData: any = queryClient.getQueryData(["getUserProfile"]);
+  const user = userData?.data ? userData?.data[0] : null;
+  console.log("user", user);
 
   return (
     <div className="w-full flex flex-col">
@@ -13,9 +17,9 @@ export default function ProfileView() {
         your KYC, this will enable you create your wallet and eligible to post
         jobs.
       </p>
-      {!profile?.ewallet ? <ProfileForm /> : <AccountDetailsView />}
+      {!user?.ewallet ? <ProfileForm /> : <AccountDetailsView />}
 
-      {profile?.address && <IssueVirtualAccountForm />}
+      {user?.address && <IssueVirtualAccountForm />}
     </div>
   );
 }

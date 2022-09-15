@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { DBClient } from "@/db/DBConnection";
 import { updateDataDB } from "@/db";
 import makeRequest from "@/request/makeRequest";
+import connectDB from "@/middleware/mongodb";
 
 export default async function handler(
   req: NextApiRequest,
@@ -13,7 +13,7 @@ export default async function handler(
     //create e-wallet
     case "POST": {
       try {
-        const dbClient = await DBClient();
+        const dbClient = await connectDB();
         const createWalletResponse: any = await makeRequest(
           "post",
           "/v1/user",

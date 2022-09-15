@@ -5,10 +5,10 @@ import useAuth from "@/hooks/useAuth";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import useScroll from "@/hooks/useScroll";
 import { updateSidebar } from "@/redux/ui-slice";
-import { UIStateType } from "@/types/redux-types";
 import useAuthMutation from "@/hooks/useAuthMutation";
 import { getUserProfile } from "@/request/getRequest";
 import { updateUserProfile } from "@/redux/user-slice";
+import type { UIStateType } from "@/types/redux-types";
 
 export default function useHeader() {
   const { scroll } = useScroll();
@@ -16,20 +16,27 @@ export default function useHeader() {
   const { authDetails } = useAuth();
   const { useSignoutMutation } = useAuthMutation();
   const { mutate } = useSignoutMutation();
-  const { messages, profile } = useAppSelector((state) => state.user);
+
+  const { profile } = useAppSelector((state) => state.user);
   const { sidebar } = useAppSelector((state) => state.UI);
   const auth: any = authDetails();
 
-  useQuery(["getUserProfile"], () => getUserProfile(auth?.email), {
-    enabled: !!auth?.email && profile === null,
-    onSuccess(data) {
-      if (!profile && data.data.length > 0) {
-        dispatch(updateUserProfile(data?.data[0]));
-      }
-    },
-  });
+  const { data, status } = useQuery(
+    ["getUserProfile"],
+    () => getUserProfile(auth?.email),
+    {
+      enabled: !!auth?.email && profile === null,
+      onSuccess(data) {
+        if (!profile && data.data.length > 0) {
+          dispatch(updateUserProfile(data?.data[0]));
+        }
+      },
+    }
+  );
 
-  const unreadMessages = messages.filter((item) => !item?.read).length;
+  const messages = status === "success" ? data.data[0].messages : [];
+
+  const unreadMessages = messages.filter((item: any) => !item?.read).length;
 
   function signoutHandler() {
     return mutate({});

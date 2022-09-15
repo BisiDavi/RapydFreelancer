@@ -1,19 +1,15 @@
 import { updateDataDB } from "@/db";
-import { DBClient } from "@/db/DBConnection";
+import connectDB from "@/middleware/mongodb";
 import { bidMessageToFreelancer, bidMessageToRecruiter } from "@/lib/messages";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { id }: any = req.query;
   const { data } = req.body;
-
   switch (req.method) {
     case "POST": {
       try {
-        const dbClient = await DBClient();
+        const dbClient = await connectDB();
         const updateBid = await updateDataDB(
           dbClient,
           "jobs",

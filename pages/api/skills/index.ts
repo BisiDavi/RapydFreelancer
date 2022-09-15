@@ -1,4 +1,5 @@
-import { DBClient } from "@/db/DBConnection";
+// import { DBClient } from "@/db/DBConnection";
+import connectDB from "@/middleware/mongodb";
 import { createSkillDB, getSkillsDB } from "@/db/skills";
 import type { NextApiRequest, NextApiResponse } from "next";
 
@@ -13,7 +14,7 @@ export default async function handler(
     // create skill
     case "POST": {
       try {
-        const dbClient = await DBClient();
+        const dbClient = await connectDB();
         return await createSkillDB(dbClient, data)
           .then(() => {
             return res.status(200).send("skill created");
@@ -30,7 +31,7 @@ export default async function handler(
     // get skills
     case "GET": {
       try {
-        const dbClient = await DBClient();
+        const dbClient = await connectDB();
         return await getSkillsDB(dbClient)
           .then((response) => {
             return res.status(200).json(response);

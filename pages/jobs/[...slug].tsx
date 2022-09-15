@@ -1,7 +1,8 @@
 import dynamic from "next/dynamic";
 
 import { getDataDB } from "@/db";
-import { DBClient } from "@/db/DBConnection";
+import connectDB from "@/middleware/mongodb";
+// import { DBClient } from "@/db/DBConnection";
 import JobBanner from "@/components/banners/JobBanner";
 import { useAppSelector } from "@/hooks/useRedux";
 import DefaultLayout from "@/layout/DefaultLayout";
@@ -51,8 +52,8 @@ export const getServerSideProps = async (
   const id = context.query.slug[2];
 
   try {
-    const dbClient = await DBClient();
-    const job = await getDataDB(dbClient, "jobs", { id });
+    const dbClient = await connectDB();
+    const job = await getDataDB(dbClient, "jobs", { id });  
 
     return {
       props: {

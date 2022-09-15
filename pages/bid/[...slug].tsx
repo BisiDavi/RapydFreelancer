@@ -2,7 +2,8 @@
 import { useEffect } from "react";
 
 import DefaultLayout from "@/layout/DefaultLayout";
-import { DBClient } from "@/db/DBConnection";
+// import { DBClient } from "@/db/DBConnection";
+import connectDB from "@/middleware/mongodb";
 import { getDataDB } from "@/db";
 import Breadcrumb from "@/components/BreadCrumb";
 import JobBanner from "@/components/banners/JobBanner";
@@ -58,7 +59,7 @@ export const getServerSideProps = async (
   const id = context.query.slug[1];
 
   try {
-    const dbClient = await DBClient();
+    const dbClient = await connectDB();
     const job = await getDataDB(dbClient, "jobs", { id });
 
     return {

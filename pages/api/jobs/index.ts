@@ -1,5 +1,5 @@
-import { DBClient } from "@/db/DBConnection";
 import { createJobsDB, getJobsDB } from "@/db/jobs";
+import connectDB from "@/middleware/mongodb";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
@@ -14,7 +14,7 @@ export default async function handler(
     // create job
     case "POST": {
       try {
-        const dbClient = await DBClient();
+        const dbClient = await connectDB();
         return await createJobsDB(dbClient, jobData)
           .then(() => {
             return res.status(200).send("job created");
@@ -33,7 +33,7 @@ export default async function handler(
       const { query }: any = req.query;
       const parsedQuery = query ? JSON.parse(query) : null;
       try {
-        const dbClient = await DBClient();
+        const dbClient = await connectDB();
         return await getJobsDB(dbClient, parsedQuery)
           .then((response) => {
             return res.status(200).json(response);

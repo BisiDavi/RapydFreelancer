@@ -1,17 +1,17 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { DBClient } from "@/db/DBConnection";
 import { deleteDataDB, getDataDB, saveToDB, updateDataDB } from "@/db";
+import connectDB from "@/middleware/mongodb";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   const { collection, data } = req.body;
-  const dbClient = await DBClient();
 
   switch (req.method) {
     case "POST": {
       try {
+        const dbClient = await connectDB();
         await saveToDB(dbClient, collection, data).then((response) => {
           return res.status(200).send(response);
         });
@@ -26,6 +26,7 @@ export default async function handler(
       const parsedprojection = projection ? JSON.parse(projection) : "";
 
       try {
+        const dbClient = await connectDB();
         return await getDataDB(
           dbClient,
           collection,
@@ -41,6 +42,7 @@ export default async function handler(
       }
     }
     case "PUT": {
+      const dbClient = await connectDB();
       const { query } = req.body;
       try {
         return await updateDataDB(dbClient, collection, query, data).then(
@@ -56,6 +58,7 @@ export default async function handler(
     }
     case "DELETE": {
       try {
+        const dbClient = await connectDB();
         return await deleteDataDB(dbClient, collection, data).then(
           (response) => {
             console.log("response", response);
