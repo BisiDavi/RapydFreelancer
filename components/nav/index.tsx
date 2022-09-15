@@ -62,7 +62,7 @@ export default function Nav() {
             onClick={signoutHandler}
             title="Sign out"
           />
-          {profile ? (
+          {profile?.profileImage ? (
             <img
               src={profile.profileImage}
               alt={profile.name}

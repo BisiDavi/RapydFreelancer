@@ -19,13 +19,6 @@ export default function UserPage() {
   const { authDetails } = useAuth();
   const auth = authDetails();
 
-  // useEffect(() => {
-  //   axios
-  //     .get("/api/e-wallet")
-  //     .then((response) => console.log("response-e-walleet", response.data))
-  //     .catch((error) => console.log("error-e-wallet", error));
-  // }, []);
-
   useEffect(() => {
     if (!auth) {
       dispatch(updateModal("auth-modal"));

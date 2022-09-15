@@ -32,9 +32,15 @@ export default function SignupForm({ type }: Props) {
 
   const onSubmit = (data: any) => {
     const message = defaultMessage(data);
+    const { name, email, role } = data;
+    const formData = {
+      name,
+      email,
+      role,
+    };
 
     const userData = {
-      ...data,
+      ...formData,
       bids: [],
       hires: [],
       messages: [message],

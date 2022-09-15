@@ -22,20 +22,23 @@ export default function AuthLayout({ children }: PropsWithChildren) {
   );
 
   const viewRoute = router.asPath.includes("jobs/projects");
+  const extraProtectedRoute = router.asPath.includes("user");
 
-  console.log("viewRoute", viewRoute);
   const modalState = viewRoute ? null : "auth-modal";
 
   const protectedRoutes =
     router.asPath.includes("bid") ||
     router.asPath.includes("post-job") ||
-    router.asPath.includes("user");
+    extraProtectedRoute;
 
   useEffect(() => {
+    if (!auth && extraProtectedRoute) {
+      router.push("/");
+    }
     if (!auth && protectedRoutes) {
       dispatch(updateModal("auth-modal"));
     }
-  }, [auth]);
+  }, [auth, protectedRoutes]);
   return (
     <>
       {((auth === null && modal === "auth-modal" && protectedRoutes) ||
@@ -49,4 +52,3 @@ export default function AuthLayout({ children }: PropsWithChildren) {
     </>
   );
 }
- 
