@@ -24,6 +24,9 @@ export default function IssueVirtualAccountForm() {
         onSubmit={methods.handleSubmit(onSubmit)}
         className="bg-white p-4 my-4 rounded-lg"
       >
+        <p className="font-semibol text-center mt-4">
+          Open an account with us to make you wallet active, fill the form below
+        </p>
         <div className="form-elements flex items-center">
           {accountForm.map((formElement) => (
             <div key={formElement.name} className="w-1/2 mx-4">
