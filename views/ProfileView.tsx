@@ -16,6 +16,24 @@ export default function ProfileView() {
         your KYC, this will enable you create your wallet and eligible to post
         jobs.
       </p>
+      {user && (
+        <ul className="profile-details mt-4">
+          <li className="font-bold">Profile Details</li>
+          <li>
+            <span className="font-bold">Name:</span> {user.name}
+          </li>
+          <li>
+            <span className="font-bold">Email:</span> {user.email}
+          </li>
+          <li>
+            <span className="font-bold">Role:</span> {user.role}
+          </li>
+          <li>
+            <span className="font-bold">Connects:</span> {user.connects}{" "}
+            Connect(s)
+          </li>
+        </ul>
+      )}
       {!user?.ewallet ? <ProfileForm /> : <AccountDetailsView />}
 
       {user?.address && <IssueVirtualAccountForm />}
