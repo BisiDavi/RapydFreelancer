@@ -8,7 +8,7 @@ import { getSkillsDB } from "@/db/skills";
 import { useAppDispatch } from "@/hooks/useRedux";
 import { updateSkills } from "@/redux/form-slice";
 import AuthLayout from "@/layout/AuthLayout";
-import connectDB from "@/middleware/mongodb";
+import connectDB from "@/db/DBConnection";
 
 interface Props {
   skills: { label: string; value: string; id: string }[];

@@ -1,6 +1,6 @@
 // import { DBClient } from "@/db/DBConnection";
 import { getDataDB } from "@/db";
-import connectDB from "@/middleware/mongodb";
+import connectDB from "@/db/DBConnection";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(

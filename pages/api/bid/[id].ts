@@ -1,5 +1,5 @@
 import { updateDataDB } from "@/db";
-import connectDB from "@/middleware/mongodb";
+import connectDB from "@/db/DBConnection";
 import { bidMessageToFreelancer, bidMessageToRecruiter } from "@/lib/messages";
 import type { NextApiRequest, NextApiResponse } from "next";
 

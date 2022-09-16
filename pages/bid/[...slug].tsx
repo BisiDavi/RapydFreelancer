@@ -3,7 +3,7 @@ import { useEffect } from "react";
 
 import DefaultLayout from "@/layout/DefaultLayout";
 // import { DBClient } from "@/db/DBConnection";
-import connectDB from "@/middleware/mongodb";
+import connectDB from "@/db/DBConnection";
 import { getDataDB } from "@/db";
 import Breadcrumb from "@/components/BreadCrumb";
 import JobBanner from "@/components/banners/JobBanner";

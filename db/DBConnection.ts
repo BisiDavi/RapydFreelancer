@@ -1,9 +1,9 @@
 import { MongoClient } from "mongodb";
 
-export async function DBClient() {
-  const url = `${process.env.NEXT_PUBLIC_MONGODB_URI}`;
-  const client = new MongoClient(url);
+export default async function connectDB() {
   try {
+    const url = `${process.env.NEXT_PUBLIC_MONGODB_URI}`;
+    const client = new MongoClient(url);
     await client.connect();
     console.log("Connected successfully to server");
     return client;
@@ -11,4 +11,3 @@ export async function DBClient() {
     console.error("db-error", e);
   }
 }
-  

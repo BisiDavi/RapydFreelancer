@@ -1,5 +1,5 @@
 // import { DBClient } from "@/db/DBConnection";
-import connectDB from "@/middleware/mongodb";
+import connectDB from "@/db/DBConnection";
 import { createSkillDB, getSkillsDB } from "@/db/skills";
 import type { NextApiRequest, NextApiResponse } from "next";
 

@@ -1,8 +1,7 @@
 import dynamic from "next/dynamic";
 
 import { getDataDB } from "@/db";
-import connectDB from "@/middleware/mongodb";
-// import { DBClient } from "@/db/DBConnection";
+import connectDB from "@/db/DBConnection";
 import JobBanner from "@/components/banners/JobBanner";
 import { useAppSelector } from "@/hooks/useRedux";
 import DefaultLayout from "@/layout/DefaultLayout";

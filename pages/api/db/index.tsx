@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { deleteDataDB, getDataDB, saveToDB, updateDataDB } from "@/db";
-import connectDB from "@/middleware/mongodb";
+import connectDB from "@/db/DBConnection";
 
 export default async function handler(
   req: NextApiRequest,

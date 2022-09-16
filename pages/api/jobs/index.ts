@@ -1,5 +1,5 @@
 import { createJobsDB, getJobsDB } from "@/db/jobs";
-import connectDB from "@/middleware/mongodb";
+import connectDB from "@/db/DBConnection";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
