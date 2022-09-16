@@ -33,6 +33,18 @@ export default function BuyConnectView() {
         <option value="50">$50</option>
         <option value="90">$90</option>
       </select>
+      <select
+        name="paymentMode"
+        className="mt-4 px-4 py-1"
+        id="paymentMode"
+        onChange={selectHandler}
+      >
+        <option value="">Select Payment Mode</option>
+        <option value="Card">Card</option>
+        <option value="Bank Transfer">Bank Transfer</option>
+        <option value="Bank Transfer">Bank Transfer</option>
+        <option value="Cash">Cash</option>
+      </select>
       {connect > 0 && (
         <Button
           text={`Proceed to Pay $${connect}`}

@@ -11,13 +11,8 @@ export default function ProfileView() {
 
   return (
     <div className="w-full flex flex-col">
-      <p className="font-thin">
-        Welcome to RapydFreelancers, you need to update your profile, complete
-        your KYC, this will enable you create your wallet and eligible to post
-        jobs.
-      </p>
       {user && (
-        <ul className="profile-details mt-4">
+        <ul className="profile-details my-1 mb-4">
           <li className="font-bold">Profile Details</li>
           <li>
             <span className="font-bold">Name:</span> {user.name}
@@ -34,6 +29,11 @@ export default function ProfileView() {
           </li>
         </ul>
       )}
+      <p className="font-thin">
+        Welcome to RapydFreelancers, you need to update your profile, complete
+        your KYC, this will enable you create your wallet and eligible to post
+        jobs.
+      </p>
       {!user?.ewallet ? <ProfileForm /> : <AccountDetailsView />}
 
       {user?.address && <IssueVirtualAccountForm />}
