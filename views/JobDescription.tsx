@@ -1,4 +1,4 @@
- /* eslint-disable @next/next/no-img-element */
+/* eslint-disable @next/next/no-img-element */
 import { formatJobDuration } from "@/lib/formatDuration";
 import { jobType } from "@/types";
 
@@ -14,6 +14,8 @@ export default function JobDescription({ job }: Props) {
   const estimatedDuration = `${job.durationPeriod} ${formatJobDuration(
     job.duration
   )}${formatPeriod}`;
+
+  const bids = job.bids.length > 1 ? "bids" : "bid";
 
   return (
     <>
@@ -44,6 +46,9 @@ export default function JobDescription({ job }: Props) {
           {job.user.displayName}
         </p>
       )}
+      <p>
+        <span className="font-bold">Total Bids:</span> {job.bids.length} {bids}
+      </p>
       {job?.media.length > 0 && (
         <div className="text-lg my-4">
           <span className="font-bold mr-1">Attached Document:</span>

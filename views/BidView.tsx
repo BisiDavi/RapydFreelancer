@@ -2,7 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 
 import { getBidsFromPostedJobs } from "@/request/getRequest";
 import useAuth from "@/hooks/useAuth";
-import SpinnerRipple from "@/components/loader/SpinnerRipple";
+import SpinnerRipple, {
+  SpinnerLoader,
+} from "@/components/loader/SpinnerRipple";
 import { jobType } from "@/types";
 import Button from "@/components/UI/Button";
 
@@ -20,12 +22,7 @@ export default function BidView() {
       {status === "error" ? (
         "error fetching bids"
       ) : status === "loading" ? (
-        <div className="flex flex-col">
-          <div className="ripple h-20 flex justify-center items-center">
-            <SpinnerRipple centerRipple />
-          </div>
-          <p className="text-center font-bold">Fetching bids...</p>
-        </div>
+        <SpinnerLoader loadingText="Fetching bids..." />
       ) : (
         <div className="bids">
           <h4 className="font-medium text-xl">
@@ -56,9 +53,7 @@ export default function BidView() {
                       text="View Bids"
                     />
                   )}
-                  <div className="bid-view">
-                    
-                  </div>
+                  <div className="bid-view"></div>
                 </li>
               );
             })}

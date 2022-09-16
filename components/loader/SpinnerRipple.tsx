@@ -53,3 +53,18 @@ export default function SpinnerRipple({ centerRipple }: Props) {
     </>
   );
 }
+
+interface SpinnerLoaderProps {
+  loadingText: string;
+}
+
+export function SpinnerLoader({ loadingText }: SpinnerLoaderProps) {
+  return (
+    <div className="flex flex-col">
+      <div className="ripple h-20 flex justify-center items-center">
+        <SpinnerRipple centerRipple />
+      </div>
+      <p className="text-center font-bold">{loadingText}</p>
+    </div>
+  );
+}
