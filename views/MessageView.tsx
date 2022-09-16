@@ -1,18 +1,20 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Fragment, useState } from "react";
+import axios from "axios";
 
 import useAuth from "@/hooks/useAuth";
 import { useAppSelector, useAppDispatch } from "@/hooks/useRedux";
-import { updateReadMessage, updateUserProfile } from "@/redux/user-slice";
+import { updateUserProfile } from "@/redux/user-slice";
 import { getUserProfile } from "@/request/getRequest";
 import { SpinnerLoader } from "@/components/loader/SpinnerRipple";
 
 export default function MessageView() {
   const { authDetails } = useAuth();
   const auth: any = authDetails();
-  const { messages, profile } = useAppSelector((state) => state.user);
+  const { profile } = useAppSelector((state) => state.user);
   const [showMessage, setShowMessage] = useState(false);
   const dispatch = useAppDispatch();
+  const queryClient = useQueryClient();
 
   const { data, status } = useQuery(
     ["getUserProfile"],
@@ -27,29 +29,33 @@ export default function MessageView() {
     }
   );
 
-  console.log("data", data?.data);
+  const messages = status === "success" ? data?.data[0].messages : [];
 
   function isMessageRead(id: string) {
-    let readMessage: any = messages.filter((item) => item.id === id)[0];
+    let readMessage: any = messages.filter((item: any) => item.id === id)[0];
     return readMessage.read ? "read" : "unread";
   }
 
-  const messagesv = status === "success" ? data?.data[0].messages : [];
-
   const unreadMessages =
     status === "success"
-      ? data?.data[0].messages.filter((item: any) => !item.read).length
+      ? data.data[0].messages.filter((item: any) => !item.read).length
       : 0;
 
   function onClickHandler(id: string) {
     setShowMessage(!showMessage);
-    let readMessage: any = messages.filter((item) => item.id === id)[0];
+    let readMessage: any = messages.filter((item: any) => item.id === id)[0];
     if (!readMessage.read) {
-      const readMessageIndex = messages.findIndex((item) => item.id === id);
-      const updatedMessage = { ...readMessage, read: true };
-      dispatch(
-        updateReadMessage({ index: readMessageIndex, message: updatedMessage })
-      );
+      axios
+        .put("/api/db", {
+          collection: "users",
+          query: { email: data?.data.email, "messages.id": readMessage.id },
+          data: {
+            $set: { "messages.read": true },
+          },
+        })
+        .then(() => {
+          queryClient.invalidateQueries(["getUserProfile"]);
+        });
     }
   }
 
@@ -69,9 +75,9 @@ export default function MessageView() {
             unread messages: {unreadMessages} message(s)
           </h6>
 
-          {messagesv.length > 0 ? (
+          {messages.length > 0 ? (
             <ul>
-              {messages.map((item) => {
+              {messages.map((item: any) => {
                 const messageStatus = isMessageRead(item.id);
                 const statusStyle =
                   messageStatus === "read" ? "text-red-500" : "text-blue-500";
