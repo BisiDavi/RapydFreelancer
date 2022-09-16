@@ -48,9 +48,9 @@ export default function MessageView() {
       axios
         .put("/api/db", {
           collection: "users",
-          query: { email: data?.data.email, "messages.id": readMessage.id },
+          query: { email: data?.data[0].email, "messages.id": readMessage.id },
           data: {
-            $set: { "messages.read": true },
+            $set: { "messages.$.read": true },
           },
         })
         .then(() => {
