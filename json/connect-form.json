@@ -1,0 +1,13 @@
+[
+  {
+    "label": "Select the Connect Quantity",
+    "type": "select",
+    "name": "connectQuantity",
+    "elementType": "select",
+    "options": [
+      { "text": "Select Sex", "value": "" },
+      { "text": "Male", "value": "MALE" },
+      { "text": "Female", "value": "FEMMALE" }
+    ]
+  }
+]

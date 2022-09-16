@@ -1,35 +1,21 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { Fragment, useState } from "react";
 import axios from "axios";
 
-import useAuth from "@/hooks/useAuth";
-import { useAppSelector, useAppDispatch } from "@/hooks/useRedux";
+import { useAppDispatch } from "@/hooks/useRedux";
 import { updateUserProfile } from "@/redux/user-slice";
-import { getUserProfile } from "@/request/getRequest";
 import { SpinnerLoader } from "@/components/loader/SpinnerRipple";
+import useHeader from "@/hooks/useHeader";
 
 export default function MessageView() {
-  const { authDetails } = useAuth();
-  const auth: any = authDetails();
-  const { profile } = useAppSelector((state) => state.user);
   const [showMessage, setShowMessage] = useState(false);
   const dispatch = useAppDispatch();
   const queryClient = useQueryClient();
+  const { userProfile } = useHeader();
 
-  const { data, status } = useQuery(
-    ["getUserProfile"],
-    () => getUserProfile(auth?.email),
-    {
-      enabled: !!auth?.email && profile === null,
-      onSuccess(data) {
-        if (!profile) {
-          dispatch(updateUserProfile(data?.data[0]));
-        }
-      },
-    }
-  );
+  const { data, status } = userProfile;
 
-  const messages = status === "success" ? data?.data[0].messages : [];
+  const messages = status === "success" ? data.data[0].messages : [];
 
   function isMessageRead(id: string) {
     let readMessage: any = messages.filter((item: any) => item.id === id)[0];

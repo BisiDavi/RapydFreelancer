@@ -8,7 +8,6 @@ export default function ProfileView() {
   const queryClient = useQueryClient();
   const userData: any = queryClient.getQueryData(["getUserProfile"]);
   const user = userData?.data ? userData?.data[0] : null;
-  console.log("user", user);
 
   return (
     <div className="w-full flex flex-col">

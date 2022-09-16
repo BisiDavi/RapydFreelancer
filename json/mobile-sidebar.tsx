@@ -1,5 +1,4 @@
 import { BiLogOut, BiMessageRoundedDetail } from "react-icons/bi";
-import { FaSignOutAlt } from "react-icons/fa";
 import { BsBriefcase, BsFillPersonFill } from "react-icons/bs";
 import { AiOutlineSearch } from "react-icons/ai";
 

@@ -21,18 +21,20 @@ export default function useHeader() {
   const { sidebar } = useAppSelector((state) => state.UI);
   const auth: any = authDetails();
 
-  const { data, status } = useQuery(
+  const userProfile = useQuery(
     ["getUserProfile"],
     () => getUserProfile(auth?.email),
     {
       enabled: !!(auth?.email && profile === null),
+      staleTime: Infinity,
       onSuccess(data) {
-        if (!profile && data.data.length > 0) {
+        if (!profile && data.data[0].length > 0) {
           dispatch(updateUserProfile(data?.data[0]));
         }
       },
     }
   );
+  const { data, status } = userProfile;
 
   const messages = status === "success" ? data.data[0].messages : [];
 
@@ -62,7 +64,9 @@ export default function useHeader() {
     signoutHandler,
     profile,
     unreadMessages,
+    messages,
     headerClassname,
+    userProfile,
     sidebar,
     toggleMenu,
   };
