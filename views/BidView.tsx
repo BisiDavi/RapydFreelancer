@@ -1,18 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
-
-import { getBidsFromPostedJobs } from "@/request/getRequest";
-import useAuth from "@/hooks/useAuth";
 import { SpinnerLoader } from "@/components/loader/SpinnerRipple";
 import { jobType } from "@/types";
 import Button from "@/components/UI/Button";
+import usePostedJobs from "@/hooks/usePostedJobs";
 
 export default function BidView() {
-  const { authDetails } = useAuth();
-  const auth: any = authDetails();
-
-  const { data, status } = useQuery(["getBidsFromPostedJobs"], () =>
-    getBidsFromPostedJobs(auth?.email)
-  );
+  const { data, status } = usePostedJobs();
 
   console.log("bids", data?.data);
   return (

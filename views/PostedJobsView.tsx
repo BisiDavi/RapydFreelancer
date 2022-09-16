@@ -1,17 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
-
-import { getBidsFromPostedJobs } from "@/request/getRequest";
-import useAuth from "@/hooks/useAuth";
 import SpinnerRipple from "@/components/loader/SpinnerRipple";
 import PostedJobList from "@/views/PostedJobList";
+import usePostedJobs from "@/hooks/usePostedJobs";
 
 export default function PostedJobsView() {
-  const { authDetails } = useAuth();
-  const auth: any = authDetails();
-
-  const { data, status } = useQuery(["getBidsFromPostedJobs"], () =>
-    getBidsFromPostedJobs(auth?.email)
-  );
+  const { data, status } = usePostedJobs();
 
   return (
     <div>

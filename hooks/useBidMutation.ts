@@ -6,6 +6,7 @@ import useAuth from "@/hooks//useAuth";
 import { useAppSelector } from "@/hooks/useRedux";
 import { useAppDispatch } from "@/redux/store";
 import { resetBidMedia } from "@/redux/form-slice";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function useBidMutation() {
   const { authDetails } = useAuth();
@@ -13,6 +14,7 @@ export default function useBidMutation() {
   const { bidMedia } = useAppSelector((state) => state.form);
   const date = new Date();
   const dispatch = useAppDispatch();
+  const queryClient = useQueryClient();
 
   function createBid(proposal: string, job: jobType) {
     const data = {
@@ -35,6 +37,7 @@ export default function useBidMutation() {
     error: "Oops, unable to place your bid, please try again",
     onSuccessMethod: () => {
       dispatch(resetBidMedia());
+      queryClient.invalidateQueries(["getBidsFromPostedJobs"]);
     },
   });
 }
