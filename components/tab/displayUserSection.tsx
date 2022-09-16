@@ -1,4 +1,5 @@
 import BidView from "@/views/BidView";
+import BuyConnectView from "@/views/BuyConnectView";
 import ChatView from "@/views/ChatView";
 import MessageView from "@/views/MessageView";
 import PostedJobsView from "@/views/PostedJobsView";
@@ -19,6 +20,8 @@ export default function displayUserSection(view: string) {
       return <BidView />;
     case "posted jobs":
       return <PostedJobsView />;
+    case "buy connect":
+      return <BuyConnectView />;
     default:
       return <ProfileView />;
   }

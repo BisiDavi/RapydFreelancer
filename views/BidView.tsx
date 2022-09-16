@@ -2,9 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { getBidsFromPostedJobs } from "@/request/getRequest";
 import useAuth from "@/hooks/useAuth";
-import SpinnerRipple, {
-  SpinnerLoader,
-} from "@/components/loader/SpinnerRipple";
+import { SpinnerLoader } from "@/components/loader/SpinnerRipple";
 import { jobType } from "@/types";
 import Button from "@/components/UI/Button";
 

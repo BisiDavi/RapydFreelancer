@@ -54,6 +54,7 @@ export default function MessageView() {
           },
         })
         .then(() => {
+          dispatch(updateUserProfile(null));
           queryClient.invalidateQueries(["getUserProfile"]);
         });
     }

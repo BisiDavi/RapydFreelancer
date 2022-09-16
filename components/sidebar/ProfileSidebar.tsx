@@ -6,6 +6,7 @@ const asideArray = [
   "Bids",
   "Messages",
   "Chat",
+  "Buy Connect",
   "Settings",
 ];
 
