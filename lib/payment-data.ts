@@ -26,6 +26,8 @@ export function getConnectPaymentData(data: dataType) {
     amount: data.amount,
     country,
     cancel_checkout_url: "https://rapyd-freelancer.vercel.app/user/account",
+    complete_checkout_url:
+      "https://rapyd-freelancer.vercel.app/payment/connect/success",
     complete_payment_url:
       "https://rapyd-freelancer.vercel.app/payment/connect/success",
     error_payment_url:
