@@ -77,7 +77,7 @@ export default function MobileSidebar() {
             />
           );
         })}
-        {router.asPath.includes("/user") && (
+        {auth !== null && (
           <>
             <h4 className="font-bold text-xl mt-4">Admin</h4>
             <ul className="">
