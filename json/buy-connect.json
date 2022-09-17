@@ -17,9 +17,9 @@
       "elementType": "select",
       "options": [
         { "text": "Select Connect Quantity", "value": "" },
-        { "text": "$20", "value": "20" },
-        { "text": "$50", "value": "50" },
-        { "text": "$90", "value": "90" }
+        { "text": "10 Connects ($20)", "value": "20" },
+        { "text": "50 Connects ($50)", "value": "50" },
+        { "text": "100 Connects ($90)", "value": "90" }
       ]
     },
     {
