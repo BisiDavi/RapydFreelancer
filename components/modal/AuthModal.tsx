@@ -7,14 +7,16 @@ import type { modalStateType } from "@/types/redux-types";
 interface Props {
   modal: modalStateType | null;
   toggleModal: (modal: modalStateType) => void;
+  persistModal?: boolean;
 }
 
-export default function AuthModal({ modal, toggleModal }: Props) {
+export default function AuthModal({ modal, toggleModal, persistModal }: Props) {
   return (
     <Modal
       title="You need to Login or Signup before posting or bidding for job"
       modal={modal}
       toggleModal={toggleModal}
+      persistModal={persistModal}
     >
       <Tabs
         tabHeader={["Login", "Signup"]}

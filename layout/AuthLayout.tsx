@@ -24,7 +24,7 @@ export default function AuthLayout({ children }: PropsWithChildren) {
   const viewRoute = router.asPath.includes("jobs/projects");
   const extraProtectedRoute = router.asPath.includes("user");
 
-  const modalState = viewRoute ? null : "auth-modal";
+  const modalState = viewRoute ? false : true;
 
   const protectedRoutes =
     router.asPath.includes("bid") ||
@@ -45,7 +45,8 @@ export default function AuthLayout({ children }: PropsWithChildren) {
         (auth === null && modal === "auth-modal" && viewRoute)) && (
         <DynamicAuthModal
           modal={modal}
-          toggleModal={() => toggleModal(modalState)}
+          toggleModal={() => toggleModal(null)}
+          persistModal={modalState}
         />
       )}
       {children}

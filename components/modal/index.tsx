@@ -15,8 +15,10 @@ export default function Modal({
   title,
   modal,
   toggleModal,
+  persistModal,
 }: PropsWithChildren<Props>) {
   const mobileDevice = useMediaQuery("(max-width:768px)");
+  const shouldPersistModal = persistModal ? modal : null;
 
   const modalSize = mobileDevice ? ` w-5/6` : "max-w-xl w-screen";
 
@@ -51,7 +53,7 @@ export default function Modal({
           </div>
           <div
             className="opacity-50 fixed inset-0 z-50 bg-black"
-            onClick={() => toggleModal(null)}
+            onClick={() => toggleModal(shouldPersistModal)}
           ></div>
         </>
       ) : null}
