@@ -21,7 +21,6 @@ export default function useWalletMutation() {
       {
         mutationKey: ["useWalletMutation"],
         success: "KYC submitted, wallet created successfully",
-        error: "Oops, unable to create wallet due to an error",
         onSuccessMethodWithData: (data) => {
           dispatch(updateUserProfile(null));
           queryClient.invalidateQueries(["getUserProfile"]);

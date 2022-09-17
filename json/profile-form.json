@@ -63,7 +63,7 @@
       "type": "input",
       "name": "dateOfBirth",
       "elementType": "text",
-      "placeholder": "DD/MM/YYYY"
+      "placeholder": "MM/DD/YYYY"
     }
   ]
 ]
