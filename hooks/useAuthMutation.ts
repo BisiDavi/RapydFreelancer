@@ -1,3 +1,5 @@
+import { useQueryClient } from "@tanstack/react-query";
+
 import useRequestMutation from "@/hooks/useRequestMutation";
 import useAuth from "@/hooks/useAuth";
 import { useAppDispatch } from "@/hooks/useRedux";
@@ -9,7 +11,8 @@ export default function useAuthMutation() {
   const { authSignup, authSignIn, authSignOut } = useAuth();
   const { modal, toggleModal } = useAuthModal();
   const dispatch = useAppDispatch();
-
+const queryClient = useQueryClient()
+  
   function closeSidebar() {
     dispatch(updateSidebar(null));
   }
@@ -37,6 +40,7 @@ export default function useAuthMutation() {
         error: "oops, an error occured",
         onSuccessMethod() {
           if (modal === "auth-modal") {
+            queryClient.invalidateQueries(["getUserProfile"]);
             toggleModal(null);
           }
           return closeSidebar();

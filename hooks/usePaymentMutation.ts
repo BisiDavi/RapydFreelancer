@@ -2,10 +2,14 @@ import axios from "axios";
 
 import useRequestMutation from "@/hooks/useRequestMutation";
 
-export function getCurrencyDailyRate(buyCurrency: string) {
+function getCurrencyDailyRate(buyCurrency: string) {
   return axios.get("/api/payment/daily-currency-rate", {
     params: { buyCurrency },
   });
+}
+
+function connectPayment(){
+  return axios.post("/api/")
 }
 
 export default function usePaymentMutation() {
@@ -19,6 +23,8 @@ export default function usePaymentMutation() {
       }
     );
   }
+
+  function useConnectPaymentMutation() {}
 
   return { useGetCurrencyRate };
 }

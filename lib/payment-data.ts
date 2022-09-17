@@ -5,6 +5,7 @@ import countryCurrency from "@/json/countrycurrency.json";
 type dataType = {
   amount: number;
   currency: string;
+  connectQuantity: number;
 };
 
 export function getConnectPaymentData(data: dataType) {
@@ -20,6 +21,7 @@ export function getConnectPaymentData(data: dataType) {
     ...fxData,
     amount: data.amount,
     country,
+    cancel_checkout_url: "https://rapyd-freelancer.vercel.app/user/account",
     complete_payment_url:
       "https://rapyd-freelancer.vercel.app/payment/connect/success",
     error_payment_url:
@@ -29,6 +31,7 @@ export function getConnectPaymentData(data: dataType) {
     merchant_reference_id: uuidv4(),
     metadata: {
       merchant_defined: true,
+      connectQuantity: data.connectQuantity,
     },
   };
 
