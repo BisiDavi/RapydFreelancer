@@ -22,7 +22,7 @@ export default function SettingsView() {
   const userEmail: string | any = authDetails()?.email;
   const { profile } = useAppSelector((state) => state.user);
 
-  const previewImage = profile ? profile?.profileImage : image;
+  const previewImage = profile?.profileImage ? profile?.profileImage : image;
 
   function uploadImageHandler(e: any) {
     const imageData = URL.createObjectURL(e.target.files[0]);

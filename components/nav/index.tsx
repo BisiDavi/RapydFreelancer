@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import { BsFillPersonFill } from "react-icons/bs";
-import { FaSignOutAlt } from "react-icons/fa";
 import { BiLogOut, BiMessageRoundedDetail } from "react-icons/bi";
 
 import Button from "@/components/UI/Button";
@@ -8,8 +7,12 @@ import getUserInitials from "@/lib/getUserInitials";
 import useHeader from "@/hooks/useHeader";
 
 export default function Nav() {
-  const { authHandler, auth, profile, signoutHandler, unreadMessages } =
+  const { authHandler, auth, signoutHandler, userProfile, unreadMessages } =
     useHeader();
+
+  const { data, status } = userProfile;
+
+  const profileImage = data?.data[0]?.profileImage;
 
   return (
     <nav className={`w-4/5 items-center  justify-between lg:flex hidden`}>
@@ -62,11 +65,11 @@ export default function Nav() {
             onClick={signoutHandler}
             title="Sign out"
           />
-          {profile?.profileImage ? (
+          {profileImage && status === "success" ? (
             <img
-              src={profile.profileImage}
-              alt={profile.name}
-              title={profile.name}
+              src={profileImage}
+              alt={data?.data[0].name}
+              title={data?.data[0].name}
               className="h-14 w-14 rounded-full"
             />
           ) : (
