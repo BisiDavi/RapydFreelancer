@@ -2,11 +2,11 @@ import axios from "axios";
 import { useQueryClient } from "@tanstack/react-query";
 
 import useRequestMutation from "@/hooks/useRequestMutation";
-import { jobType } from "@/types";
-import useAuth from "@/hooks//useAuth";
+import useAuth from "@/hooks/useAuth";
 import { useAppSelector } from "@/hooks/useRedux";
 import { useAppDispatch } from "@/redux/store";
 import { resetBidMedia } from "@/redux/form-slice";
+import type { jobType } from "@/types";
 
 export default function useBidMutation() {
   const { authDetails } = useAuth();
@@ -29,6 +29,7 @@ export default function useBidMutation() {
       },
       createdAt: date,
     };
+    console.log("data", data);
     return axios.post(`/api/bid/${job.id}`, { data });
   }
   return useRequestMutation(({ proposal, job }) => createBid(proposal, job), {

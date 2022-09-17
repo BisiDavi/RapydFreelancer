@@ -81,7 +81,7 @@ export default function BidForm({ job }: Props) {
               {words.length} {wordCount}
             </span>
           </div>
-          {words.length >= 50 && (
+          {words.length >= 40 && (
             <Media
               big
               previewMedia={previewMedia}

@@ -3,7 +3,10 @@ import connectDB from "@/db/DBConnection";
 import { bidMessageToFreelancer, bidMessageToRecruiter } from "@/lib/messages";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-export async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const { id }: any = req.query;
   const { data } = req.body;
 
