@@ -1,16 +1,17 @@
-import useRequestMutation from "@/hooks/useRequestMutation";
 import axios from "axios";
 
-export function getCurrencyDailyRate(amount: number, buyCurrency: string) {
+import useRequestMutation from "@/hooks/useRequestMutation";
+
+export function getCurrencyDailyRate(buyCurrency: string) {
   return axios.get("/api/payment/daily-currency-rate", {
-    params: { amount, buyCurrency },
+    params: { buyCurrency },
   });
 }
 
 export default function usePaymentMutation() {
   function useGetCurrencyRate() {
     return useRequestMutation(
-      ({ amount, buyCurrency }) => getCurrencyDailyRate(amount, buyCurrency),
+      (buyCurrency) => getCurrencyDailyRate(buyCurrency),
       {
         mutationKey: ["useGetCurrencyRate"],
         success: "currency rate fetched",

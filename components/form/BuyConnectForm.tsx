@@ -1,12 +1,14 @@
 import { useForm, FormProvider } from "react-hook-form";
 import { Fragment } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 import Button from "@/components/UI/Button";
 import buyConnect from "@/json/buy-connect.json";
 import displayFormElement from "@/lib/displayFormElement";
 import SelectCurrency from "@/components/form/form-elements/SelectCurrency";
-import { useQuery } from "@tanstack/react-query";
-import { getCurrencyDailyRate } from "@/hooks/usePaymentMutation";
+import usePaymentMutation, {
+  getCurrencyDailyRate,
+} from "@/hooks/usePaymentMutation";
 
 export default function BuyConnectForm() {
   const methods = useForm({
@@ -22,18 +24,15 @@ export default function BuyConnectForm() {
   const currencyType = methods.watch("currencyType");
   const currency = methods.watch("currency");
   const connectQuantity = methods.watch("connectQuantity");
-  const amount = connectQuantity ? Number(`${connectQuantity}.00`) : 0.0;
-  console.log("amount", amount);
-  const { data, status } = useQuery(
-    ["getCurrencyDailyRate"],
-    () => getCurrencyDailyRate(amount, currency),
-    { enabled: !!(currency && connectQuantity) }
-  );
+  const { useGetCurrencyRate } = usePaymentMutation();
+  const { mutate, data, status, isLoading } = useGetCurrencyRate();
 
   console.log("formValues", formValues);
   console.log("currency", currency);
 
-  console.log("data", data?.data);
+  function fetchExchangeRate() {
+    mutate(currency);
+  }
 
   return (
     <FormProvider {...methods}>
@@ -46,12 +45,21 @@ export default function BuyConnectForm() {
             <SelectCurrency content={buyConnect.other} />
           )}
         </div>
+
         {currency && (
+          <Button
+            text={`Fetch currency exchange rate of ${currency}/USD`}
+            className="bg-green-500 mx-auto flex my-2 mt-4 px-4 py-2 text-white rounded-md"
+            loading={isLoading}
+            onClick={fetchExchangeRate}
+          />
+        )}
+        {/* {currency && (
           <Button
             text={`Proceed to Pay $${connectQuantity}`}
             className="bg-green-500 mx-auto flex my-2 mt-4 px-4 py-2 text-white rounded-md"
           />
-        )}
+        )} */}
       </form>
     </FormProvider>
   );

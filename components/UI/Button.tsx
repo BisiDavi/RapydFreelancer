@@ -11,7 +11,7 @@ interface Props {
   disabled?: boolean;
   loading?: boolean;
   href?: string;
-  title?:string
+  title?: string;
 }
 
 export default function Button({
@@ -23,7 +23,7 @@ export default function Button({
   disabled,
   loading,
   href,
-  title
+  title,
 }: Props) {
   const buttonType = type ? type : "button";
   return (
@@ -43,7 +43,7 @@ export default function Button({
           disabled={disabled}
           title={title}
         >
-          {loading && <ButtonSpinner />} {icon} {!loading && text}
+          {loading && <ButtonSpinner />} {icon} {text}
         </button>
       )}
     </>
