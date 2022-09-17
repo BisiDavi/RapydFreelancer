@@ -1,10 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 import { FaSignOutAlt } from "react-icons/fa";
+import { useRouter } from "next/router";
 
 import Button from "@/components/UI/Button";
 import useHeader from "@/hooks/useHeader";
 import getUserInitials from "@/lib/getUserInitials";
 import { getMobileSidebarArray } from "@/components/sidebar/mobile-sidebar";
+import asideArray from "@/json/sidebar.json";
+import useProfileLink from "@/hooks/useProfileLink";
 
 export default function MobileSidebar() {
   const {
@@ -15,13 +18,15 @@ export default function MobileSidebar() {
     toggleMenu,
     unreadMessages,
   } = useHeader();
+  const { getActiveLink, linkHandler, router } = useProfileLink();
+
   const mobileSidebarArray = getMobileSidebarArray(signoutHandler);
   mobileSidebarArray[0].text = auth
     ? `Welcome, ${auth.displayName}`
     : "Hello, Guest";
 
   return (
-    <aside className="w-full h-screen flex items-center fixed top-0 h-screen z-50">
+    <aside className="w-full h-screen flex items-center fixed overflow-y-scroll top-0 h-screen z-50">
       <div className="content bg-white w-5/6 h-full px-4">
         <div className="flex item-center mx-auto my-10 justify-center">
           {profile ? (
@@ -71,6 +76,23 @@ export default function MobileSidebar() {
             />
           );
         })}
+        <ul className="mt-4">
+          {router.asPath.includes("/user") &&
+            asideArray.map((item, index) => {
+              const itemClassName =
+                asideArray.length - 1 === index ? "" : "border-b";
+              const activeLink = getActiveLink(item);
+              return (
+                <li
+                  key={item}
+                  className={`${activeLink} py-1 font-bold cursor-pointer text-xl hover:bg-gray-400 my-1 ${itemClassName} px-4 hover:text-white`}
+                  onClick={() => linkHandler(item)}
+                >
+                  {item}
+                </li>
+              );
+            })}
+        </ul>
         <div className="mt-14 flex items-center justify-between">
           <Button
             text="Login"

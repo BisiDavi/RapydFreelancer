@@ -59,11 +59,15 @@ export default function BidForm({ job }: Props) {
   return (
     <>
       {isSuccess ? (
-        <div className="success flex items-center justify-between mx-auto my-6 p-3">
-          <img src="/checkmark.gif" alt="bid successful" />
+        <div className="success flex-col lg:flex-row flex items-center justify-between mx-auto my-6 p-3">
+          <img
+            src="/checkmark.gif"
+            alt="bid successful"
+            className="mx-2 w-1/4"
+          />
           <p className="font-bold text-center">
             Hurray, You&#39;ve successfully submitted your bid, you can bid on
-            more jobs or visit your profile{" "}
+            more jobs or visit your{" "}
             <Link href="/user/profile">
               <a className="mx-1 text-red-500 hover:text-400">Profile</a>
             </Link>
