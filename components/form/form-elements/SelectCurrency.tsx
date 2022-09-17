@@ -1,15 +1,13 @@
 import { useFormContext } from "react-hook-form";
 
 import type { elementType } from "@/types/form-types";
-import currencies from "@/json/currencies.json";
+import countrycurrencies from "@/json/countrycurrency.json";
 
 export default function SelectCurrency({ content }: elementType) {
   const {
     register,
     formState: { errors },
   }: any = useFormContext();
-
-  const currencyValue = (currecyItem: string) => currecyItem.split(":");
 
   return (
     <div className="form flex flex-col relative my-2 w-full">
@@ -23,12 +21,10 @@ export default function SelectCurrency({ content }: elementType) {
         {...register(content.name)}
       >
         <option value="">Select Currency</option>
-        {currencies?.map((item: any) => {
-          const value = currencyValue(item)[0];
-          const option = currencyValue(item)[1];
+        {countrycurrencies.map((item) => {
           return (
-            <option key={item} value={value}>
-              {value} ({option})
+            <option key={item.country} value={item.currency}>
+              {item.currency} ({item.country})
             </option>
           );
         })}

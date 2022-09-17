@@ -1,14 +1,11 @@
 import { useForm, FormProvider } from "react-hook-form";
 import { Fragment } from "react";
-import { useQuery } from "@tanstack/react-query";
 
 import Button from "@/components/UI/Button";
 import buyConnect from "@/json/buy-connect.json";
 import displayFormElement from "@/lib/displayFormElement";
 import SelectCurrency from "@/components/form/form-elements/SelectCurrency";
-import usePaymentMutation, {
-  getCurrencyDailyRate,
-} from "@/hooks/usePaymentMutation";
+import usePaymentMutation from "@/hooks/usePaymentMutation";
 import { SpinnerLoader } from "@/components/loader/SpinnerRipple";
 
 function getConnectQuantity(connectPrice: string) {
@@ -52,9 +49,7 @@ export default function BuyConnectForm() {
     status === "success" ? Number(connectPrice) * data?.data.rate : "";
 
   const payAmount =
-    currencyType === "USD"
-      ? `$${connectPrice}`
-      : `${currency} ${exchangeRate}`;
+    currencyType === "USD" ? `$${connectPrice}` : `${currency} ${exchangeRate}`;
 
   const paymentCheck =
     currencyType === "USD" && connectPrice
