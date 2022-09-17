@@ -1,5 +1,6 @@
+import { v4 as uuidv4 } from "uuid";
+
 import countryCurrency from "@/json/countrycurrency.json";
-import { v4 as  uuidv4 } from "uuid";
 
 type dataType = {
   amount: number;
@@ -19,7 +20,10 @@ export function getConnectPaymentData(data: dataType) {
     ...fxData,
     amount: data.amount,
     country,
-    complete_payment_url: "h",
+    complete_payment_url:
+      "https://rapyd-freelancer.vercel.app/payment/connect/success",
+    error_payment_url:
+      "https://rapyd-freelancer.vercel.app/payment/connect/error",
     currency: data.currency,
     language: "en",
     merchant_reference_id: uuidv4(),
@@ -27,6 +31,8 @@ export function getConnectPaymentData(data: dataType) {
       merchant_defined: true,
     },
   };
+
+  console.log("paymentData", paymentData);
 
   return paymentData;
 }
