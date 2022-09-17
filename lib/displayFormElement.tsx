@@ -2,6 +2,7 @@ import Input from "@/components/form/form-elements/Input";
 import Media from "@/components/form/form-elements/Media";
 import PhoneNumberInput from "@/components/form/form-elements/PhoneNumberInput";
 import PriceRange from "@/components/form/form-elements/PriceRange";
+import RadioGroup from "@/components/form/form-elements/RadioGroup";
 import Select from "@/components/form/form-elements/Select";
 import SelectCurrency from "@/components/form/form-elements/SelectCurrency";
 import SelectSkill from "@/components/form/form-elements/SelectSkill";
@@ -9,7 +10,9 @@ import Textarea from "@/components/form/form-elements/Textarea";
 
 import type { elementType } from "@/types/form-types";
 
-export default function displayFormElement(content: elementType["content"]) {
+export default function displayFormElement(
+  content: elementType["content"] | any
+) {
   switch (content.type) {
     case "input":
       return <Input content={content} />;
@@ -27,5 +30,7 @@ export default function displayFormElement(content: elementType["content"]) {
       return <PhoneNumberInput content={content} />;
     case "currency":
       return <SelectCurrency content={content} />;
+    case "radioGroup":
+      return <RadioGroup content={content} />;
   }
 }

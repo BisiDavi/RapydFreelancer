@@ -1,12 +1,30 @@
-export default function RadioGroup({}) {
+import { useFormContext } from "react-hook-form";
+
+interface Props {
+  content: {
+    radios: Array<{ text: string; value: string }>;
+    name: string;
+    label: string;
+  };
+}
+
+export default function RadioGroup({ content }: Props) {
+  const { register }: any = useFormContext();
   return (
-    <div className="input-group">
-      <div className="radio">
-        <input type="radio" placeholder="USD" name="currencyType" /> USD
-      </div>
-      <div className="radio">
-        <input type="radio" name="currencyType" /> Local Currency
-      </div>
+    <div className="radio-group">
+      <label htmlFor={content.name}>{content.label}</label>
+      {content.radios.map((item, index) => (
+        <div key={index}>
+          <input
+            type="radio"
+            value={item.value}
+            name={content.name}
+            className="mr-1"
+            {...register(content.name)}
+          />
+          {item.text}
+        </div>
+      ))}
     </div>
   );
 }

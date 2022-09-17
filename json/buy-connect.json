@@ -1,23 +1,45 @@
-[
-  {
-    "label": "Project Duration *",
-    "type": "select",
-    "name": "duration",
-    "elementType": "text",
-    "options": [
-      { "text": "Select Project Duration", "value": "" },
-      { "text": "hrs", "value": "HOURLY" },
-      { "text": "Day(s)", "value": "DAYS" },
-      { "text": "Week(s)", "value": "WEEKS" },
-      { "text": "Monthly", "value": "MONTHLY" },
-      { "text": "Yearly", "value": "YEARLY" }
-    ]
-  },
-  {
-    "label": "Select Currency of Bank",
+{
+  "main": [
+    {
+      "label": "Do you want to make payment in your USD or Local Currency?",
+      "type": "radioGroup",
+      "name": "currencyType",
+      "elementType": "radioGroup",
+      "radios": [
+        { "text": "USD", "value": "USD" },
+        { "text": "Local Currency", "value": "LOCAL_CURRENCY" }
+      ]
+    },
+    {
+      "label": "Select Connect Quantity",
+      "type": "select",
+      "name": "connectQuantity",
+      "elementType": "select",
+      "options": [
+        { "text": "Select Connect Quantity", "value": "" },
+        { "text": "$20", "value": "20" },
+        { "text": "$50", "value": "50" },
+        { "text": "$90", "value": "90" }
+      ]
+    },
+    {
+      "label": "Select Payment Mode",
+      "type": "select",
+      "name": "paymentMethod",
+      "elementType": "select",
+      "options": [
+        { "text": "Select Payment Mode", "value": "" },
+        { "text": "Card", "value": "Card" },
+        { "text": "Bank", "value": "Bank Transfer" },
+        { "text": "Cash", "value": "Cash" }
+      ]
+    }
+  ],
+  "other": {
+    "label": "Select Your Local Currency",
     "type": "currency",
     "name": "currency",
     "elementType": "text",
-    "placeholder": "Which currency do you want for your account"
+    "placeholder": "Select currency"
   }
-]
+}
