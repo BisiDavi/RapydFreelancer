@@ -79,7 +79,7 @@ export default function MobileSidebar() {
         })}
         {router.asPath.includes("/user") && (
           <>
-            <h4 className="font-bold text-xl mt-4">Admin Links</h4>
+            <h4 className="font-bold text-xl mt-4">Admin</h4>
             <ul className="">
               {asideArray.map((item, index) => {
                 const itemClassName =

@@ -11,7 +11,6 @@ import useFirebase from "@/hooks/useFirebase";
 
 type dataType = {
   email: string;
-  password: string;
   name: string;
   role: string;
 };
@@ -20,8 +19,9 @@ export default function useAuth() {
   const { initFB, writeData } = useFirebase();
   const app = initFB();
 
-  async function authSignup(data: dataType) {
-    const { email, password, name } = data;
+  async function authSignup(data: dataType, password: string) {
+    const { email, name } = data;
+    console.log("data", data);
     const auth: any = getAuth(app);
     try {
       await createUserWithEmailAndPassword(auth, email, password).then(

@@ -32,7 +32,7 @@ export default function SignupForm({ type }: Props) {
 
   const onSubmit = (data: any) => {
     const message = defaultMessage(data);
-    const { name, email, role } = data;
+    const { name, email, role, password } = data;
     const formData = {
       name,
       email,
@@ -46,11 +46,14 @@ export default function SignupForm({ type }: Props) {
       messages: [message],
       connects: 5,
     };
-    return mutate(userData, {
-      onSuccess: (data) => {
-        console.log("mutate-onSuccess", data);
-      },
-    });
+    return mutate(
+      { userData, password },
+      {
+        onSuccess: (data) => {
+          console.log("mutate-onSuccess", data);
+        },
+      }
+    );
   };
   return (
     <FormProvider {...methods}>

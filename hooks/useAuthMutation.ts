@@ -11,24 +11,27 @@ export default function useAuthMutation() {
   const { authSignup, authSignIn, authSignOut } = useAuth();
   const { modal, toggleModal } = useAuthModal();
   const dispatch = useAppDispatch();
-const queryClient = useQueryClient()
-  
+  const queryClient = useQueryClient();
+
   function closeSidebar() {
     dispatch(updateSidebar(null));
   }
 
   function useSignupMutation() {
-    return useRequestMutation((data) => authSignup(data), {
-      mutationKey: ["useSignupMutation"],
-      success: "Sign up Successful",
-      error: "Sign up error",
-      onSuccessMethod: () => {
-        if (modal === "auth-modal") {
-          toggleModal(null);
-        }
-        closeSidebar();
-      },
-    });
+    return useRequestMutation(
+      ({ userData, password }) => authSignup(userData, password),
+      {
+        mutationKey: ["useSignupMutation"],
+        success: "Sign up Successful",
+        error: "Sign up error",
+        onSuccessMethod: () => {
+          if (modal === "auth-modal") {
+            toggleModal(null);
+          }
+          closeSidebar();
+        },
+      }
+    );
   }
 
   function useSigninMutation() {
