@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { useRef, useState } from "react";
 import { BiUpload } from "react-icons/bi";
+import { useQueryClient } from "@tanstack/react-query";
 
 import Button from "@/components/UI/Button";
 import useMediaUpload from "@/hooks/useMediaUpload";
@@ -8,6 +9,8 @@ import useToast from "@/hooks/useToast";
 import useAuth from "@/hooks/useAuth";
 import { updateUserDB } from "@/request/getRequest";
 import { useAppSelector } from "@/hooks/useRedux";
+import { useAppDispatch } from "@/redux/store";
+import { updateUserProfile } from "@/redux/user-slice";
 
 // upload to cloudinary
 // save the data in database.
@@ -21,6 +24,8 @@ export default function SettingsView() {
   const { authDetails } = useAuth();
   const userEmail: string | any = authDetails()?.email;
   const { profile } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
+  const queryClient = useQueryClient();
 
   const previewImage = profile?.profileImage ? profile?.profileImage : image;
 
@@ -35,6 +40,8 @@ export default function SettingsView() {
     uploadImage(targetFile).then((response) => {
       return updateUserDB(userEmail, response.data.secure_url)
         .then(() => {
+          dispatch(updateUserProfile(null));
+          queryClient.invalidateQueries(["getUserProfile"]);
           updateToast(
             toastID,
             "success",
@@ -57,7 +64,7 @@ export default function SettingsView() {
           <img
             src={previewImage}
             alt="preview"
-            className="absolute z-40 rounded-full"
+            className="absolute z-40 rounded-full h-52"
           />
         )}
         <label
