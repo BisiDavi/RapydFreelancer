@@ -6,6 +6,9 @@ import type { NextApiRequest, NextApiResponse } from "next";
 export async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { id }: any = req.query;
   const { data } = req.body;
+
+  console.log("data", data);
+
   switch (req.method) {
     case "POST": {
       try {
@@ -15,7 +18,7 @@ export async function handler(req: NextApiRequest, res: NextApiResponse) {
           "jobs",
           { id },
           {
-            $set: { bids: [data] },
+            $push: { bids: data },
           }
         );
         await updateDataDB(
@@ -23,26 +26,24 @@ export async function handler(req: NextApiRequest, res: NextApiResponse) {
           "users",
           { email: data.freelancer.email },
           {
-            $set: {
-              bids: [
-                {
-                  id,
-                  title: data?.title,
-                  price: data.price,
-                  createdAt: data?.createdAt,
-                },
-              ],
+            $push: {
+              bids: {
+                id,
+                title: data?.title,
+                price: data.price,
+                createdAt: data?.createdAt,
+              },
             },
           }
         );
-        const freelancerMessage = await bidMessageToFreelancer(data);
+        const freelancerMessage = bidMessageToFreelancer(data);
         await updateDataDB(
           dbClient,
           "users",
           { email: data.freelancer.email },
           {
-            $set: {
-              messages: [freelancerMessage],
+            $push: {
+              messages: freelancerMessage,
             },
           }
         );
@@ -52,8 +53,8 @@ export async function handler(req: NextApiRequest, res: NextApiResponse) {
           "users",
           { email: data.recruiter.email },
           {
-            $set: {
-              messages: [recruiterMessage],
+            $push: {
+              messages: recruiterMessage,
             },
           }
         );
