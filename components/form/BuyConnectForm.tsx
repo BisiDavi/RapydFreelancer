@@ -5,6 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Button from "@/components/UI/Button";
 import buyConnect from "@/json/buy-connect.json";
 import displayFormElement from "@/lib/displayFormElement";
+import SelectCurrency from "./form-elements/SelectCurrency";
 
 export default function BuyConnectForm() {
   const [connect, setConnect] = useState(0);
@@ -19,18 +20,22 @@ export default function BuyConnectForm() {
   };
 
   const formValues = methods.watch();
+  const currencyType = methods.watch("currencyType");
 
   console.log("formValues", formValues);
 
   return (
     <FormProvider {...methods}>
       <form
-        className="flex flex-col w-1/3 mt-4"
+        className="grid grid-cols-2 gap-x-5 w-11/12 mt-4"
         onSubmit={methods.handleSubmit(onSubmit)}
       >
         {buyConnect.main.map((item, index) => (
           <Fragment key={index}>{displayFormElement(item)}</Fragment>
         ))}
+        {currencyType === "LOCAL_CURRENCY" && (
+          <SelectCurrency content={buyConnect.other} />
+        )}
         {connect > 0 && (
           <Button
             text={`Proceed to Pay $${connect}`}

@@ -23,7 +23,7 @@ export default function Select({ content }: elementType) {
   const optionsArray = content.name === "country" ? countries : content.options;
 
   return (
-    <div className="form flex flex-col relative my-2 w-full">
+    <div className={`form flex flex-col relative my-2 w-full`}>
       <label htmlFor={content.name} className={labelClassName}>
         {content.label}
       </label>
