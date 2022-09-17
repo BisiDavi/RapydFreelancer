@@ -7,6 +7,7 @@ import displayFormElement from "@/lib/displayFormElement";
 import SelectCurrency from "@/components/form/form-elements/SelectCurrency";
 import usePaymentMutation from "@/hooks/usePaymentMutation";
 import { SpinnerLoader } from "@/components/loader/SpinnerRipple";
+import { formatPrice } from "@/lib/formatPrice";
 
 function getConnectQuantity(connectPrice: string) {
   if (connectPrice === "20") {
@@ -49,7 +50,13 @@ export default function BuyConnectForm() {
     status === "success" ? Number(connectPrice) * data?.data.rate : "";
 
   const payAmount =
-    currencyType === "USD" ? `$${connectPrice}` : `${currency} ${exchangeRate}`;
+    currencyType === "USD"
+      ? `$${connectPrice}`
+      : typeof exchangeRate === "number"
+      ? `${currency} ${Math.round(exchangeRate)}`
+      : 0;
+
+  const amount = formatPrice(payAmount);
 
   const paymentCheck =
     currencyType === "USD" && connectPrice
@@ -96,7 +103,7 @@ export default function BuyConnectForm() {
         )}
         {paymentCheck && (
           <Button
-            text={`Proceed to Pay ${payAmount}`}
+            text={`Proceed to Pay ${amount}`}
             className="bg-green-500 mx-auto flex my-2 mt-4 px-4 py-2 text-white rounded-md"
           />
         )}
