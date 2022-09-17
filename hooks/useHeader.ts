@@ -25,10 +25,9 @@ export default function useHeader() {
     ["getUserProfile"],
     () => getUserProfile(auth?.email),
     {
-      enabled: !!auth?.email,
       staleTime: Infinity,
       onSuccess(data) {
-        if (!profile && data.data[0].length > 0) {
+        if (!profile && data.data.length > 0) {
           dispatch(updateUserProfile(data?.data[0]));
         }
       },
