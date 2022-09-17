@@ -6,10 +6,7 @@ type initialStateType = {
   profile: null | { [key: string]: any[] | any };
   walletId: string;
   payment: {
-    connect: {
-      quantity: number;
-      amount: number;
-    } | null;
+    connect: number | null;
   };
 };
 
@@ -52,5 +49,6 @@ export const {
   updateReadMessage,
   updateUserProfile,
   updateWallet,
+  updatePaymentConnect,
 } = UserSlice.actions;
 export default UserSlice.reducer;

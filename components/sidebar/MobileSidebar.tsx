@@ -20,7 +20,7 @@ export default function MobileSidebar() {
   } = useHeader();
   const { getActiveLink, linkHandler, router } = useProfileLink();
 
-  const mobileSidebarArray = getMobileSidebarArray(signoutHandler);
+  const mobileSidebarArray = getMobileSidebarArray();
   mobileSidebarArray[0].text = auth
     ? `Welcome, ${auth.displayName}`
     : "Hello, Guest";
@@ -47,6 +47,8 @@ export default function MobileSidebar() {
           )}
         </div>
         {mobileSidebarArray.map((item, index) => {
+          const itemClassName =
+            mobileSidebarArray.length - 1 === index ? "" : "border-b";
           return item.text === "Unread messages" ? (
             <div key={index} className="message relative my-2 hover:opacity-70">
               {auth !== null && (
@@ -56,7 +58,7 @@ export default function MobileSidebar() {
                     href={item?.link}
                     title={item.text}
                     text={item.text}
-                    className="flex items-center border-b text-blue-500 text-xl my-3 my-2 font-bold"
+                    className={`flex ${itemClassName} items-center text-blue-500 text-xl my-3 my-2 font-bold`}
                   />
                   <span className="rounded-full h-5 flex items-center justify-center font-bold absolute -top-1 left-5 w-5 bg-red-500 text-white">
                     {unreadMessages}
@@ -71,7 +73,7 @@ export default function MobileSidebar() {
               href={item?.link}
               title={item.text}
               text={item.text}
-              className="text-blue-500 font-bold border-b w-full flex my-3 text-lg items-center rounded-md hover:text-blue-800"
+              className={`text-blue-500 ${itemClassName} font-bold w-full flex my-3 text-lg items-center rounded-md hover:text-blue-800`}
             />
           );
         })}
@@ -86,7 +88,7 @@ export default function MobileSidebar() {
                 return (
                   <li
                     key={item}
-                    className={`${activeLink} py-1 font-bold text-blue-500 cursor-pointer text-xl hover:bg-gray-400 my-1 ${itemClassName} px-4 hover:text-white`}
+                    className={`${activeLink} py-0.5 font-bold text-blue-500 cursor-pointer text-lg hover:bg-gray-400 my-1 ${itemClassName} px-4 hover:text-white`}
                     onClick={() => linkHandler(item)}
                   >
                     {item}

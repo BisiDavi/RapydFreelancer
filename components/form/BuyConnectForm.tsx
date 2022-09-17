@@ -1,5 +1,6 @@
 import { useForm, FormProvider } from "react-hook-form";
 import { Fragment } from "react";
+import { useRouter } from "next/router";
 
 import Button from "@/components/UI/Button";
 import buyConnect from "@/json/buy-connect.json";
@@ -9,7 +10,8 @@ import usePaymentMutation from "@/hooks/usePaymentMutation";
 import { SpinnerLoader } from "@/components/loader/SpinnerRipple";
 import { formatPrice } from "@/lib/formatPrice";
 import { getConnectPaymentData } from "@/lib/payment-data";
-import { useRouter } from "next/router";
+import { useAppDispatch } from "@/hooks/useRedux";
+import { updatePaymentConnect } from "@/redux/user-slice";
 
 function getConnectQuantity(connectPrice: string) {
   if (connectPrice === "20") {
@@ -35,6 +37,7 @@ export default function BuyConnectForm() {
   const { mutate, data, status, isLoading } = useGetCurrencyRate();
   const connectPayment = useConnectPaymentMutation();
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
   function fetchExchangeRate() {
     mutate(currency);
@@ -63,8 +66,9 @@ export default function BuyConnectForm() {
     };
     const paymentData = getConnectPaymentData(dataObj);
     connectPayment.mutate(paymentData, {
-      onSuccess: (data) => {
+      onSuccess: (_, variable) => {
         console.log("data", data);
+        dispatch(updatePaymentConnect(variable.metadata.connectQuantity));
         return router.push(data?.data?.redirect_url);
       },
     });

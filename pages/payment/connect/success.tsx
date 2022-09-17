@@ -1,8 +1,22 @@
 /* eslint-disable @next/next/no-img-element */
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+
 import DefaultLayout from "@/layout/DefaultLayout";
 import Button from "@/components/UI/Button";
+import { useAppSelector } from "@/hooks/useRedux";
+
+function updateConnectAfterPayment() {
+  return axios.put("/api/db");
+}
 
 export default function ConnectPaymentSuccessful() {
+  const {
+    payment: { connect },
+  } = useAppSelector((state) => state.user);
+  const {} = useQuery(["updateConnect"], updateConnectAfterPayment, {
+    enabled: !!connect,
+  });
   return (
     <DefaultLayout title="Your Profile">
       <section className="container flex items-start mx-auto my-10">
