@@ -69,13 +69,15 @@ export default function MessageView() {
                 const statusStyle =
                   messageStatus === "read" ? "text-red-500" : "text-blue-500";
                 return (
-                  <li key={item.id} className="bg-white w-full">
+                  <li key={item.id} className="bg-white my-2 w-full">
                     <div
-                      className="title h-12 flex mx-auto items-center px-4 shadow w-full relative  cursor-pointer"
+                      className="title  flex-col py-2 lg:flex-row flex mx-auto lg:items-center px-4 shadow w-full relative  cursor-pointer"
                       onClick={() => onClickHandler(item.id)}
                     >
-                      <h4 className="text-xl font-medium">{item.title}...</h4>
-                      <small className="text-right absolute text-red-500 right-4">
+                      <h4 className="text-base lg:text-xl font-medium">
+                        {item.title}...
+                      </h4>
+                      <small className="lg:text-right lg:absolute text-red-500 lg:right-4">
                         <span className={`mx-1 ${statusStyle}`}>
                           ({messageStatus})
                         </span>

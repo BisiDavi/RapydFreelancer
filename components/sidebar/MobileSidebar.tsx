@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { FaSignOutAlt } from "react-icons/fa";
-import { useRouter } from "next/router";
+import { BiLogOut } from "react-icons/bi";
 
 import Button from "@/components/UI/Button";
 import useHeader from "@/hooks/useHeader";
@@ -98,17 +98,28 @@ export default function MobileSidebar() {
           </>
         )}
         <div className="mt-14 flex items-center justify-between">
-          <Button
-            text="Login"
-            icon={<FaSignOutAlt className="mr-1 tex-xl" size={30} />}
-            onClick={() => authHandler("login-sidebar")}
-            className="text-blue-500 flex items-center mr-4 font-bold rounded-md hover:text-blue-800"
-          />
-          <Button
-            text="Sign Up"
-            onClick={() => authHandler("signup-sidebar")}
-            className="border border-blue-500 px-3 py-1 ml-4 font-bold rounded-full text-blue-500 hover:bg-blue-800 hover:text-white"
-          />
+          {auth === null ? (
+            <Button
+              text="Login"
+              icon={<FaSignOutAlt className="mr-1 tex-xl" size={30} />}
+              onClick={() => authHandler("login-sidebar")}
+              className="text-blue-500 flex items-center mr-4 font-bold rounded-md hover:text-blue-800"
+            />
+          ) : (
+            <Button
+              text="Logout"
+              icon={<BiLogOut className="mr-1 tex-xl" size={30} />}
+              onClick={signoutHandler}
+              className="text-blue-500 flex items-center mr-4 font-bold rounded-md hover:text-blue-800"
+            />
+          )}
+          {auth === null && (
+            <Button
+              text="Sign Up"
+              onClick={() => authHandler("signup-sidebar")}
+              className="border border-blue-500 px-3 py-1 ml-4 font-bold rounded-full text-blue-500 hover:bg-blue-800 hover:text-white"
+            />
+          )}
         </div>
       </div>
       <div

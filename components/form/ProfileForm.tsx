@@ -22,13 +22,16 @@ export default function ProfileForm() {
   return (
     <FormProvider {...methods}>
       <form
-        className="w-4/5 mx-auto bg-white  p-4 px-4 rounded my-4"
+        className="w-full lg:w-4/5 mx-auto bg-white p-4 px-4 rounded my-4"
         onSubmit={methods.handleSubmit(onSubmitHandler)}
       >
         {profileFormContent.map((formItem, index) => (
-          <div key={index} className="form-group flex justify-between">
+          <div
+            key={index}
+            className="form-group flex flex-col mr-4 lg:mr-0 lg:flex-row justify-between"
+          >
             {formItem.map((formElement) => (
-              <div key={formElement.name} className="w-1/2 mx-3">
+              <div key={formElement.name} className="w-full lg:w-1/2 mx-3">
                 {displayFormElement(formElement)}{" "}
               </div>
             ))}
