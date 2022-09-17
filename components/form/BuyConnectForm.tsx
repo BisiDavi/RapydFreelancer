@@ -53,10 +53,12 @@ export default function BuyConnectForm() {
   const amount = formatPrice(payAmount);
 
   const onSubmit = (data: any) => {
+    const amount =
+      currencyType === "USD" ? connectPrice : Math.round(exchangeRate);
     console.log("data", data);
     const dataObj = {
       ...data,
-      amount: Math.round(exchangeRate),
+      amount,
       connectQuantity: getConnectQuantity(connectPrice),
     };
     const paymentData = getConnectPaymentData(dataObj);
@@ -101,7 +103,8 @@ export default function BuyConnectForm() {
           <SpinnerLoader loadingText="fetching exchange rate" />
         ) : (
           status === "success" &&
-          currency === data.data.buy_currency && (
+          currency === data.data.buy_currency &&
+          currencyType === "LOCAL_CURRENCY" && (
             <div className="exchange-rate my-2">
               <h4 className="font-bold">
                 1 USD = {data?.data.rate} {currency}

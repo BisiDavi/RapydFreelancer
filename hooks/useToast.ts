@@ -14,7 +14,7 @@ export default function useToast() {
     toastType?: any,
     message?: string
   ) => {
-    const autoCloseStatus = toastType === "success" ? 800 : 1000;
+    const autoCloseStatus = toastType === "success" ? 1000 : false;
     return toast.update(toastId.current, {
       type: toastType,
       autoClose: autoCloseStatus,

@@ -6,7 +6,7 @@ import useToast from "@/hooks/useToast";
 type mutationDataType = {
   mutationKey: string[];
   success: string;
-  error: string;
+  error?: string;
   onSuccessMethod?: () => void;
   onSuccessMethodWithData?: (data: any) => void;
   onErrorMethod?: () => void;
@@ -45,7 +45,11 @@ export default function useRequestMutation(
       if (mutationData?.onErrorMethod) {
         mutationData.onErrorMethod();
       }
-      updateToast(toastID, "error", mutationData.error);
+      console.log("err", err);
+      const errorMessage = mutationData?.error
+        ? mutationData.error
+        : err.response.data?.body?.status?.message;
+      updateToast(toastID, "error", errorMessage);
     },
   });
 }

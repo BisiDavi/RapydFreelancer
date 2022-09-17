@@ -28,7 +28,6 @@ export default function usePaymentMutation() {
     return useRequestMutation((data) => connectPayment(data), {
       mutationKey: ["useConnectPaymentMutation"],
       success: "Redirecting you to Raypd payment gateway",
-      error: "unable to process payment for connect",
     });
   }
 

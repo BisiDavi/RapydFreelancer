@@ -6,17 +6,21 @@ type dataType = {
   amount: number;
   currency: string;
   connectQuantity: number;
+  currencyType: string;
 };
 
 export function getConnectPaymentData(data: dataType) {
-  const country = countryCurrency.filter(
-    (item) => item.currency === data.currency
-  )[0].countryCode;
+  console.log("data-data", data);
+  const country =
+    data.currencyType === "USD"
+      ? "US"
+      : countryCurrency.filter((item) => item.currency === data.currency)[0]
+          .countryCode;
+  const currency = data.currencyType ? data.currencyType : data.currency;
   const fxData =
-    data.currency !== "USD"
+    currency !== "USD"
       ? { fixed_side: "buy", requested_currency: "USD" }
       : { requested_currency: "USD" };
-
   const paymentData = {
     ...fxData,
     amount: data.amount,
@@ -26,7 +30,7 @@ export function getConnectPaymentData(data: dataType) {
       "https://rapyd-freelancer.vercel.app/payment/connect/success",
     error_payment_url:
       "https://rapyd-freelancer.vercel.app/payment/connect/error",
-    currency: data.currency,
+    currency,
     language: "en",
     merchant_reference_id: uuidv4(),
     metadata: {
