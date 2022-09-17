@@ -27,7 +27,7 @@ export default function LoginForm() {
   return (
     <FormProvider {...methods}>
       <form
-        className="form shadow rounded border py-2 w-full px-4"
+        className="form lg:shadow rounded lg:border py-2 w-full lg:px-4"
         onSubmit={methods.handleSubmit(onSubmit)}
       >
         <h3 className="text-center text-2xl font-bold">Login form</h3>

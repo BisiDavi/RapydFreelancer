@@ -45,7 +45,7 @@ export default function ConfirmJobList({
           <ListElementMedia title="Media" mapMedia={media} />
         )}
 
-        <div className="button-Group flex items-center my-2 mt-4 justify-between w-2/3 justify-center mx-auto">
+        <div className="button-Group flex items-center my-2 mt-4 justify-between w-full px-4 lg:px-0 lg:w-2/3 justify-center mx-auto">
           <Button
             text="Cancel Job"
             className="bg-red-600 text-white w-24 h-10 hover:bg-red-400 font-bold"

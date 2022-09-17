@@ -45,6 +45,7 @@ export default function SignupForm({ type }: Props) {
       hires: [],
       messages: [message],
       connects: 5,
+      
     };
     return mutate(
       { userData, password },
@@ -58,7 +59,7 @@ export default function SignupForm({ type }: Props) {
   return (
     <FormProvider {...methods}>
       <form
-        className="form shadow rounded border py-2 w-full px-4"
+        className="form lg:shadow rounded lg:border overflow-y-scroll py-2 w-full  lg:px-4"
         onSubmit={methods.handleSubmit(onSubmit)}
       >
         <h3 className="text-center text-2xl font-bold">Sign up form</h3>

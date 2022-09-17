@@ -8,6 +8,7 @@ import {
 import axios from "axios";
 
 import useFirebase from "@/hooks/useFirebase";
+import { useQueryClient } from "@tanstack/react-query";
 
 type dataType = {
   email: string;
@@ -18,6 +19,7 @@ type dataType = {
 export default function useAuth() {
   const { initFB, writeData } = useFirebase();
   const app = initFB();
+  const queryClient = useQueryClient();
 
   async function authSignup(data: dataType, password: string) {
     const { email, name } = data;
@@ -44,6 +46,7 @@ export default function useAuth() {
           collection: "users",
           data,
         });
+        queryClient.invalidateQueries(["getUserProfile"]);
       });
     } catch (err) {
       console.log(err);

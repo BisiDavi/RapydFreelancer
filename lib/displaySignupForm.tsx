@@ -12,9 +12,10 @@ export function displaySignupForm() {
 
 export function displayModalSignupForm() {
   return formContent.bigSignup.map((formElement, index: number) => {
-    const inputClassName = formElement.length === 2 ? "w-1/2" : "w-full";
+    const inputClassName =
+      formElement.length === 2 ? "w-full lg:w-1/2" : "w-full";
     return (
-      <div className="form-group flex" key={index}>
+      <div className="form-group flex flex-col lg:flex-row" key={index}>
         {formElement.map((formElementItem, idx) => {
           const spacing = spaceRow(formElement, idx);
           return (
