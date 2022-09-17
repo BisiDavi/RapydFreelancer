@@ -10,7 +10,6 @@ import useAuth from "@/hooks/useAuth";
 import { updateUserDB } from "@/request/getRequest";
 import { useAppDispatch } from "@/redux/store";
 import { updateUserProfile } from "@/redux/user-slice";
-import useHeader from "@/hooks/useHeader";
 
 // upload to cloudinary
 // save the data in database.

@@ -43,9 +43,6 @@ export default function BuyConnectForm() {
     mutate(currency);
   }
 
-  console.log("data-mutation", data?.data);
-  console.log("status-mutation", status);
-
   const exchangeRate =
     status === "success" ? Number(connectPrice) * data?.data.rate : "";
 
@@ -61,7 +58,7 @@ export default function BuyConnectForm() {
   const paymentCheck =
     currencyType === "USD" && connectPrice
       ? true
-      : status === "success"
+      : status === "success" && currency === data.data.buy_currency
       ? true
       : false;
 
@@ -90,7 +87,8 @@ export default function BuyConnectForm() {
         ) : status === "loading" ? (
           <SpinnerLoader loadingText="fetching exchange rate" />
         ) : (
-          status === "success" && (
+          status === "success" &&
+          currency === data.data.buy_currency && (
             <div className="exchange-rate my-2">
               <h4 className="font-bold">
                 1 USD = {data?.data.rate} {currency}
