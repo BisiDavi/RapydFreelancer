@@ -23,9 +23,4 @@ export const getMobileSidebarArray = (signoutHandler: () => void) => [
     icon: <BsBriefcase className="mr-2 text-xl" size={30} />,
     link: "/post-job",
   },
-  {
-    text: "Sign out",
-    icon: <BiLogOut className="mr-2 text-xl" size={30} />,
-    method: signoutHandler,
-  },
 ];

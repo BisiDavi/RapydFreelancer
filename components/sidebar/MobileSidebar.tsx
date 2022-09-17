@@ -71,7 +71,6 @@ export default function MobileSidebar() {
               href={item?.link}
               title={item.text}
               text={item.text}
-              onClick={item.method}
               className="text-blue-500 font-bold border-b w-full flex my-3 text-lg items-center rounded-md hover:text-blue-800"
             />
           );
