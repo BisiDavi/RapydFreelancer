@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useRef } from "react";

@@ -8,7 +8,6 @@ export default function PhoneNumberInput({ content }: elementType) {
   const [phonenumber, setPhonenumber] = useState<any>("");
   const { register, setValue } = useFormContext();
 
-  console.log("phonenumber", phonenumber);
   register("phonenumber");
 
   function onChangeHandler(value: string) {

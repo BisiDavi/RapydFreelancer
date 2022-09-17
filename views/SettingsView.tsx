@@ -8,9 +8,9 @@ import useMediaUpload from "@/hooks/useMediaUpload";
 import useToast from "@/hooks/useToast";
 import useAuth from "@/hooks/useAuth";
 import { updateUserDB } from "@/request/getRequest";
-import { useAppSelector } from "@/hooks/useRedux";
 import { useAppDispatch } from "@/redux/store";
 import { updateUserProfile } from "@/redux/user-slice";
+import useHeader from "@/hooks/useHeader";
 
 // upload to cloudinary
 // save the data in database.
@@ -23,11 +23,8 @@ export default function SettingsView() {
   const toastID = useRef(null);
   const { authDetails } = useAuth();
   const userEmail: string | any = authDetails()?.email;
-  const { profile } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const queryClient = useQueryClient();
-
-  const previewImage = profile?.profileImage ? profile?.profileImage : image;
 
   function uploadImageHandler(e: any) {
     const imageData = URL.createObjectURL(e.target.files[0]);
@@ -60,9 +57,9 @@ export default function SettingsView() {
       <p>This will boost your chance of get jobs</p>
       <p>click on the circle below to upload your profile picture</p>
       <div className="image rounded-full bg-gray-500 h-52 flex items-center justify-center relative my-4 w-52">
-        {previewImage && (
+        {image && (
           <img
-            src={previewImage}
+            src={image}
             alt="preview"
             className="absolute z-40 rounded-full h-52"
           />
