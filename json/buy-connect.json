@@ -1,0 +1,23 @@
+[
+  {
+    "label": "Project Duration *",
+    "type": "select",
+    "name": "duration",
+    "elementType": "text",
+    "options": [
+      { "text": "Select Project Duration", "value": "" },
+      { "text": "hrs", "value": "HOURLY" },
+      { "text": "Day(s)", "value": "DAYS" },
+      { "text": "Week(s)", "value": "WEEKS" },
+      { "text": "Monthly", "value": "MONTHLY" },
+      { "text": "Yearly", "value": "YEARLY" }
+    ]
+  },
+  {
+    "label": "Select Currency of Bank",
+    "type": "currency",
+    "name": "currency",
+    "elementType": "text",
+    "placeholder": "Which currency do you want for your account"
+  }
+]

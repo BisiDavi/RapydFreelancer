@@ -4,7 +4,7 @@ import { FaSignOutAlt } from "react-icons/fa";
 import Button from "@/components/UI/Button";
 import useHeader from "@/hooks/useHeader";
 import getUserInitials from "@/lib/getUserInitials";
-import { getMobileSidebarArray } from "@/json/mobile-sidebar";
+import { getMobileSidebarArray } from "@/components/sidebar/mobile-sidebar";
 
 export default function MobileSidebar() {
   const {
