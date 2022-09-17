@@ -5,12 +5,21 @@ type initialStateType = {
   messages: any[];
   profile: null | { [key: string]: any[] | any };
   walletId: string;
+  payment: {
+    connect: {
+      quantity: number;
+      amount: number;
+    } | null;
+  };
 };
 
 const initialState: initialStateType = {
   messages: [],
   profile: null,
   walletId: "",
+  payment: {
+    connect: null,
+  },
 };
 
 const UserSlice = createSlice({
@@ -28,6 +37,12 @@ const UserSlice = createSlice({
     },
     updateWallet(state, action: PayloadAction<string>) {
       state.walletId = action.payload;
+    },
+    updatePaymentConnect(
+      state,
+      action: PayloadAction<initialStateType["payment"]["connect"]>
+    ) {
+      state.payment.connect = action.payload;
     },
   },
 });
