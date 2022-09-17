@@ -16,7 +16,7 @@ export function getConnectPaymentData(data: dataType) {
       ? "US"
       : countryCurrency.filter((item) => item.currency === data.currency)[0]
           .countryCode;
-  const currency = data.currencyType ? data.currencyType : data.currency;
+  const currency = data.currencyType === "USD" ? data.currencyType : data.currency;
   const fxData =
     currency !== "USD"
       ? { fixed_side: "buy", requested_currency: "USD" }

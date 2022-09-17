@@ -40,7 +40,7 @@ export default function BidForm({ job }: Props) {
         "You posted this job, you can't bid on the job you posted"
       );
     }
-    if (words.length > 50) {
+    if (words.length > 40) {
       mutate(
         { proposal: html, job },
         {
@@ -51,7 +51,7 @@ export default function BidForm({ job }: Props) {
       );
     } else {
       toast.error(
-        "Your Proposal is important and it must be at least 50 words"
+        "Your Proposal is important and it must be at least 40 words"
       );
     }
   }

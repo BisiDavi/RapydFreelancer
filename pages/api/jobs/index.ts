@@ -2,10 +2,7 @@ import { createJobsDB, getJobsDB } from "@/db/jobs";
 import connectDB from "@/db/DBConnection";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { job } = req.body;
   const date = new Date();
   const jobData = { ...job, createdAt: date };
@@ -25,7 +22,7 @@ export default async function handler(
           });
       } catch (err) {
         console.log("post-error", err);
-        return res.status(400).json(err);
+        return res.status(400).send(err);
       }
     }
     // get jobs
