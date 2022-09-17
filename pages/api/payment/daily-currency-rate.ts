@@ -6,8 +6,9 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const { amount, buyCurrency }: any = req.query;
-  const parsedAmount = JSON.parse(amount);
-  const parsedBuyCurrency = JSON.parse(buyCurrency);
+
+  console.log("amount", amount, "buyCurrency", buyCurrency);
+  const amountvv = `${amount}.00`;
 
   switch (req.method) {
     //get raypd daily ratet
@@ -15,7 +16,7 @@ export default async function handler(
       try {
         const getDailyRate: any = await makeRequest(
           "get",
-          `/v1/rates/daily?action_type=payment&amount=${parsedAmount}&buy_currency=${parsedBuyCurrency}&sell_currency=USD`
+          `/v1/rates/daily?action_type=payment&amount=${amountvv}&buy_currency=${buyCurrency}&sell_currency=USD`
         );
         return res.status(200).send(getDailyRate?.body.data);
       } catch (error: any) {

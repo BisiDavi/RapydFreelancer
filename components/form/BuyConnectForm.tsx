@@ -1,15 +1,14 @@
 import { useForm, FormProvider } from "react-hook-form";
-import { Fragment, useEffect, useState } from "react";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { Fragment } from "react";
 
 import Button from "@/components/UI/Button";
 import buyConnect from "@/json/buy-connect.json";
 import displayFormElement from "@/lib/displayFormElement";
 import SelectCurrency from "@/components/form/form-elements/SelectCurrency";
+import { useQuery } from "@tanstack/react-query";
+import { getCurrencyDailyRate } from "@/hooks/usePaymentMutation";
 
 export default function BuyConnectForm() {
-  const [connect, setConnect] = useState(0);
-
   const methods = useForm({
     // resolver: yupResolver(virtualAccountSchema),
     mode: "all",
@@ -23,11 +22,18 @@ export default function BuyConnectForm() {
   const currencyType = methods.watch("currencyType");
   const currency = methods.watch("currency");
   const connectQuantity = methods.watch("connectQuantity");
-  // connectQuantity
-  useEffect(() => {}, []);
+  const amount = connectQuantity ? Number(`${connectQuantity}.00`) : 0.0;
+  console.log("amount", amount);
+  const { data, status } = useQuery(
+    ["getCurrencyDailyRate"],
+    () => getCurrencyDailyRate(amount, currency),
+    { enabled: !!(currency && connectQuantity) }
+  );
 
   console.log("formValues", formValues);
   console.log("currency", currency);
+
+  console.log("data", data?.data);
 
   return (
     <FormProvider {...methods}>
