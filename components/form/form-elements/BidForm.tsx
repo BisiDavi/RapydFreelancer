@@ -29,7 +29,9 @@ export default function BidForm({ job }: Props) {
   }
 
   const previewClassname =
-    previewMedia.length > 1 ? "grid grid-cols-2 gap-4" : "flex";
+    previewMedia.length > 1
+      ? "lg:grid lg:grid-cols-2 lg:gap-4 flex flex-col"
+      : "flex";
 
   const words = html.length > 0 ? html.split(" ") : [];
   const wordCount = words.length > 1 ? "words" : "word";
@@ -92,8 +94,8 @@ export default function BidForm({ job }: Props) {
               setPreviewMedia={setPreviewMedia}
               content={{
                 name: "media",
-                placeholder: "Attach document (optional)",
-                label: "Upload a document (docs/pdf/picture) - (optional)",
+                placeholder: "Attach Image (optional, pdf not accepted)",
+                label: "Upload Image (picture,pdf not accepted) - (optional)",
                 type: "media",
                 elementType: "media",
               }}

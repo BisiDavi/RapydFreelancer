@@ -77,7 +77,7 @@
   "media": {
     "name": "media",
     "placeholder": "Attach document",
-    "label": "Upload a document (pdf/picture), to help the freelancer understand the scope of your job better (optional)",
+    "label": "Upload Image (image only, pdf is not accepted), to help the freelancer understand the scope of your job better (optional)",
     "type": "media",
     "elementType": "media"
   },

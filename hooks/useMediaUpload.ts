@@ -9,7 +9,7 @@ import { updateBidMedia, updateMedia } from "@/redux/form-slice";
 export default function useMediaUpload() {
   const toastID = useRef(null);
   const { updateToast, loadingToast } = useToast();
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch(); 
   const { media } = useAppSelector((state) => state.form);
   const router = useRouter();
 
