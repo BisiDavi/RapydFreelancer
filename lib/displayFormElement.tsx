@@ -4,6 +4,7 @@ import PhoneNumberInput from "@/components/form/form-elements/PhoneNumberInput";
 import PriceRange from "@/components/form/form-elements/PriceRange";
 import RadioGroup from "@/components/form/form-elements/RadioGroup";
 import Select from "@/components/form/form-elements/Select";
+import SelectCountry from "@/components/form/form-elements/SelectCountry";
 import SelectCurrency from "@/components/form/form-elements/SelectCurrency";
 import SelectSkill from "@/components/form/form-elements/SelectSkill";
 import Textarea from "@/components/form/form-elements/Textarea";
@@ -30,6 +31,8 @@ export default function displayFormElement(
       return <PhoneNumberInput content={content} />;
     case "currency":
       return <SelectCurrency content={content} />;
+    case "country":
+      return <SelectCountry content={content} />;
     case "radioGroup":
       return <RadioGroup content={content} />;
   }

@@ -41,7 +41,7 @@
     },
     {
       "label": "Select Country",
-      "type": "select",
+      "type": "country",
       "name": "country",
       "elementType": "text"
     }
