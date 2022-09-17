@@ -8,8 +8,8 @@ function getCurrencyDailyRate(buyCurrency: string) {
   });
 }
 
-function connectPayment(){
-  return axios.post("/api/")
+function connectPayment(data: any) {
+  return axios.post("/api/payment", { data });
 }
 
 export default function usePaymentMutation() {
@@ -24,7 +24,13 @@ export default function usePaymentMutation() {
     );
   }
 
-  function useConnectPaymentMutation() {}
+  function useConnectPaymentMutation() {
+    return useRequestMutation((data) => connectPayment(data), {
+      mutationKey: ["useConnectPaymentMutation"],
+      success: "Redirecting you to Raypd payment gateway",
+      error: "unable to process payment for connect",
+    });
+  }
 
-  return { useGetCurrencyRate };
+  return { useGetCurrencyRate, useConnectPaymentMutation };
 }

@@ -9,6 +9,7 @@ import usePaymentMutation from "@/hooks/usePaymentMutation";
 import { SpinnerLoader } from "@/components/loader/SpinnerRipple";
 import { formatPrice } from "@/lib/formatPrice";
 import { getConnectPaymentData } from "@/lib/payment-data";
+import { useRouter } from "next/router";
 
 function getConnectQuantity(connectPrice: string) {
   if (connectPrice === "20") {
@@ -29,15 +30,18 @@ export default function BuyConnectForm() {
   const currencyType = methods.watch("currencyType");
   const currency = methods.watch("currency");
   const connectPrice = methods.watch("connectPrice");
-  const { useGetCurrencyRate } = usePaymentMutation();
+  const { useGetCurrencyRate, useConnectPaymentMutation } =
+    usePaymentMutation();
   const { mutate, data, status, isLoading } = useGetCurrencyRate();
+  const connectPayment = useConnectPaymentMutation();
+  const router = useRouter();
 
   function fetchExchangeRate() {
     mutate(currency);
   }
 
   const exchangeRate =
-    status === "success" ? Number(connectPrice) * data?.data.rate : "";
+    status === "success" ? Number(connectPrice) * data?.data.rate : 0;
 
   const payAmount =
     currencyType === "USD"
@@ -52,10 +56,16 @@ export default function BuyConnectForm() {
     console.log("data", data);
     const dataObj = {
       ...data,
-      amount: payAmount,
+      amount: Math.round(exchangeRate),
       connectQuantity: getConnectQuantity(connectPrice),
     };
     const paymentData = getConnectPaymentData(dataObj);
+    connectPayment.mutate(paymentData, {
+      onSuccess: (data) => {
+        console.log("data", data);
+        return router.push(data?.data?.redirect_url);
+      },
+    });
   };
 
   const paymentCheck =
@@ -105,8 +115,9 @@ export default function BuyConnectForm() {
         {paymentCheck && (
           <Button
             text={`Proceed to Pay ${amount}`}
-            className="bg-green-500 mx-auto flex my-2 mt-4 px-4 py-2 text-white rounded-md"
+            className="bg-green-500 mx-auto flex items-center my-2 mt-4 px-4 py-2 text-white rounded-md"
             type="submit"
+            loading={connectPayment.isLoading}
           />
         )}
       </form>

@@ -13,7 +13,7 @@ export default async function handler(
       try {
         const paymentResponse: any = await makeRequest(
           "post",
-          `/v1/checkout`,
+          `/v1/checkout`, 
           data
         );
         return res.status(200).send(paymentResponse?.body.data);
