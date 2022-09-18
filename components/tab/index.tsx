@@ -3,12 +3,18 @@ import { useState } from "react";
 import TabItem from "@/components/tab/TabItem";
 
 interface Props {
-  tabBody1: JSX.Element;
-  tabBody2: JSX.Element;
-  tabHeader: [string, string];
+  tabBody?: JSX.Element[];
+  tabBody1?: JSX.Element;
+  tabBody2?: JSX.Element;
+  tabHeader: string[];
 }
 
-export default function Tabs({ tabBody1, tabBody2, tabHeader }: Props) {
+export default function Tabs({
+  tabHeader,
+  tabBody,
+  tabBody1,
+  tabBody2,
+}: Props) {
   const [openTab, setOpenTab] = useState(0);
   return (
     <>
@@ -31,12 +37,33 @@ export default function Tabs({ tabBody1, tabBody2, tabHeader }: Props) {
           <div className="relative flex flex-col min-w-0 break-words border border-gray-200 bg-white w-full mb-6 shadow-lg rounded">
             <div className="px-4 py-5 flex-auto">
               <div className="tab-content tab-space">
-                <div className={openTab === 0 ? "block" : "hidden"} id="link1">
-                  {tabBody1}
-                </div>
-                <div className={openTab === 1 ? "block" : "hidden"} id="link2">
-                  {tabBody2}
-                </div>
+                {tabBody ? (
+                  tabBody.map((item: any, index: number) => (
+                    <>
+                      <div
+                        className={openTab === index ? "block" : "hidden"}
+                        id={`link${index}`}
+                      >
+                        {item}
+                      </div>
+                    </>
+                  ))
+                ) : (
+                  <>
+                    <div
+                      className={openTab === 0 ? "block" : "hidden"}
+                      id="link1"
+                    >
+                      {tabBody1}
+                    </div>
+                    <div
+                      className={openTab === 1 ? "block" : "hidden"}
+                      id="link2"
+                    >
+                      {tabBody2}
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </div>

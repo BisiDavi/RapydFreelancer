@@ -32,7 +32,9 @@ type countryType = {
 };
 
 function getCountry(countryCode: string) {
-  return countries.filter((item) => item.Iso2 === countryCode)[0].name;
+  console.log("countryCode", countryCode);
+  return countries.filter((item) => item.Iso2 === countryCode.toUpperCase())[0]
+    .name;
 }
 
 function getDays(seconds: number) {
@@ -54,7 +56,7 @@ export default function IssueVirtualAccountForm({ ewallet }: Props) {
     mutate: mutatePayment,
     status,
     data,
-    isSuccess,
+    variables,
   } = usePaymentByMethod();
   const methods = useForm({
     resolver: yupResolver(virtualAccountSchema),
@@ -108,7 +110,7 @@ export default function IssueVirtualAccountForm({ ewallet }: Props) {
           ))}
         </div>
         <Button
-          text="Fetch Payment"
+          text="Fetch Payment Method"
           className="bg-blue-500 mx-auto flex my-4 px-3 py-1.5 font-bold rounded-lg text-white hover:bg-blue-800"
           onClick={getPaymentByCountryHandler}
         />
@@ -125,13 +127,13 @@ export default function IssueVirtualAccountForm({ ewallet }: Props) {
               return (
                 <li
                   key={index}
-                  className="w-full justify-between flex items-center my-1"
+                  className="w-full justify-between flex items-center bg-gray-100 my-2"
                 >
                   <div className="left">
                     <p>Name: {item.name}</p>
                     <p>category: {item?.category}</p>
                     <p>image: {item?.image}</p>
-                    <p>Country: {getCountry(item.country)}</p>
+                    {item.country && <p>Country: {getCountry(item.country)}</p>}
                     <p>
                       currencies:
                       {item.currencies.map((item) => (
@@ -161,7 +163,10 @@ export default function IssueVirtualAccountForm({ ewallet }: Props) {
                       );
                     })}
                   </div>
-                  <Button text={`Make Payment via ${item.name}`} />
+                  <Button
+                    text={`Make Payment via ${item.name}`}
+                    className="bg-blue-500 mx-auto flex my-4 px-3 py-1.5 font-bold rounded-lg text-white hover:bg-blue-800"
+                  />
                 </li>
               );
             })}
@@ -169,18 +174,12 @@ export default function IssueVirtualAccountForm({ ewallet }: Props) {
         ) : (
           data?.data.length === 0 && (
             <p className="font-bold text-center">
-              No Payment method supported for {getCountry(country)} and
-              {currency}
+              No Payment method supported for {getCountry(variables.country)}
+              and
+              {variables.currency}
             </p>
           )
         )}
-        {/* {isSuccess && (
-          <Button
-            text="Submit"
-            className="bg-blue-500 mx-auto flex my-4 px-3 py-1.5 font-bold rounded-lg text-white hover:bg-blue-800"
-            type="submit"
-          />
-        )} */}
       </form>
     </FormProvider>
   );

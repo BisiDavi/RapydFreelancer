@@ -11,3 +11,5 @@ export type UIStateType = {
 export type FormStateType = {
   postJobForm: { [key: string]: string };
 };
+
+

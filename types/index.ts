@@ -21,3 +21,18 @@ export interface MenubarType {
   onClick: () => void;
   className: string;
 }
+
+export type paymentMethodType = {
+  name: string;
+  category: string;
+  image?: string;
+  country: string;
+  currencies: string[];
+  is_refundable: boolean;
+  maximum_expiration_seconds: number;
+  amount_range_per_currency: {
+    currency: string;
+    maximum_amount: null | number;
+    minimum_amount: null | number;
+  }[];
+};
