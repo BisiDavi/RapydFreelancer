@@ -8,6 +8,7 @@ import Button from "@/components/UI/Button";
 import countriesCurrency from "@/json/countrycurrency.json";
 import usePaymentMutation from "@/hooks/usePaymentMutation";
 import { fundWalletPaymentData } from "@/lib/payment-data";
+import { useRouter } from "next/router";
 
 interface Props {
   ewallet: string;
@@ -21,6 +22,7 @@ export default function IssueVirtualAccountForm({ ewallet }: Props) {
     mode: "all",
   });
   const { watch } = methods;
+  const router = useRouter();
 
   const currency = watch("currency");
 
@@ -34,7 +36,12 @@ export default function IssueVirtualAccountForm({ ewallet }: Props) {
     const wData = { ...data, country, ewallet };
     const walletData = fundWalletPaymentData(wData);
     console.log("walletData", walletData);
-    mutate(walletData);
+    mutate(walletData, {
+      onSuccess: (data) => {
+        console.log('data',data)
+        return router.push(data?.data?.redirect_url);
+      },
+    });
   };
 
   return (
