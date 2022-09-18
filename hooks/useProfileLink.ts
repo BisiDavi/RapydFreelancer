@@ -7,16 +7,15 @@ export default function useProfileLink() {
   const { toggleMenu } = useHeader();
   const mobileView = useMediaQuery("(max-width:768px)");
 
-  const { slug }: any = router.query;
-  const slugItem: string = slug ? slug[0] : "";
-
-  const getActiveLink = (item: string) =>
-    item.toLocaleLowerCase().includes(slugItem) ? "text-red-500" : "";
+  const getActiveLink = (item: string) => {
+    const itemLowerCase = item.toLowerCase();
+    return router.asPath.includes(itemLowerCase) ? "text-red-500" : "";
+  };
 
   function linkHandler(link: string) {
     const pageLink = link.toLowerCase();
-    router.query.slug = pageLink;
-    router.push(router);
+    const pageRoute = `/user/${pageLink}`;
+    router.push(pageRoute);
     if (mobileView) {
       toggleMenu();
     }
