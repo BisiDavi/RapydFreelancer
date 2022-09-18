@@ -47,3 +47,9 @@ export function getCurrencyDailyRate(buyCurrency: string) {
     params: { buyCurrency },
   });
 }
+
+export function getPaymentByCountry(country: string, currency: string) {
+  return axios.get("/api/payment/payment-by-country", {
+    params: { country, currency },
+  });
+}

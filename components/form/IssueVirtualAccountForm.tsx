@@ -1,5 +1,6 @@
 import { useForm, FormProvider } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useRouter } from "next/router";
 
 import accountForm from "@/json/issue-virtual-account-form.json";
 import displayFormElement from "@/lib/displayFormElement";
@@ -8,7 +9,6 @@ import Button from "@/components/UI/Button";
 import countriesCurrency from "@/json/countrycurrency.json";
 import usePaymentMutation from "@/hooks/usePaymentMutation";
 import { fundWalletPaymentData } from "@/lib/payment-data";
-import { useRouter } from "next/router";
 
 interface Props {
   ewallet: string;
@@ -26,8 +26,6 @@ export default function IssueVirtualAccountForm({ ewallet }: Props) {
 
   const currency = watch("currency");
 
-  console.log("currency", currency);
-
   const country = countriesCurrency.filter(
     (item) => item.currency === currency
   )[0]?.countryCode;
@@ -35,10 +33,8 @@ export default function IssueVirtualAccountForm({ ewallet }: Props) {
   const onSubmit = (data: any) => {
     const wData = { ...data, country, ewallet };
     const walletData = fundWalletPaymentData(wData);
-    console.log("walletData", walletData);
     mutate(walletData, {
       onSuccess: (data) => {
-        console.log('data',data)
         return router.push(data?.data?.redirect_url);
       },
     });

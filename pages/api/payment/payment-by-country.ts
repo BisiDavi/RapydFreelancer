@@ -5,18 +5,18 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { data }: any = req.body;
+  const { country, currency }: any = req.query;
 
   switch (req.method) {
     //make payment
-    case "POST": {
+    case "GET": {
       try {
-        const paymentResponse: any = await makeRequest(
-          "post",
-          `/v1/checkout`, 
-          data
+        const paymentByCountryResponse: any = await makeRequest(
+          "get",
+          `/v1/payment_methods/country?${country}&currency=${currency}`
         );
-        return res.status(200).send(paymentResponse?.body.data);
+        console.log("paymentByCountryResponse", paymentByCountryResponse);
+        return res.status(200).send(paymentByCountryResponse?.body.data);
       } catch (error: any) {
         console.log("error-data-response", error);
         return res.status(400).send(error);
