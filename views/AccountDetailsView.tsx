@@ -3,13 +3,14 @@ import { useQuery } from "@tanstack/react-query";
 import { getWallet } from "@/request/getRequest";
 import { useAppSelector } from "@/hooks/useRedux";
 import SpinnerRipple from "@/components/loader/SpinnerRipple";
+import useHeader from "@/hooks/useHeader";
 
 export default function AccountDetailsView() {
-  const { walletId } = useAppSelector((state) => state.user);
+  const { userProfile } = useHeader();
+  const { data: userData, status: userState } = userProfile;
+  const walletId = userState === "success" ? userData?.data[0].ewallet : null;
 
-  const { data, status } = useQuery(["getWallet"], () => getWallet(walletId), {
-    enabled: !!walletId,
-  });
+  const { data, status } = useQuery(["getWallet"], () => getWallet(walletId));
 
   return (
     <>
