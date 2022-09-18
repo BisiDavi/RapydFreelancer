@@ -19,8 +19,6 @@ type accountItemProps = {
 export default function AccountDetailsView({ walletId }: Props) {
   const { data, status } = useQuery(["getWallet"], () => getWallet(walletId));
 
-  console.log("data-status", data?.data.accounts);
-
   return (
     <>
       <p className="text-xl my-2">

@@ -12,5 +12,12 @@
     "name": "currency",
     "elementType": "text",
     "placeholder": "Which currency do you want for your account"
-  }
+  },
+    {
+      "label": "Select Country",
+      "type": "country",
+      "name": "country",
+      "elementType": "text",
+      "placeholder": "Which currency do you want for your account"
+    }
 ]

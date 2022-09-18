@@ -1,7 +1,7 @@
 import { useFormContext } from "react-hook-form";
 
-import type { elementType } from "@/types/form-types";
 import countriesData from "@/json/countries.json";
+import type { elementType } from "@/types/form-types";
 
 export default function SelectCountry({ content }: elementType) {
   const {

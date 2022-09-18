@@ -1,6 +1,7 @@
 import { useForm, FormProvider } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/router";
+import { useQuery } from "@tanstack/react-query";
 
 import accountForm from "@/json/issue-virtual-account-form.json";
 import displayFormElement from "@/lib/displayFormElement";
@@ -9,6 +10,8 @@ import Button from "@/components/UI/Button";
 import countriesCurrency from "@/json/countrycurrency.json";
 import usePaymentMutation from "@/hooks/usePaymentMutation";
 import { fundWalletPaymentData } from "@/lib/payment-data";
+import { getPaymentByCountry } from "@/request/getRequest";
+import { SpinnerLoader } from "@/components/loader/SpinnerRipple";
 
 interface Props {
   ewallet: string;
@@ -25,10 +28,21 @@ export default function IssueVirtualAccountForm({ ewallet }: Props) {
   const router = useRouter();
 
   const currency = watch("currency");
+  const country = watch("country");
 
-  const country = countriesCurrency.filter(
-    (item) => item.currency === currency
-  )[0]?.countryCode;
+  console.log("country", country);
+  console.log("currency", currency);
+
+  const { data, status } = useQuery(
+    ["getPaymentByCountry"],
+    () => getPaymentByCountry(country, currency),
+    {
+      enabled: !!(country && currency),
+      notifyOnChangeProps: [country, currency],
+    }
+  );
+
+  console.log("data-getPaymentByCountry", data?.data);
 
   const onSubmit = (data: any) => {
     const wData = { ...data, country, ewallet };
@@ -50,18 +64,28 @@ export default function IssueVirtualAccountForm({ ewallet }: Props) {
           Do you know you can fund your wallet, get started by filling the form
           below
         </p>
-        <div className="form-elements flex items-center">
+        <div className="form-elements grid grid-cols-2 gap-x-6 items-center pr-6">
           {accountForm.map((formElement) => (
-            <div key={formElement.name} className="w-1/2 mx-4">
+            <div key={formElement.name} className="w-full mx-4">
               {displayFormElement(formElement)}
             </div>
           ))}
         </div>
-        <Button
-          text="Submit"
-          className="bg-blue-500 mx-auto flex my-4 px-3 py-1.5 font-bold rounded-lg text-white hover:bg-blue-800"
-          type="submit"
-        />
+        {status === "error"
+          ? "error fetching payment by country"
+          : status === "loading"
+          ? country &&
+            currency && (
+              <SpinnerLoader loadingText="Fetching payment by country..." />
+            )
+          : null}
+        {status === "success" && (
+          <Button
+            text="Submit"
+            className="bg-blue-500 mx-auto flex my-4 px-3 py-1.5 font-bold rounded-lg text-white hover:bg-blue-800"
+            type="submit"
+          />
+        )}
       </form>
     </FormProvider>
   );
