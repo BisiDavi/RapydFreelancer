@@ -30,14 +30,15 @@ export default function Providerlayout({ children }: PropsWithChildren<{}>) {
 
   let persistor = persistStore(store);
 
-  const localStoragePersister = createSyncStoragePersister({
-    storage: accessLocalStorage(),
-  });
+  // const localStoragePersister = createSyncStoragePersister({
+  //   storage: accessLocalStorage(),
+  // });
 
-  persistQueryClient({
-    queryClient,
-    persister: localStoragePersister,
-  });
+  // persistQueryClient({
+  //   queryClient,
+  //   persister: localStoragePersister,
+  //   buster:"busterCache"
+  // });
 
   return (
     <>

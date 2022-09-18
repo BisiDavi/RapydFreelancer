@@ -15,8 +15,6 @@ export default function ProfileForm() {
   const { useCreateWalletMutation } = useWalletMutation();
   const { mutate, isLoading, error } = useCreateWalletMutation(methods.reset);
 
-  console.log("error-useCreateWalletMutation", error);
-
   function onSubmitHandler(data: any) {
     return mutate(data);
   }

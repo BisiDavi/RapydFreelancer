@@ -18,7 +18,7 @@ type dataType = {
 
 export default function useAuth() {
   const { initFB, writeData } = useFirebase();
-  const app = initFB();
+  const app = initFB(); 
   const queryClient = useQueryClient();
 
   async function authSignup(data: dataType, password: string) {

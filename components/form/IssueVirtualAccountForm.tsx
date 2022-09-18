@@ -18,7 +18,7 @@ export default function IssueVirtualAccountForm() {
     console.log("data", data);
     return applyForVirtualAccount(data);
   };
-  
+
   return (
     <FormProvider {...methods}>
       <form
@@ -26,7 +26,8 @@ export default function IssueVirtualAccountForm() {
         className="bg-white p-4 my-4 rounded-lg"
       >
         <p className="font-semibol text-center mt-4">
-          Open an account with us to make you wallet active, fill the form below
+          Do you know you can fund your wallet, get started by filling the form
+          below
         </p>
         <div className="form-elements flex items-center">
           {accountForm.map((formElement) => (
