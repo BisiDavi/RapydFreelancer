@@ -83,7 +83,7 @@ export default function IssueVirtualAccountForm({ ewallet }: Props) {
           onClick={getPaymentByCountryHandler}
         />
         {status === "error" ? (
-          "error fetching payment by country"
+          "error fetching payment by country, you can try again."
         ) : status === "loading" ? (
           country &&
           currency && (

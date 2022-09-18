@@ -1,21 +1,17 @@
 import { v4 as uuidv4 } from "uuid";
 
-import countryCurrency from "@/json/countrycurrency.json";
 
 type dataType = {
   amount: number;
   currency: string;
   connectQuantity: number;
   currencyType: string;
+  country: string;
 };
 
 export function getConnectPaymentData(data: dataType) {
   console.log("data-data", data);
-  const country =
-    data.currencyType === "USD"
-      ? "US"
-      : countryCurrency.filter((item) => item.currency === data.currency)[0]
-          .countryCode;
+  const country = data.country;
   const currency =
     data.currencyType === "USD" ? data.currencyType : data.currency;
   const fxData =

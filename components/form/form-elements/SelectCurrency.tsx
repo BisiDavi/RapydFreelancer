@@ -1,7 +1,7 @@
 import { useFormContext } from "react-hook-form";
 
 import type { elementType } from "@/types/form-types";
-import countrycurrencies from "@/json/countrycurrency.json";
+import currencies from "@/json/currencies.json";
 
 export default function SelectCurrency({ content }: elementType) {
   const {
@@ -21,10 +21,10 @@ export default function SelectCurrency({ content }: elementType) {
         {...register(content.name)}
       >
         <option value="">Select Currency</option>
-        {countrycurrencies.map((item) => {
+        {currencies.map((item) => {
           return (
-            <option key={item.country} value={item.currency}>
-              {item.currency} ({item.country})
+            <option key={item.name} value={item.code}>
+              {item.symbol} ({item.name})
             </option>
           );
         })}
