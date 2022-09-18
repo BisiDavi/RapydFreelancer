@@ -1,6 +1,9 @@
 import useRequestMutation from "@/hooks/useRequestMutation";
 import { connectPayment } from "@/request/postRequest";
-import { getCurrencyDailyRate } from "@/request/getRequest";
+import {
+  getCurrencyDailyRate,
+  getPaymentByCountry,
+} from "@/request/getRequest";
 
 export default function usePaymentMutation() {
   function useGetCurrencyRate() {
@@ -28,9 +31,23 @@ export default function usePaymentMutation() {
     });
   }
 
+  function usePaymentByMethod() {
+    return useRequestMutation(
+      ({ country, currency }) => getPaymentByCountry(country, currency),
+      {
+        mutationKey: ["usePaymentByMethod"],
+        success: "Payment by country fetched",
+      }
+    );
+  }
+
   return {
     useGetCurrencyRate,
     useConnectPaymentMutation,
     useFundWalletMutation,
+    usePaymentByMethod,
   };
 }
+
+
+// https://www.youtube.com/watch?v=qAg8y-4ZQFU
