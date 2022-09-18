@@ -4,11 +4,12 @@ import Link from "next/link";
 import ProfileForm from "@/components/form/ProfileForm";
 import IssueVirtualAccountForm from "@/components/form/IssueVirtualAccountForm";
 import AccountDetailsView from "@/views/AccountDetailsView";
+import useHeader from "@/hooks/useHeader";
 
 export default function ProfileView() {
-  const queryClient = useQueryClient();
-  const userData: any = queryClient.getQueryData(["getUserProfile"]);
-  const user = userData?.data ? userData?.data[0] : null;
+  const { userProfile } = useHeader();
+  const { data, status } = userProfile;
+  const user = status === "success" ? data?.data[0] : null;
 
   return (
     <div className="w-full flex flex-col">
@@ -31,8 +32,8 @@ export default function ProfileView() {
         </ul>
       )}
       <div className="mb-4">
-        <span className="font-bold mr-1">Note:</span>The more connect you have, the more jobs you can bid
-        on, click here to
+        <span className="font-bold mr-1">Note:</span>The more connect you have,
+        the more jobs you can bid on, click here to
         <Link href="/user/account">
           <a className="font-bold text-red-500 ml-1">buy connect</a>
         </Link>

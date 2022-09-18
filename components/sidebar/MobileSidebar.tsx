@@ -88,7 +88,7 @@ export default function MobileSidebar() {
                 return (
                   <li
                     key={item}
-                    className={`${activeLink} py-0.5 font-bold text-blue-500 cursor-pointer text-lg hover:bg-gray-400 my-1 ${itemClassName} px-4 hover:text-white`}
+                    className={`${activeLink} py-0.5 font-bold text-blue-500 cursor-pointer text-lg hover:bg-gray-400 my-1 ${itemClassName}  hover:text-white`}
                     onClick={() => linkHandler(item)}
                   >
                     {item}
