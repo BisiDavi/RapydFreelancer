@@ -24,21 +24,26 @@ export default function Providerlayout({ children }: PropsWithChildren<{}>) {
     defaultOptions: {
       queries: {
         cacheTime: 1000 * 60 * 60 * 24,
+        refetchOnWindowFocus: false,
+        refetchOnMount: false,
+        refetchOnReconnect: false,
+        retry: false,
+        staleTime: 1000 * 60 * 20,
       },
     },
   });
 
   let persistor = persistStore(store);
 
-  // const localStoragePersister = createSyncStoragePersister({
-  //   storage: accessLocalStorage(),
-  // });
+  const localStoragePersister = createSyncStoragePersister({
+    storage: accessLocalStorage(),
+  });
 
-  // persistQueryClient({
-  //   queryClient,
-  //   persister: localStoragePersister,
-  //   buster:"busterCache"
-  // });
+  persistQueryClient({
+    queryClient,
+    persister: localStoragePersister,
+    buster: "busterCache",
+  });
 
   return (
     <>
