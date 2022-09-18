@@ -10,43 +10,11 @@ import Button from "@/components/UI/Button";
 import usePaymentMutation from "@/hooks/usePaymentMutation";
 import { fundWalletPaymentData } from "@/lib/payment-data";
 import { SpinnerLoader } from "@/components/loader/SpinnerRipple";
-import countries from "@/json/countries.json";
+import PaymentTab from "@/components/payment/PaymentTab";
+import { getCountry } from "@/lib/fomatData";
 
 interface Props {
   ewallet: string;
-}
-
-type countryType = {
-  name: string;
-  category?: string;
-  image?: string;
-  country: string;
-  currencies: string[];
-  is_refundable: boolean;
-  maximum_expiration_seconds: number;
-  amount_range_per_currency: {
-    currency: string;
-    maximum_amount: null | number;
-    minimum_amount: null | number;
-  }[];
-};
-
-function getCountry(countryCode: string) {
-  console.log("countryCode", countryCode);
-  return countries.filter((item) => item.Iso2 === countryCode.toUpperCase())[0]
-    .name;
-}
-
-function getDays(seconds: number) {
-  if (seconds > 86400) {
-    const dayPeriod = seconds / 86400;
-    const dayPeriodValue = dayPeriod > 1 ? "days" : "day";
-    return `${dayPeriod} ${dayPeriodValue}`;
-  } else {
-    const minPeriod = seconds / 3600;
-    const minPeriodValue = minPeriod > 1 ? "mins" : "min";
-    return `${minPeriod} ${minPeriodValue}`;
-  }
 }
 
 export default function IssueVirtualAccountForm({ ewallet }: Props) {
@@ -122,55 +90,7 @@ export default function IssueVirtualAccountForm({ ewallet }: Props) {
             <SpinnerLoader loadingText="Fetching payment by country..." />
           )
         ) : data?.data.length > 0 ? (
-          <ul>
-            {data?.data.map((item: countryType, index: number) => {
-              return (
-                <li
-                  key={index}
-                  className="w-full justify-between flex items-center bg-gray-100 my-2"
-                >
-                  <div className="left">
-                    <p>Name: {item.name}</p>
-                    <p>category: {item?.category}</p>
-                    <p>image: {item?.image}</p>
-                    {item.country && <p>Country: {getCountry(item.country)}</p>}
-                    <p>
-                      currencies:
-                      {item.currencies.map((item) => (
-                        <span key={item}>{item}</span>
-                      ))}
-                    </p>
-                    <p>Is Refundable: {item?.is_refundable}</p>
-                    <p>
-                      Expires At: {getDays(item?.maximum_expiration_seconds)}
-                    </p>
-                    {item.amount_range_per_currency.map((item, index) => {
-                      return (
-                        <div key={index} className="">
-                          <p>
-                            Maximum Amount:
-                            {item?.maximum_amount
-                              ? `${item?.maximum_amount} ${item.currency}`
-                              : null}
-                          </p>
-                          <p>
-                            Minimum Amount:{" "}
-                            {item?.minimum_amount
-                              ? `${item?.minimum_amount} ${item.currency}`
-                              : null}
-                          </p>
-                        </div>
-                      );
-                    })}
-                  </div>
-                  <Button
-                    text={`Make Payment via ${item.name}`}
-                    className="bg-blue-500 mx-auto flex my-4 px-3 py-1.5 font-bold rounded-lg text-white hover:bg-blue-800"
-                  />
-                </li>
-              );
-            })}
-          </ul>
+          <PaymentTab paymentMethod={data?.data} />
         ) : (
           data?.data.length === 0 && (
             <p className="font-bold text-center">
