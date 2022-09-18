@@ -50,7 +50,7 @@ export default function IssueVirtualAccountForm({ ewallet }: Props) {
         onSubmit={methods.handleSubmit(onSubmit)}
         className="bg-white p-4 my-4 rounded-lg"
       >
-        <p className="font-semibol text-center mt-4">
+        <p className="font-semibold text-center mt-4">
           Do you know you can fund your wallet, get started by filling the form
           below
         </p>
