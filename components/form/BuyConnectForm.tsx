@@ -66,8 +66,7 @@ export default function BuyConnectForm() {
     };
     const paymentData = getConnectPaymentData(dataObj);
     connectPayment.mutate(paymentData, {
-      onSuccess: (_, variable) => {
-        console.log("data", data);
+      onSuccess: (data, variable) => {
         dispatch(updatePaymentConnect(variable.metadata.connectQuantity));
         return router.push(data?.data?.redirect_url);
       },
