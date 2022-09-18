@@ -5,6 +5,7 @@ import ProfileForm from "@/components/form/ProfileForm";
 import IssueVirtualAccountForm from "@/components/form/IssueVirtualAccountForm";
 import AccountDetailsView from "@/views/AccountDetailsView";
 import useHeader from "@/hooks/useHeader";
+import { SpinnerLoader } from "@/components/loader/SpinnerRipple";
 
 export default function ProfileView() {
   const { userProfile } = useHeader();
@@ -43,8 +44,12 @@ export default function ProfileView() {
         your KYC, this will enable you create your wallet and eligible to post
         jobs.
       </p>
-      {!user?.ewallet ? (
-        <ProfileForm />
+      {status === "error" ? (
+        "error fetching user profile"
+      ) : status === "loading" ? (
+        <SpinnerLoader loadingText="Fetching user profile" />
+      ) : !user?.ewallet ? (
+        status === "success" && <ProfileForm />
       ) : (
         <AccountDetailsView walletId={user?.ewallet} />
       )}

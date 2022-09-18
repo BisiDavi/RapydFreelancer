@@ -28,7 +28,7 @@ export default function Providerlayout({ children }: PropsWithChildren<{}>) {
         refetchOnMount: false,
         refetchOnReconnect: false,
         retry: false,
-        staleTime: 1000 * 60 * 20,
+        staleTime: 1000 * 60 * 30,
       },
     },
   });
