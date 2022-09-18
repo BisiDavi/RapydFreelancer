@@ -55,7 +55,7 @@ type fundWalletPaymentDataType = {
 export function fundWalletPaymentData(data: fundWalletPaymentDataType) {
   const paymentData = {
     amount: data.amount,
-    country: data.country,
+    country: "US",
     cancel_checkout_url: "https://rapyd-freelancer.vercel.app/user/account",
     complete_checkout_url:
       "https://rapyd-freelancer.vercel.app/payment/connect/success",

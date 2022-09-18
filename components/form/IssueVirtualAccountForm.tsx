@@ -5,7 +5,7 @@ import accountForm from "@/json/issue-virtual-account-form.json";
 import displayFormElement from "@/lib/displayFormElement";
 import { virtualAccountSchema } from "@/components/form/schema/profileSchema";
 import Button from "@/components/UI/Button";
-import countresCurrency from "@/json/countrycurrency.json";
+import countriesCurrency from "@/json/countrycurrency.json";
 import usePaymentMutation from "@/hooks/usePaymentMutation";
 import { fundWalletPaymentData } from "@/lib/payment-data";
 
@@ -22,12 +22,13 @@ export default function IssueVirtualAccountForm({ ewallet }: Props) {
   });
   const { watch } = methods;
 
-  const formValues = watch();
   const currency = watch("currency");
 
-  const country = countresCurrency.filter(
+  console.log("currency", currency);
+
+  const country = countriesCurrency.filter(
     (item) => item.currency === currency
-  )[0].countryCode;
+  )[0]?.countryCode;
 
   const onSubmit = (data: any) => {
     const wData = { ...data, country, ewallet };
