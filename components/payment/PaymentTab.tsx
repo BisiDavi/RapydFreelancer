@@ -1,6 +1,12 @@
+/* eslint-disable @next/next/no-img-element */
 import Tabs from "@/components/tab";
 import Button from "@/components/UI/Button";
-import { formatCategory, getCountry, getDays } from "@/lib/fomatData";
+import {
+  formatCategory,
+  formatCategoryIntoKey,
+  getCountry,
+  getDays,
+} from "@/lib/fomatData";
 import type { paymentMethodType } from "@/types";
 
 interface Props {
@@ -33,43 +39,50 @@ interface ItemProps {
 
 function TabItem({ item }: ItemProps) {
   return (
-    <li className="w-full justify-between flex items-center bg-gray-100 my-2">
+    <li className="w-full justify-between flex items-center bg-gray-100 my-3 px-4 py-2 rounded">
       <div className="left">
-        <p>Name: {item.name}</p>
-        <p>category: {item?.category}</p>
-        <p>image: {item?.image}</p>
+        <p className="flex items-center">Name: {item.name}</p>
+        <p>Category: {formatCategory(item.category)}</p>
+
         {item.country && <p>Country: {getCountry(item.country)}</p>}
         <p>
-          currencies:
+          Currencies:
           {item.currencies.map((item) => (
             <span key={item}>{item}</span>
           ))}
         </p>
-        <p>Is Refundable: {item?.is_refundable}</p>
+        {item.is_refundable && (
+          <p>Refundable: {item?.is_refundable ? "True" : "False"}</p>
+        )}
         <p>Expires At: {getDays(item?.maximum_expiration_seconds)}</p>
-        {item.amount_range_per_currency.map((item, index) => {
-          return (
-            <div key={index} className="">
+        {item.amount_range_per_currency.map((item, index) => (
+          <div key={index} className="">
+            {item?.maximum_amount && (
               <p>
                 Maximum Amount:
                 {item?.maximum_amount
                   ? `${item?.maximum_amount} ${item.currency}`
                   : null}
               </p>
-              <p>
-                Minimum Amount:{" "}
-                {item?.minimum_amount
-                  ? `${item?.minimum_amount} ${item.currency}`
-                  : null}
-              </p>
-            </div>
-          );
-        })}
+            )}
+          </div>
+        ))}
       </div>
-      <Button
-        text={`Make Payment via ${item.name}`}
-        className="bg-blue-500 mx-auto flex my-4 px-3 py-1.5 font-bold rounded-lg text-white hover:bg-blue-800"
-      />
+      <div className="right flex flex-col items-end">
+        {item.image && (
+          <img
+            src={item?.image}
+            alt="icon"
+            height="100px"
+            width="100px"
+            className="ml-2"
+          />
+        )}
+        <Button
+          text={`Make Payment via ${item.name}`}
+          className="bg-blue-500 mx-auto flex my-4 px-3 py-1.5 font-bold rounded-lg text-white hover:bg-blue-800"
+        />
+      </div>
     </li>
   );
 }
@@ -79,7 +92,11 @@ type tabGroupType = Props & {
 };
 
 function TabGroup({ category, paymentMethod }: tabGroupType) {
-  const result = paymentMethod.filter((item) => item.category === category);
+  const result = paymentMethod.filter(
+    (item) => item.category === formatCategoryIntoKey(category)
+  );
+  console.log("result", result);
+  console.log("category", category);
   return (
     <ul>
       {result.map((item: paymentMethodType, index: number) => (

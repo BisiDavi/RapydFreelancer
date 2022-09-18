@@ -26,6 +26,31 @@ export function formatCategory(category: string) {
       return "Bank Transfer";
     case "card":
       return "Card";
+    case "bank_redirect":
+      return "Bank Redirect";
+    case "ewallet":
+      return "E-wallet";
+    case "rapyd_ewallet":
+      return "Rapyd Ewallet";
+    default:
+      return category;
+  }
+}
+
+export function formatCategoryIntoKey(category: string) {
+  switch (category) {
+    case "Cash":
+      return "cash";
+    case "Bank Transfer":
+      return "bank_transfer";
+    case "Card":
+      return "card";
+    case "Bank Redirect":
+      return "bank_redirect";
+    case "E-wallet":
+      return "ewallet";
+    case "Rapyd Ewallet":
+      return "rapyd_ewallet";
     default:
       return category;
   }
