@@ -20,7 +20,11 @@ img.PhoneInputCountryIconImg {
 }
 
 select.PhoneInputCountrySelect {
-  width: 120px;
+  width: 110px;
+}
+
+.PhoneInputCountryIcon.PhoneInputCountryIcon--border {
+  width: 30px;
 }
 
 input.PhoneInputInput {
@@ -38,4 +42,14 @@ input.PhoneInputInput {
 
 .PhoneInputCountryIcon.PhoneInputCountryIcon--border {
   margin-right: 10px;
+}
+
+@media (max-width: 768px) {
+  select.PhoneInputCountrySelect {
+    width: 90px;
+  }
+
+  .PhoneInputCountryIcon.PhoneInputCountryIcon--border {
+    width: 20px;
+  }
 }
