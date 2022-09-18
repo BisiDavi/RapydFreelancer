@@ -5,18 +5,35 @@ import accountForm from "@/json/issue-virtual-account-form.json";
 import displayFormElement from "@/lib/displayFormElement";
 import { virtualAccountSchema } from "@/components/form/schema/profileSchema";
 import Button from "@/components/UI/Button";
-import useVirtualAccount from "@/hooks/useRapydVirtualAccount";
+import countresCurrency from "@/json/countrycurrency.json";
+import usePaymentMutation from "@/hooks/usePaymentMutation";
+import { fundWalletPaymentData } from "@/lib/payment-data";
 
-export default function IssueVirtualAccountForm() {
-  const { applyForVirtualAccount } = useVirtualAccount();
+interface Props {
+  ewallet: string;
+}
+
+export default function IssueVirtualAccountForm({ ewallet }: Props) {
+  const { useFundWalletMutation } = usePaymentMutation();
+  const { mutate } = useFundWalletMutation();
   const methods = useForm({
     resolver: yupResolver(virtualAccountSchema),
     mode: "all",
   });
+  const { watch } = methods;
+
+  const formValues = watch();
+  const currency = watch("currency");
+
+  const country = countresCurrency.filter(
+    (item) => item.currency === currency
+  )[0].countryCode;
 
   const onSubmit = (data: any) => {
-    console.log("data", data);
-    return applyForVirtualAccount(data);
+    const wData = { ...data, country, ewallet };
+    const walletData = fundWalletPaymentData(wData);
+    console.log("walletData", walletData);
+    mutate(walletData);
   };
 
   return (

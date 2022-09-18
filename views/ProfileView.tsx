@@ -49,7 +49,7 @@ export default function ProfileView() {
         <AccountDetailsView walletId={user?.ewallet} />
       )}
 
-      {user?.address && <IssueVirtualAccountForm />}
+      {user?.address && <IssueVirtualAccountForm ewallet={user?.ewallet} />}
     </div>
   );
 }
