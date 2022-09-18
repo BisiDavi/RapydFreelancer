@@ -1,16 +1,6 @@
-import axios from "axios";
-
 import useRequestMutation from "@/hooks/useRequestMutation";
-
-function getCurrencyDailyRate(buyCurrency: string) {
-  return axios.get("/api/payment/daily-currency-rate", {
-    params: { buyCurrency },
-  });
-}
-
-function connectPayment(data: any) {
-  return axios.post("/api/payment", { data });
-}
+import { connectPayment } from "@/request/postRequest";
+import { getCurrencyDailyRate } from "@/request/getRequest";
 
 export default function usePaymentMutation() {
   function useGetCurrencyRate() {
@@ -31,5 +21,16 @@ export default function usePaymentMutation() {
     });
   }
 
-  return { useGetCurrencyRate, useConnectPaymentMutation };
+  function useFundWalletMutation() {
+    return useRequestMutation((data) => connectPayment(data), {
+      mutationKey: ["useFundWalletMutation"],
+      success: "Redirecting you to Raypd payment gateway",
+    });
+  }
+
+  return {
+    useGetCurrencyRate,
+    useConnectPaymentMutation,
+    useFundWalletMutation,
+  };
 }

@@ -16,3 +16,7 @@ export function createWallet(
     userData,
   });
 }
+
+export function connectPayment(data: any) {
+  return axios.post("/api/payment", { data });
+}

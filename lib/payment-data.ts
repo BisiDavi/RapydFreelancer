@@ -16,7 +16,8 @@ export function getConnectPaymentData(data: dataType) {
       ? "US"
       : countryCurrency.filter((item) => item.currency === data.currency)[0]
           .countryCode;
-  const currency = data.currencyType === "USD" ? data.currencyType : data.currency;
+  const currency =
+    data.currencyType === "USD" ? data.currencyType : data.currency;
   const fxData =
     currency !== "USD"
       ? { fixed_side: "buy", requested_currency: "USD" }
@@ -41,7 +42,35 @@ export function getConnectPaymentData(data: dataType) {
     },
   };
 
-  console.log("paymentData", paymentData);
+  return paymentData;
+}
+
+export function fundWalletPaymentData(data: dataType) {
+  const country =
+    data.currencyType === "USD"
+      ? "US"
+      : countryCurrency.filter((item) => item.currency === data.currency)[0]
+          .countryCode;
+  const currency =
+    data.currencyType === "USD" ? data.currencyType : data.currency;
+
+  const paymentData = {
+    amount: data.amount,
+    country,
+    cancel_checkout_url: "https://rapyd-freelancer.vercel.app/user/account",
+    complete_checkout_url:
+      "https://rapyd-freelancer.vercel.app/payment/connect/success",
+    complete_payment_url:
+      "https://rapyd-freelancer.vercel.app/payment/connect/success",
+    error_payment_url:
+      "https://rapyd-freelancer.vercel.app/payment/connect/error",
+    currency,
+    language: "en",
+    merchant_reference_id: uuidv4(),
+    metadata: {
+      merchant_defined: true,
+    },
+  };
 
   return paymentData;
 }

@@ -41,3 +41,9 @@ export function getBidsFromPostedJobs(email: string) {
     params: { query: { "user.email": email } },
   });
 }
+
+export function getCurrencyDailyRate(buyCurrency: string) {
+  return axios.get("/api/payment/daily-currency-rate", {
+    params: { buyCurrency },
+  });
+}
