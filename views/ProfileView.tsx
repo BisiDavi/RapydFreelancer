@@ -43,7 +43,11 @@ export default function ProfileView() {
         your KYC, this will enable you create your wallet and eligible to post
         jobs.
       </p>
-      {!user?.ewallet ? <ProfileForm /> : <AccountDetailsView walletId={user.ewallet} />}
+      {!user?.ewallet ? (
+        <ProfileForm />
+      ) : (
+        <AccountDetailsView walletId={user?.ewallet} />
+      )}
 
       {user?.address && <IssueVirtualAccountForm />}
     </div>

@@ -20,7 +20,7 @@ export default function AccountDetailsView({ walletId }: Props) {
       {status === "error" ? (
         "unable to fetch account details"
       ) : status === "loading" ? (
-        <div className="view h-20 mx-auto flex justify-center items-center w-full">
+        <div className="view h-14 mx-auto flex justify-center items-center w-full">
           <SpinnerRipple centerRipple />
         </div>
       ) : (

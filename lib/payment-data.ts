@@ -45,7 +45,11 @@ export function getConnectPaymentData(data: dataType) {
   return paymentData;
 }
 
-export function fundWalletPaymentData(data: dataType) {
+type fundWalletPaymentDataType = dataType & {
+  ewallet: string;
+};
+
+export function fundWalletPaymentData(data: fundWalletPaymentDataType) {
   const country =
     data.currencyType === "USD"
       ? "US"
@@ -65,6 +69,7 @@ export function fundWalletPaymentData(data: dataType) {
     error_payment_url:
       "https://rapyd-freelancer.vercel.app/payment/connect/error",
     currency,
+    ewallet: data.ewallet,
     language: "en",
     merchant_reference_id: uuidv4(),
     metadata: {
