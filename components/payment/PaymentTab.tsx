@@ -73,8 +73,8 @@ function TabItem({ item }: ItemProps) {
           <img
             src={item?.image}
             alt="icon"
-            height="100px"
-            width="100px"
+            height="80px"
+            width="80px"
             className="ml-2"
           />
         )}

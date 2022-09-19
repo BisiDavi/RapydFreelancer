@@ -95,7 +95,7 @@ export default function IssueVirtualAccountForm({ ewallet }: Props) {
           data?.data.length === 0 && (
             <p className="font-bold text-center">
               No Payment method supported for {getCountry(variables.country)}
-              and
+              <span className="mx-1">and</span>
               {variables.currency}
             </p>
           )

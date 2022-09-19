@@ -13,7 +13,6 @@ export function getDays(seconds: number) {
 }
 
 export function getCountry(countryCode: string) {
-  console.log("countryCode", countryCode);
   return countries.filter((item) => item.Iso2 === countryCode.toUpperCase())[0]
     .name;
 }
@@ -32,6 +31,8 @@ export function formatCategory(category: string) {
       return "E-wallet";
     case "rapyd_ewallet":
       return "Rapyd Ewallet";
+    case "ewallet_redirect":
+      return "Ewallet Redirect";
     default:
       return category;
   }
@@ -51,6 +52,8 @@ export function formatCategoryIntoKey(category: string) {
       return "ewallet";
     case "Rapyd Ewallet":
       return "rapyd_ewallet";
+    case "Ewallet Redirect":
+      return "ewallet_redirect";
     default:
       return category;
   }
