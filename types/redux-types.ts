@@ -7,7 +7,7 @@ export type UIStateType = {
   sidebar: null | "signup-sidebar" | "login-sidebar" | "mobile-sidebar";
   mediaUpload: boolean;
   proposalSidebar: {
-    active: boolean;
+    active: null | "proposal" | "escrow-deposit" | "escrow-payment";
     data: null | any;
   };
 };

@@ -11,7 +11,7 @@ const initialState: UIStateType = {
   mediaUpload: false,
   proposalSidebar: {
     data: null,
-    active: false,
+    active: null,
   },
 };
 
@@ -37,7 +37,10 @@ const UISlice = createSlice({
     ) {
       state.mediaUpload = action.payload;
     },
-    updateProposal(state, action) {
+    updateProposal(
+      state,
+      action: PayloadAction<UIStateType["proposalSidebar"]>
+    ) {
       state.proposalSidebar = action.payload;
     },
   },

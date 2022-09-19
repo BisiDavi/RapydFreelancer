@@ -23,7 +23,7 @@ export default function BidItemView({ bids }: PropType) {
     const activeBidProposal = bids.filter(
       (item) => item.freelancer.displayName === name
     )[0];
-    updateProposalHandler(activeBidProposal);
+    updateProposalHandler(activeBidProposal, "proposal");
   }
 
   return (
