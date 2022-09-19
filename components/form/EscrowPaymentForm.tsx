@@ -24,6 +24,7 @@ interface Props {
 export default function EscrowPaymentForm({ formData }: Props) {
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const date = new Date();
   const { mutate, isLoading } = useEscrowMutation();
   const methods = useForm({
     mode: "all",
@@ -49,6 +50,7 @@ export default function EscrowPaymentForm({ formData }: Props) {
                 freelancer: formData.freelancer,
                 price: formData.price,
                 title: formData.title,
+                createdAt: date
               },
             ])
           );

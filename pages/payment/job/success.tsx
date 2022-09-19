@@ -17,6 +17,7 @@ export default function JobPaymentSuccessful() {
       onSuccess: () => {
         resetHired();
         queryClient.invalidateQueries(["getUserProfile"]);
+        queryClient.invalidateQueries(["getJobs"]);
         router.push("/user/profile");
       },
     }
