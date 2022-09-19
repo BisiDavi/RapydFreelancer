@@ -53,7 +53,7 @@ export default function BuyConnectForm() {
     walletConnectPayment.mutate(paymentData, {
       onSuccess: (data) => {
         console.log("data", data);
-        walletConnectPaymentDBUpdate(connectQuantity);
+        walletConnectPaymentDBUpdate(connectQuantity, router);
       },
     });
   }
