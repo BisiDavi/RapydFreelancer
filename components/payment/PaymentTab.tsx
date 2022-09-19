@@ -42,12 +42,31 @@ interface ItemProps {
 
 function TabItem({ item }: ItemProps) {
   const { usePaymentRequiredFields } = usePaymentMutation();
-  const { mutate, data } = usePaymentRequiredFields();
-
-  console.log("data-mutate", data?.data);
+  const { mutate } = usePaymentRequiredFields();
 
   function onClickHandler() {
-    mutate(item.type);
+    mutate(item.type, {
+      onSuccess: (data) => {
+        console.log("data-mutate", data?.data);
+        if (data?.data.payment_method_options.length > 0) {
+          const is3dsRequired = data?.data.payment_method_options.filter(
+            (item: { name: string }) => item.name === "3d_required"
+          )[0].is_required;
+          const dataObj = is3dsRequired
+            ? {
+                payment_method: data?.data.fields,
+                payment_method_options: {
+                  "3d_required": true,
+                },
+              }
+            : {
+                payment_method: data?.data.fields,
+              };
+              
+        } else {
+        }
+      },
+    });
   }
 
   return (
