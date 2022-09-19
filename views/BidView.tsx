@@ -22,7 +22,7 @@ export default function BidView() {
           <h4 className="font-medium text-xl">
             Posted Jobs ({data?.data.length})
             {data?.data.length > 0 && (
-              <span className="font-bold ml-1">,click to view bids</span>
+              <span className="font-bold ml-1">click to view bids</span>
             )}
           </h4>
           <ul>
