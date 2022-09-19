@@ -34,7 +34,7 @@ export default function BuyConnectForm() {
   const dispatch = useAppDispatch();
 
   const amount = connectPrice ? formatPrice(connectPrice) : " ";
-  const amountValue = currency ? `${currency} ${amount}` : "";
+  const amountValue = currency ? `${amount} ${currency}` : "";
 
   const connectQuantity: any = connectPrice
     ? getConnectQuantity(connectPrice)
@@ -43,6 +43,7 @@ export default function BuyConnectForm() {
   function makePaymentHandler(paymentData: any) {
     mutate(paymentData, {
       onSuccess: (data, variable) => {
+        console.log("variable.connectQuantity", variable.connectQuantity);
         dispatch(updatePaymentConnect(variable.connectQuantity));
         return router.push(data?.data?.redirect_url);
       },

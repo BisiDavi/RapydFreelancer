@@ -56,12 +56,14 @@ export default function SpinnerRipple({ centerRipple }: Props) {
 
 interface SpinnerLoaderProps {
   loadingText: string;
+  className?: string;
 }
 
-export function SpinnerLoader({ loadingText }: SpinnerLoaderProps) {
+export function SpinnerLoader({ loadingText, className }: SpinnerLoaderProps) {
+  const loaderClassName = className ? className : "";
   return (
-    <div className="flex flex-col">
-      <div className="ripple h-20 flex justify-center items-center">
+    <div className={`flex flex-col ${loaderClassName} `}>
+      <div className={`ripple h-20 flex justify-center items-center`}>
         <SpinnerRipple centerRipple />
       </div>
       <p className="text-center font-bold">{loadingText}</p>
