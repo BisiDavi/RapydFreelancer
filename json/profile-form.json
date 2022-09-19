@@ -55,7 +55,7 @@
       "options": [
         { "text": "Select Sex", "value": "" },
         { "text": "Male", "value": "MALE" },
-        { "text": "Female", "value": "FEMMALE" }
+        { "text": "Female", "value": "FEMALE" }
       ]
     },
     {

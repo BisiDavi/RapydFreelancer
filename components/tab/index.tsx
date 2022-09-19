@@ -17,7 +17,6 @@ export default function Tabs({
 }: Props) {
   const [openTab, setOpenTab] = useState(0);
 
-  console.log("tab-body", tabBody);
   return (
     <>
       <div className="flex flex-wrap w-full">

@@ -23,6 +23,7 @@ export interface MenubarType {
 }
 
 export type paymentMethodType = {
+  type: string;
   name: string;
   category: string;
   image?: string;

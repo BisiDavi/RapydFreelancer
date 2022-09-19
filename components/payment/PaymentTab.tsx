@@ -1,6 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
+import { memo } from "react";
+
 import Tabs from "@/components/tab";
 import Button from "@/components/UI/Button";
+import usePaymentMutation from "@/hooks/usePaymentMutation";
 import {
   formatCategory,
   formatCategoryIntoKey,
@@ -22,7 +25,7 @@ export default function PaymentTab({ paymentMethod }: Props) {
 
   uniqueCategory.map((item) =>
     tabBody.push(
-      <TabGroup key={item} category={item} paymentMethod={paymentMethod} />
+      <TabGroupMemo key={item} category={item} paymentMethod={paymentMethod} />
     )
   );
 
@@ -38,6 +41,15 @@ interface ItemProps {
 }
 
 function TabItem({ item }: ItemProps) {
+  const { usePaymentRequiredFields } = usePaymentMutation();
+  const { mutate, data } = usePaymentRequiredFields();
+
+  console.log("data-mutate", data?.data);
+
+  function onClickHandler() {
+    mutate(item.type);
+  }
+
   return (
     <li className="w-full justify-between flex items-center bg-gray-100 my-3 px-4 py-2 rounded">
       <div className="left">
@@ -80,7 +92,8 @@ function TabItem({ item }: ItemProps) {
         )}
         <Button
           text={`Make Payment via ${item.name}`}
-          className="bg-blue-500 mx-auto flex my-4 px-3 py-1.5 font-bold rounded-lg text-white hover:bg-blue-800"
+          className="bg-blue-500 mx-auto text-sm flex my-4 px-3 py-1.5 font-bold rounded-lg text-white hover:bg-blue-800"
+          onClick={onClickHandler}
         />
       </div>
     </li>
@@ -95,8 +108,6 @@ function TabGroup({ category, paymentMethod }: tabGroupType) {
   const result = paymentMethod.filter(
     (item) => item.category === formatCategoryIntoKey(category)
   );
-  console.log("result", result);
-  console.log("category", category);
   return (
     <ul>
       {result.map((item: paymentMethodType, index: number) => (
@@ -105,3 +116,5 @@ function TabGroup({ category, paymentMethod }: tabGroupType) {
     </ul>
   );
 }
+
+const TabGroupMemo = memo(TabGroup);

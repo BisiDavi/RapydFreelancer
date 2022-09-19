@@ -18,13 +18,8 @@ interface Props {
 }
 
 export default function FundAccountForm({ ewallet }: Props) {
-  const {
-    useFundWalletMutation,
-    usePaymentByMethod,
-    usePaymentRequiredFields,
-  } = usePaymentMutation();
+  const { useFundWalletMutation, usePaymentByMethod } = usePaymentMutation();
   const { mutate } = useFundWalletMutation();
-  const mutatePaymentFields = usePaymentRequiredFields();
   const {
     mutate: mutatePayment,
     status,
@@ -41,9 +36,6 @@ export default function FundAccountForm({ ewallet }: Props) {
   const currency = watch("currency");
   const country = watch("country");
 
-  console.log("country", country);
-  console.log("currency", currency);
-
   function getPaymentByCountryHandler() {
     if (!country || !currency) {
       toast.warn("country and currency fields are required");
@@ -52,8 +44,6 @@ export default function FundAccountForm({ ewallet }: Props) {
       return mutatePayment({ country, currency });
     }
   }
-
-  console.log("data-getPaymentByCountry", data?.data);
 
   const onSubmit = (data: any) => {
     const wData = { ...data, country, ewallet };
