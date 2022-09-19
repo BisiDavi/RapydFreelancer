@@ -9,19 +9,10 @@ import displayFormElement from "@/lib/displayFormElement";
 import usePaymentMutation from "@/hooks/usePaymentMutation";
 import { formatPrice } from "@/lib/formatPrice";
 import { getPaymentData } from "@/lib/payment-data";
-import { useAppDispatch } from "@/hooks/useRedux";
+import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import { updatePaymentConnect } from "@/redux/user-slice";
 import { buyconnectSchema } from "./schema/profileSchema";
-
-function getConnectQuantity(connectPrice: string) {
-  if (connectPrice === "20") {
-    return 10;
-  } else if (connectPrice === "50") {
-    return 50;
-  } else if (connectPrice === "90") {
-    return 100;
-  }
-}
+import { getConnectQuantity } from "@/lib/fomatData";
 
 export default function BuyConnectForm() {
   const methods = useForm({
@@ -32,13 +23,34 @@ export default function BuyConnectForm() {
   const paymentType = methods.watch("paymentType");
   const currency = methods.watch("currency");
   const connectPrice = methods.watch("connectPrice");
-  const { useConnectPaymentMutation } = usePaymentMutation();
-  const { mutate, isLoading} = useConnectPaymentMutation();
+  const { useConnectPaymentMutation, useWalletConnectPaymentMutation } =
+    usePaymentMutation();
+  const { profile } = useAppSelector((state) => state.user);
+  const walletConnectPayment = useWalletConnectPaymentMutation();
+  const { mutate, isLoading } = useConnectPaymentMutation();
   const router = useRouter();
   const dispatch = useAppDispatch();
 
   const amount = connectPrice ? formatPrice(connectPrice) : " ";
   const amountValue = currency ? `${currency} ${amount}` : "";
+
+  function makePaymentHandler(paymentData: any) {
+    mutate(paymentData, {
+      onSuccess: (data, variable) => {
+        dispatch(updatePaymentConnect(variable.metadata.connectQuantity));
+        return router.push(data?.data?.redirect_url);
+      },
+    });
+  }
+
+  function walletPaymentHandler(paymentData: any) {
+    walletConnectPayment.mutate(paymentData, {
+      onSuccess: (data, variable) => {
+        console.log("data", data);
+        dispatch(updatePaymentConnect(variable.metadata.connectQuantity));
+      },
+    });
+  }
 
   const onSubmit = (data: any) => {
     console.log("data", data);
@@ -53,16 +65,17 @@ export default function BuyConnectForm() {
         ? {
             amount: connectPrice,
             currency: "USD",
+            source_wallet: profile?.ewallet,
+            destination_wallet: "ewallet_4e58c9af1b0a15853bfee6f1ffcc7a70",
             connectQuantity: getConnectQuantity(connectPrice),
           }
         : dataObj;
     const paymentData = getPaymentData(paymentDataObj, "connect");
-    mutate(paymentData, {
-      onSuccess: (data, variable) => {
-        dispatch(updatePaymentConnect(variable.metadata.connectQuantity));
-        return router.push(data?.data?.redirect_url);
-      },
-    });
+    if (paymentType === "WALLET") {
+      walletPaymentHandler(paymentData);
+    } else {
+      makePaymentHandler(paymentData);
+    }
   };
 
   return (
@@ -84,7 +97,7 @@ export default function BuyConnectForm() {
             text={`Proceed to Pay ${amountValue}`}
             className="bg-green-500 mx-auto flex items-center my-2 mt-4 px-4 py-2 text-white rounded-md"
             type="submit"
-            loading={isLoading}
+            loading={isLoading || walletConnectPayment.isLoading}
           />
         )}
       </form>

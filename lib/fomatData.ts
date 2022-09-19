@@ -58,3 +58,14 @@ export function formatCategoryIntoKey(category: string) {
       return category;
   }
 }
+
+
+export function getConnectQuantity(connectPrice: string) {
+  if (connectPrice === "20") {
+    return 10;
+  } else if (connectPrice === "50") {
+    return 50;
+  } else if (connectPrice === "90") {
+    return 100;
+  }
+}
