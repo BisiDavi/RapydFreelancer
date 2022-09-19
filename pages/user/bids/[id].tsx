@@ -10,14 +10,14 @@ import connectDB from "@/db/DBConnection";
 import { getDataDB } from "@/db";
 
 interface PropType {
-  bid: string;
+  bids: string;
 }
 
-export default function ViewBidPage({ bid }: PropType) {
+export default function ViewBidPage({ bids }: PropType) {
   const mobileView = useMediaQuery("(max-width:768px)");
   const { auth } = useHeader();
-  const parsedBid = JSON.parse(bid);
-  console.log("bid", parsedBid);
+  const parsedBids = JSON.parse(bids);
+  console.log("bid", parsedBids);
 
   return (
     <DefaultLayout title="View Bids">
@@ -27,7 +27,7 @@ export default function ViewBidPage({ bid }: PropType) {
           <h3 className="text-xl font-bold mb-4">
             {greetUser()}, {auth?.displayName}
           </h3>
-          <BidItemView bid={parsedBid} />
+          <BidItemView bids={parsedBids} />
         </div>
       </section>
     </DefaultLayout>
@@ -37,27 +37,26 @@ export default function ViewBidPage({ bid }: PropType) {
 export const getServerSideProps = async (
   context: GetServerSidePropsContext | any
 ) => {
-  const { id, userId } = context.query;
+  const { id } = context.query;
   console.log("context.query", context.query);
 
   try {
     const dbClient = await connectDB();
-    const user = await getDataDB(dbClient, "users", { email: userId });
-    console.log("user", user);
-    const bids = user[0].bids;
-    const getABid = bids.filter((item: { id: string }) => item.id === id)[0];
-    console.log("getABid", getABid);
+    const job = await getDataDB(dbClient, "jobs", { id });
+    const jobBids = job[0].bids;
+
+    console.log("jobBids", jobBids);
 
     return {
       props: {
-        bid: JSON.stringify(getABid),
+        bids: JSON.stringify(jobBids),
       },
     };
   } catch (err) {
     console.log("error", err);
     return {
       props: {
-        bid: null,
+        bids: [],
       },
     };
   }

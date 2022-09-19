@@ -1,11 +1,11 @@
 import Button from "@/components/UI/Button";
 
 interface PropType {
-  bid: any;
+  bids: any[];
 }
 
-export default function BidItemView({ bid }: PropType) {
-  console.log("biditem", bid);
+export default function BidItemView({ bids }: PropType) {
+  console.log("bids", bids);
   return (
     <div>
       BidItemView

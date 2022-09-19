@@ -2,11 +2,9 @@ import { SpinnerLoader } from "@/components/loader/SpinnerRipple";
 import { jobType } from "@/types";
 import Button from "@/components/UI/Button";
 import usePostedJobs from "@/hooks/usePostedJobs";
-import useHeader from "@/hooks/useHeader";
 
 export default function BidView() {
   const { data, status } = usePostedJobs();
-  const { auth } = useHeader();
 
   console.log("data", data?.data);
 
@@ -49,7 +47,7 @@ export default function BidView() {
                     <Button
                       className="border border-blue-500 w-1/6 hover:bg-blue-500 hover:text-white px-4 py-1 rounded-lg flex justify-center mx-auto"
                       text="View Bids"
-                      href={`/user/bids/${item.id}?userId=${auth.email}`}
+                      href={`/user/bids/${item.id}`}
                     />
                   )}
                   <div className="bid-view"></div>
