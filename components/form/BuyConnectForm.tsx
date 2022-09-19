@@ -13,6 +13,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import { updatePaymentConnect } from "@/redux/user-slice";
 import { buyconnectSchema } from "./schema/profileSchema";
 import { getConnectQuantity } from "@/lib/fomatData";
+import useConnect from "@/hooks/useConnect";
 
 export default function BuyConnectForm() {
   const methods = useForm({
@@ -29,15 +30,20 @@ export default function BuyConnectForm() {
   const walletConnectPayment = useWalletConnectPaymentMutation();
   const { mutate, isLoading } = useConnectPaymentMutation();
   const router = useRouter();
+  const { walletConnectPaymentDBUpdate } = useConnect();
   const dispatch = useAppDispatch();
 
   const amount = connectPrice ? formatPrice(connectPrice) : " ";
   const amountValue = currency ? `${currency} ${amount}` : "";
 
+  const connectQuantity: any = connectPrice
+    ? getConnectQuantity(connectPrice)
+    : 0;
+
   function makePaymentHandler(paymentData: any) {
     mutate(paymentData, {
       onSuccess: (data, variable) => {
-        dispatch(updatePaymentConnect(variable.metadata.connectQuantity));
+        dispatch(updatePaymentConnect(variable.connectQuantity));
         return router.push(data?.data?.redirect_url);
       },
     });
@@ -45,9 +51,9 @@ export default function BuyConnectForm() {
 
   function walletPaymentHandler(paymentData: any) {
     walletConnectPayment.mutate(paymentData, {
-      onSuccess: (data, variable) => {
+      onSuccess: (data) => {
         console.log("data", data);
-        dispatch(updatePaymentConnect(variable.metadata.connectQuantity));
+        walletConnectPaymentDBUpdate(connectQuantity);
       },
     });
   }
@@ -60,21 +66,18 @@ export default function BuyConnectForm() {
       amount: connectPrice,
       connectQuantity: getConnectQuantity(connectPrice),
     };
-    const paymentDataObj =
-      paymentType === "WALLET"
-        ? {
-            amount: connectPrice,
-            currency: "USD",
-            source_wallet: profile?.ewallet,
-            destination_wallet: "ewallet_4e58c9af1b0a15853bfee6f1ffcc7a70",
-            connectQuantity: getConnectQuantity(connectPrice),
-          }
-        : dataObj;
-    const paymentData = getPaymentData(paymentDataObj, "connect");
+    const makePaymentData = getPaymentData(dataObj, "connect");
+    const walletPaymentData = {
+      amount: connectPrice,
+      currency: "USD",
+      source_ewallet: profile?.ewallet,
+      destination_ewallet: "ewallet_4e58c9af1b0a15853bfee6f1ffcc7a70",
+    };
+
     if (paymentType === "WALLET") {
-      walletPaymentHandler(paymentData);
+      walletPaymentHandler(walletPaymentData);
     } else {
-      makePaymentHandler(paymentData);
+      makePaymentHandler(makePaymentData);
     }
   };
 

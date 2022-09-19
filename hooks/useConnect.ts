@@ -24,9 +24,19 @@ export default function useConnect() {
     });
   }
 
+  function walletConnectPaymentDBUpdate(connect: number) {
+    return axios.put("/api/db", {
+      data: { $inc: connect },
+      collection: "users",
+      query: { email: auth?.email },
+    });
+  }
+
   return {
     updateConnectAfterPayment,
     connect,
     resetConnect,
+    walletConnectPaymentDBUpdate,
   };
 }
+ 
