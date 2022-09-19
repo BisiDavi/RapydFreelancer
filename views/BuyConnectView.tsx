@@ -16,8 +16,6 @@ export default function BuyConnectView() {
         <li>100 Connects: $90</li>
       </ul>
       <BuyConnectForm />
-      <h6>Or</h6>
-      <h4>Buy connect from your wallet Balance</h4>
     </div>
   );
 }

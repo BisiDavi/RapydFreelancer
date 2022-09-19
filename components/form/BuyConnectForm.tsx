@@ -30,6 +30,7 @@ export default function BuyConnectForm() {
     mode: "all",
   });
 
+  const paymentType = methods.watch("paymentType");
   const currency = methods.watch("currency");
   const connectPrice = methods.watch("connectPrice");
   const { useConnectPaymentMutation } = usePaymentMutation();
@@ -60,17 +61,25 @@ export default function BuyConnectForm() {
   return (
     <FormProvider {...methods}>
       <form className="mt-4" onSubmit={methods.handleSubmit(onSubmit)}>
-        <div className="form-view grid grid-cols-2 gap-x-5 w-11/12 ">
-          {buyConnect.map((item, index) => (
-            <Fragment key={index}>{displayFormElement(item)}</Fragment>
-          ))}
-        </div>
-        <Button
-          text={`Proceed to Pay ${amountValue}`}
-          className="bg-green-500 mx-auto flex items-center my-2 mt-4 px-4 py-2 text-white rounded-md"
-          type="submit"
-          loading={connectPayment.isLoading}
-        />
+        <div className="view">{displayFormElement(buyConnect.first)}</div>
+        {paymentType === "WALLET"
+          ? displayFormElement(buyConnect.wallet)
+          : paymentType === "MAKE_PAYMENT" && (
+              <div className="form-view grid grid-cols-2 gap-x-5 w-11/12 ">
+                {buyConnect.payment.map((item, index) => (
+                  <Fragment key={index}>{displayFormElement(item)}</Fragment>
+                ))}
+              </div>
+            )}
+
+        {paymentType && (
+          <Button
+            text={`Proceed to Pay ${amountValue}`}
+            className="bg-green-500 mx-auto flex items-center my-2 mt-4 px-4 py-2 text-white rounded-md"
+            type="submit"
+            loading={connectPayment.isLoading}
+          />
+        )}
       </form>
     </FormProvider>
   );
