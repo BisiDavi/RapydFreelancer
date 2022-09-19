@@ -4,13 +4,17 @@ import Container from "@/components/UI/Container";
 interface Props {
   title?: string;
   price?: number;
+  className?: string;
 }
 
-export default function JobBanner({ title, price }: Props) {
+export default function JobBanner({ title, price, className }: Props) {
+  const bannerClassname2 = className ? className : "";
   const bannerTitle = title ? title : "Top Jobs";
   const bannerClassname = title ? "lg:flex-row flex-col " : "flex-row";
   return (
-    <div className="w-full bg-blue-500 h-24 flex items-center">
+    <div
+      className={`w-full bg-blue-500 ${bannerClassname2} h-24 flex items-center`}
+    >
       <Container
         className={`items-center ${bannerClassname} justify-between px-4 lg:px-0`}
       >

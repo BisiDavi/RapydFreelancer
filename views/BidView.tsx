@@ -32,7 +32,7 @@ export default function BidView() {
                   ? `${item.bids.length} bids`
                   : `${item.bids.length} bid`;
               const bidClassname =
-                item.bids.length > 1 ? "text-green-500" : "text-red-500";
+                item.bids.length > 0 ? "text-green-500" : "text-red-500";
               return (
                 <li
                   key={item._id}
