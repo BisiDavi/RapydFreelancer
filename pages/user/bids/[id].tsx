@@ -3,10 +3,11 @@ import type { GetServerSidePropsContext } from "next";
 import ProfileSidebar from "@/components/sidebar/ProfileSidebar";
 import DefaultLayout from "@/layout/DefaultLayout";
 import useMediaQuery from "@/hooks/useMediaQuery";
-import useHeader from "@/hooks/useHeader";
 import BidItemView from "@/views/BidItemView";
 import connectDB from "@/db/DBConnection";
 import { getDataDB } from "@/db";
+import ProposalListingSidebar from "@/components/sidebar/ProposalListingSidebar";
+import { useAppSelector } from "@/hooks/useRedux";
 
 interface PropType {
   bids: string;
@@ -14,12 +15,14 @@ interface PropType {
 
 export default function ViewBidPage({ bids }: PropType) {
   const mobileView = useMediaQuery("(max-width:768px)");
-  const { auth } = useHeader();
   const parsedBids = JSON.parse(bids);
+  const { proposalSidebar } = useAppSelector((state) => state.UI);
+
   console.log("bid", parsedBids);
 
   return (
     <DefaultLayout title="View Bids">
+      {proposalSidebar && proposalSidebar?.active && <ProposalListingSidebar />}
       <section className="container flex items-start mx-auto my-10">
         {!mobileView && <ProfileSidebar />}
         <div className="content w-full lg:w-4/5 item-start ml-4 rounded  bg-gray-100">

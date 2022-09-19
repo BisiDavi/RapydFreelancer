@@ -1,7 +1,9 @@
 import JobBanner from "@/components/banners/JobBanner";
 import Button from "@/components/UI/Button";
 import useHeader from "@/hooks/useHeader";
+import { useAppDispatch } from "@/hooks/useRedux";
 import greetUser from "@/lib/greetUser";
+import { updateProposal } from "@/redux/ui-slice";
 
 interface PropType {
   bids: {
@@ -16,6 +18,14 @@ interface PropType {
 
 export default function BidItemView({ bids }: PropType) {
   const { auth } = useHeader();
+  const dispatch = useAppDispatch();
+
+  function viewProposalHander(name: string) {
+    const activeBidProposal = bids.filter(
+      (item) => item.freelancer.displayName === name
+    )[0];
+    dispatch(updateProposal({ data: activeBidProposal, active: true }));
+  }
 
   return (
     <div>
@@ -33,7 +43,10 @@ export default function BidItemView({ bids }: PropType) {
         </h4>
         <ul>
           {bids.map((item, index) => (
-            <li key={index} className="my-2 bg-white rounded justify-between flex items-center px-4 py-2">
+            <li
+              key={index}
+              className="my-2 bg-white rounded justify-between flex items-center px-4 py-2"
+            >
               <div className="left">
                 <p>Freelancer Name: {item.freelancer.displayName}</p>
                 <p>Freelancer Email: {item.freelancer.email}</p>
@@ -42,6 +55,7 @@ export default function BidItemView({ bids }: PropType) {
               <Button
                 text={`View ${item.freelancer.displayName} Proposal`}
                 className="bg-red-500 px-3 py-1 text-white hover:opacity-80 font-bold  my-4"
+                onClick={() => viewProposalHander(item.freelancer.displayName)}
               />
             </li>
           ))}

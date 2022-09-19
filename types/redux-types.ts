@@ -6,10 +6,12 @@ export type UIStateType = {
   apploaded: boolean;
   sidebar: null | "signup-sidebar" | "login-sidebar" | "mobile-sidebar";
   mediaUpload: boolean;
+  proposalSidebar: {
+    active: boolean;
+    data: null | any;
+  };
 };
 
 export type FormStateType = {
   postJobForm: { [key: string]: string };
 };
-
-

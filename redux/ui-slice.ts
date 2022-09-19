@@ -9,6 +9,10 @@ const initialState: UIStateType = {
   apploaded: false,
   sidebar: null,
   mediaUpload: false,
+  proposalSidebar: {
+    data: null,
+    active: false,
+  },
 };
 
 const UISlice = createSlice({
@@ -33,6 +37,9 @@ const UISlice = createSlice({
     ) {
       state.mediaUpload = action.payload;
     },
+    updateProposal(state, action) {
+      state.proposalSidebar = action.payload;
+    },
   },
 });
 
@@ -42,5 +49,6 @@ export const {
   updateAppload,
   updateSidebar,
   updateMediaUpload,
+  updateProposal,
 } = UISlice.actions;
 export default UISlice.reducer;
