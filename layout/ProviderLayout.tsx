@@ -4,8 +4,6 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ToastContainer } from "react-toastify";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
-import { persistQueryClient } from "@tanstack/react-query-persist-client";
-import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 import type { PropsWithChildren } from "react";
 
 import store from "@/redux/store";
@@ -34,16 +32,6 @@ export default function Providerlayout({ children }: PropsWithChildren<{}>) {
   });
 
   let persistor = persistStore(store);
-
-  const localStoragePersister = createSyncStoragePersister({
-    storage: accessLocalStorage(),
-  });
-
-  persistQueryClient({
-    queryClient,
-    persister: localStoragePersister,
-    buster: "busterCache",
-  });
 
   return (
     <>

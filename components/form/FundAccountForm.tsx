@@ -16,7 +16,7 @@ interface Props {
 export default function FundAccountForm({ ewallet }: Props) {
   const { useFundWalletMutation } = usePaymentMutation();
   const router = useRouter();
-  const { mutate, status, data, variables } = useFundWalletMutation();
+  const { mutate } = useFundWalletMutation();
   const methods = useForm({
     resolver: yupResolver(virtualAccountSchema),
     mode: "all",
