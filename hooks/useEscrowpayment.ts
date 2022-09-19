@@ -1,9 +1,9 @@
 import useRequestMutation from "@/hooks/useRequestMutation";
-import { connectPayment } from "@/request/postRequest";
+import { escrowPayment } from "@/request/postRequest";
 
 export default function useEscrowMutation() {
-  return useRequestMutation((data) => connectPayment(data), {
-    mutationKey: ["useConnectPaymentMutation"],
+  return useRequestMutation((data) => escrowPayment(data), {
+    mutationKey: ["useEscrowMutation"],
     success: "Redirecting you to Raypd payment gateway",
   });
 }
