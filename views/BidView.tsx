@@ -6,7 +6,7 @@ import usePostedJobs from "@/hooks/usePostedJobs";
 export default function BidView() {
   const { data, status } = usePostedJobs();
 
-  console.log("data", data);
+  console.log("data", data?.data);
 
   return (
     <div>

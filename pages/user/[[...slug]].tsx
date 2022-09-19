@@ -5,11 +5,11 @@ import { useRouter } from "next/router";
 import DefaultLayout from "@/layout/DefaultLayout";
 import displayUserSection from "@/components/tab/displayUserSection";
 import ProfileSidebar from "@/components/sidebar/ProfileSidebar";
-import useAuth from "@/hooks/useAuth";
 import greetUser from "@/lib/greetUser";
 import { useAppDispatch } from "@/hooks/useRedux";
 import { updateModal } from "@/redux/ui-slice";
 import useMediaQuery from "@/hooks/useMediaQuery";
+import useHeader from "@/hooks/useHeader";
 
 export default function UserPage() {
   const router = useRouter();
@@ -17,9 +17,7 @@ export default function UserPage() {
   const slugItem: string = slug ? slug[0] : "";
   const mobileView = useMediaQuery("(max-width:768px)");
   const dispatch = useAppDispatch();
-
-  const { authDetails } = useAuth();
-  const auth = authDetails();
+  const { auth } = useHeader();
 
   useEffect(() => {
     if (!auth) {
