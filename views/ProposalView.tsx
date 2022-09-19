@@ -1,5 +1,7 @@
-import Button from "@/components/UI/Button";
 import ContentEditable from "react-contenteditable";
+
+import Button from "@/components/UI/Button";
+import useUI from "@/hooks/useUI";
 
 interface Props {
   proposal: {
@@ -16,6 +18,7 @@ interface Props {
 
 export default function ProposalView({ proposal }: Props) {
   const submittedOn = new Date(proposal.createdAt).toDateString();
+  const { updateProposalHandler } = useUI();
   return (
     <div>
       <h3 className="font-bold text-xl underline">{proposal.title}</h3>
@@ -40,6 +43,7 @@ export default function ProposalView({ proposal }: Props) {
       <Button
         className="bg-green-500 px-4 py-1.5 mt-4 hover:opacity-70 rounded-md text-white font-bold mx-auto flex items-center justify-center"
         text={`Hire ${proposal.freelancer.displayName}`}
+        onClick={() => updateProposalHandler(null, "escrow-deposit")}
       />
     </div>
   );
