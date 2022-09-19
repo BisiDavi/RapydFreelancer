@@ -1,14 +1,11 @@
 import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
-import { useAppDispatch } from "@/hooks/useRedux";
-import { updateUserProfile } from "@/redux/user-slice";
 import { SpinnerLoader } from "@/components/loader/SpinnerRipple";
 import useHeader from "@/hooks/useHeader";
 import MessageViewItem from "./MessageViewItem";
 
 export default function MessageView() {
-  const dispatch = useAppDispatch();
   const queryClient = useQueryClient();
   const { userProfile } = useHeader();
 
@@ -38,7 +35,6 @@ export default function MessageView() {
           },
         })
         .then(() => {
-          dispatch(updateUserProfile(null));
           queryClient.invalidateQueries(["getUserProfile"]);
         });
     }

@@ -28,7 +28,7 @@ export default function useHeader() {
       staleTime: Infinity,
       onSuccess(data) {
         if (!profile && data.data.length > 0) {
-          dispatch(updateUserProfile(data?.data[0]));
+          dispatch(updateUserProfile(data?.data[0]));  
         }
       },
     }

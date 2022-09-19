@@ -6,8 +6,13 @@ import usePostedJobs from "@/hooks/usePostedJobs";
 export default function BidView() {
   const { data, status } = usePostedJobs();
 
+  console.log("data", data);
+
   return (
     <div>
+      <h6 className="text-center text-xl font-bold">
+        View Freelancers bids on your Posted Jobs
+      </h6>
       {status === "error" ? (
         "error fetching bids"
       ) : status === "loading" ? (
@@ -15,8 +20,10 @@ export default function BidView() {
       ) : (
         <div className="bids">
           <h4 className="font-medium text-xl">
-            Posted Jobs ({data?.data.length}),
-            <span className="font-bold ml-1">click to view bids</span>
+            Posted Jobs ({data?.data.length})
+            {data?.data.length > 0 && (
+              <span className="font-bold ml-1">,click to view bids</span>
+            )}
           </h4>
           <ul>
             {data.data.map((item: jobType) => {
@@ -40,6 +47,7 @@ export default function BidView() {
                     <Button
                       className="border border-blue-500 hover:bg-blue-500 hover:text-white px-4 py-1 rounded-lg flex justify-center mx-auto"
                       text="View Bids"
+                      href="/user/bids/1"
                     />
                   )}
                   <div className="bid-view"></div>
