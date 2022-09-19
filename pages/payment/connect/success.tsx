@@ -11,18 +11,14 @@ export default function ConnectPaymentSuccessful() {
   const { updateConnectAfterPayment, connect, resetConnect } = useConnect();
   const queryClient = useQueryClient();
   const router = useRouter();
-  const { data, status } = useQuery(
-    ["updateConnect"],
-    updateConnectAfterPayment,
-    {
-      enabled: !!connect,
-      onSuccess: () => {
-        resetConnect();
-        queryClient.invalidateQueries(["getUserProfile"]);
-        router.push("/user/profile");
-      },
-    }
-  );
+  const { status } = useQuery(["updateConnect"], updateConnectAfterPayment, {
+    enabled: !!connect,
+    onSuccess: () => {
+      resetConnect();
+      queryClient.invalidateQueries(["getUserProfile"]);
+      router.push("/user/profile");
+    },
+  });
 
   return (
     <DefaultLayout title="Your Profile">

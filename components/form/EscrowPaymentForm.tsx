@@ -1,29 +1,36 @@
 import { useForm, FormProvider } from "react-hook-form";
 import { Fragment } from "react";
+import { useRouter } from "next/router";
 
 import escrowpaymentForm from "@/json/escrowpayment.json";
 import displayFormElement from "@/lib/displayFormElement";
 import Button from "@/components/UI/Button";
 import useEscrowMutation from "@/hooks/useEscrowpayment";
-import { getEscrowData, getPaymentData } from "@/lib/payment-data";
+import { getEscrowData } from "@/lib/payment-data";
+import { useAppDispatch } from "@/hooks/useRedux";
+import { updateHire } from "@/redux/payment-slice";
 
 interface Props {
-  data: {
+  formData: {
     price: number;
+    title: string;
     freelancer: {
       email: string;
+      displayName: string;
     };
   };
 }
 
-export default function EscrowPaymentForm({ data }: Props) {
+export default function EscrowPaymentForm({ formData }: Props) {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
   const { mutate, isLoading } = useEscrowMutation();
   const methods = useForm({
     mode: "all",
   });
-  methods.setValue("amount", data.price);
+  methods.setValue("amount", formData.price);
   const escrowPaymentObj = {
-    amount: data.price,
+    amount: formData.price,
     country: "US",
     currency: "USD",
     escrow: true,
@@ -31,13 +38,30 @@ export default function EscrowPaymentForm({ data }: Props) {
   const payment = getEscrowData(escrowPaymentObj, "job");
 
   function onSubmitHandler() {
-    mutate({ data: payment, email: data.freelancer.email });
+    mutate(
+      { data: payment, email: formData.freelancer.email },
+      {
+        onSuccess: (data) => {
+          console.log("data", data?.data);
+          dispatch(
+            updateHire([
+              {
+                freelancer: formData.freelancer,
+                price: formData.price,
+                title: formData.title,
+              },
+            ])
+          );
+          return router.push(data?.data?.redirect_url);
+        },
+      }
+    );
   }
 
   return (
     <div className="mt-8 lg:w-3/4 w-full mx-auto flex flex-col">
       <h4 className="font-bold text-xl">
-        You need to make an escrow deposit of ${data.price}
+        You need to make an escrow deposit of ${formData.price}
       </h4>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmitHandler)}>

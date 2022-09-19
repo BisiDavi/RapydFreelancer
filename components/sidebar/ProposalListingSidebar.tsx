@@ -15,7 +15,7 @@ export default function ProposalListingSidebar() {
         {proposalSidebar && proposalSidebar.active === "proposal" ? (
           <ProposalView proposal={proposalSidebar.data} />
         ) : proposalSidebar.active === "escrow-deposit" ? (
-          <EscrowPaymentForm data={proposalSidebar.data} />
+          <EscrowPaymentForm formData={proposalSidebar.data} />
         ) : null}
       </div>
     </div>

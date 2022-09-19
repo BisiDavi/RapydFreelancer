@@ -15,7 +15,7 @@ interface PropType {
 
 export default function ViewBidPage({ bids }: PropType) {
   const mobileView = useMediaQuery("(max-width:768px)");
-  const parsedBids = JSON.parse(bids);
+  const parsedBids = bids !== null ? JSON.parse(bids) : null;
   const { proposalSidebar } = useAppSelector((state) => state.UI);
 
   console.log("bid", parsedBids);
@@ -55,7 +55,7 @@ export const getServerSideProps = async (
     console.log("error", err);
     return {
       props: {
-        bids: [],
+        bids: null,
       },
     };
   }
