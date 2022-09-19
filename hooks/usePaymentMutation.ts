@@ -1,7 +1,11 @@
 import { useMutation } from "@tanstack/react-query";
 
 import useRequestMutation from "@/hooks/useRequestMutation";
-import { connectPayment, makePayment } from "@/request/postRequest";
+import {
+  connectPayment,
+  connectWalletPayment,
+  makePayment,
+} from "@/request/postRequest";
 import {
   getCurrencyDailyRate,
   getPaymentByCountry,
@@ -24,6 +28,13 @@ export default function usePaymentMutation() {
     return useRequestMutation((data) => connectPayment(data), {
       mutationKey: ["useConnectPaymentMutation"],
       success: "Redirecting you to Raypd payment gateway",
+    });
+  }
+
+  function useWalletConnectPaymentMutation() {
+    return useRequestMutation((data) => connectWalletPayment(data), {
+      mutationKey: ["useWalletConnectPaymentMutation"],
+      success: "connect payment successful",
     });
   }
 
@@ -63,6 +74,7 @@ export default function usePaymentMutation() {
     useFundWalletMutation,
     usePaymentByMethod,
     usePaymentRequiredFields,
+    useWalletConnectPaymentMutation,
     useMakePayment,
   };
 }

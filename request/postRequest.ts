@@ -21,8 +21,11 @@ export function connectPayment(data: any) {
   return axios.post("/api/payment", { data });
 }
 
-
-
 export function makePayment(data: any) {
   return axios.post("/api/payment/make-payment", { data });
+}
+
+
+export function connectWalletPayment(data: any) {
+  return axios.post("/api/payment/wallet-connect-payment", { data });
 }

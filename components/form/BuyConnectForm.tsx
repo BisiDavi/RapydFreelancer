@@ -6,10 +6,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Button from "@/components/UI/Button";
 import buyConnect from "@/json/buy-connect.json";
 import displayFormElement from "@/lib/displayFormElement";
-import SelectCurrency from "@/components/form/form-elements/SelectCurrency";
 import usePaymentMutation from "@/hooks/usePaymentMutation";
 import { formatPrice } from "@/lib/formatPrice";
-import { getConnectPaymentData } from "@/lib/payment-data";
+import { getPaymentData } from "@/lib/payment-data";
 import { useAppDispatch } from "@/hooks/useRedux";
 import { updatePaymentConnect } from "@/redux/user-slice";
 import { buyconnectSchema } from "./schema/profileSchema";
@@ -25,7 +24,6 @@ function getConnectQuantity(connectPrice: string) {
 }
 
 export default function BuyConnectForm() {
-  
   const methods = useForm({
     resolver: yupResolver(buyconnectSchema),
     mode: "all",
@@ -35,23 +33,31 @@ export default function BuyConnectForm() {
   const currency = methods.watch("currency");
   const connectPrice = methods.watch("connectPrice");
   const { useConnectPaymentMutation } = usePaymentMutation();
-  const connectPayment = useConnectPaymentMutation();
+  const { mutate, isLoading} = useConnectPaymentMutation();
   const router = useRouter();
   const dispatch = useAppDispatch();
 
   const amount = connectPrice ? formatPrice(connectPrice) : " ";
-
   const amountValue = currency ? `${currency} ${amount}` : "";
 
   const onSubmit = (data: any) => {
     console.log("data", data);
     const dataObj = {
-      ...data,
+      country: data.country,
+      currency: data.currency,
       amount: connectPrice,
       connectQuantity: getConnectQuantity(connectPrice),
     };
-    const paymentData = getConnectPaymentData(dataObj);
-    connectPayment.mutate(paymentData, {
+    const paymentDataObj =
+      paymentType === "WALLET"
+        ? {
+            amount: connectPrice,
+            currency: "USD",
+            connectQuantity: getConnectQuantity(connectPrice),
+          }
+        : dataObj;
+    const paymentData = getPaymentData(paymentDataObj, "connect");
+    mutate(paymentData, {
       onSuccess: (data, variable) => {
         dispatch(updatePaymentConnect(variable.metadata.connectQuantity));
         return router.push(data?.data?.redirect_url);
@@ -78,7 +84,7 @@ export default function BuyConnectForm() {
             text={`Proceed to Pay ${amountValue}`}
             className="bg-green-500 mx-auto flex items-center my-2 mt-4 px-4 py-2 text-white rounded-md"
             type="submit"
-            loading={connectPayment.isLoading}
+            loading={isLoading}
           />
         )}
       </form>
