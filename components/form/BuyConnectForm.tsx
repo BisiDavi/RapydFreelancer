@@ -25,6 +25,7 @@ function getConnectQuantity(connectPrice: string) {
 }
 
 export default function BuyConnectForm() {
+  
   const methods = useForm({
     resolver: yupResolver(buyconnectSchema),
     mode: "all",

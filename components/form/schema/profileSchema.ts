@@ -17,8 +17,20 @@ export const virtualAccountSchema = yup.object({
   country: yup.string().required("Country is required"),
 });
 
+const requiredField = (requiredText: string) => ({
+  is: false,
+  then: yup.string().required(requiredText),
+});
+
 export const buyconnectSchema = yup.object({
-  currency: yup.string().required("Currency is required"),
+  paymentType: yup.string(),
+  currency: yup.string().when("paymentType", {
+    is: "MAKE_PAYMENT",
+    then: yup.string().required("Currency is required"),
+  }),
+  country: yup.string().when("paymentType", {
+    is: "MAKE_PAYMENT",
+    then: yup.string().required("Country is required"),
+  }),
   connectPrice: yup.string().required("Connect quantity is required"),
-  country: yup.string().required("Country is required"),
 });
