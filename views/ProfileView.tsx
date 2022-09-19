@@ -2,7 +2,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 
 import ProfileForm from "@/components/form/ProfileForm";
-import IssueVirtualAccountForm from "@/components/form/IssueVirtualAccountForm";
+import IssueVirtualAccountForm from "@/components/form/FundAccountForm";
 import AccountDetailsView from "@/views/AccountDetailsView";
 import useHeader from "@/hooks/useHeader";
 import { SpinnerLoader } from "@/components/loader/SpinnerRipple";

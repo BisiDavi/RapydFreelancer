@@ -3,7 +3,9 @@ import { connectPayment } from "@/request/postRequest";
 import {
   getCurrencyDailyRate,
   getPaymentByCountry,
+  getPaymentFields,
 } from "@/request/getRequest";
+import { useMutation } from "@tanstack/react-query";
 
 export default function usePaymentMutation() {
   function useGetCurrencyRate() {
@@ -41,13 +43,17 @@ export default function usePaymentMutation() {
     );
   }
 
+  function usePaymentRequiredFields() {
+    return useMutation((type: string) => getPaymentFields(type), {
+      mutationKey: ["usePaymentRequiredFields"],
+    });
+  }
+
   return {
     useGetCurrencyRate,
     useConnectPaymentMutation,
     useFundWalletMutation,
     usePaymentByMethod,
+    usePaymentRequiredFields,
   };
 }
-
-
-// https://www.youtube.com/watch?v=qAg8y-4ZQFU

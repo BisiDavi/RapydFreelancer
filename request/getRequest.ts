@@ -53,3 +53,9 @@ export function getPaymentByCountry(country: string, currency: string) {
     params: { country, currency },
   });
 }
+
+export function getPaymentFields(type: string) {
+  return axios.get("/api/payment/get-payment-required-fields", {
+    params: { type },
+  });
+}

@@ -5,16 +5,15 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { data }: any = req.body;
+  const { type }: any = req.query;
 
   switch (req.method) {
     //make payment
-    case "POST": {
+    case "GET": {
       try {
         const paymentResponse: any = await makeRequest(
-          "post",
-          `/v1/checkout`, 
-          data
+          "get",
+          `/v1/payment_methods/required_fields/${type}`
         );
         return res.status(200).send(paymentResponse?.body.data);
       } catch (error: any) {

@@ -17,9 +17,14 @@ interface Props {
   ewallet: string;
 }
 
-export default function IssueVirtualAccountForm({ ewallet }: Props) {
-  const { useFundWalletMutation, usePaymentByMethod } = usePaymentMutation();
+export default function FundAccountForm({ ewallet }: Props) {
+  const {
+    useFundWalletMutation,
+    usePaymentByMethod,
+    usePaymentRequiredFields,
+  } = usePaymentMutation();
   const { mutate } = useFundWalletMutation();
+  const mutatePaymentFields = usePaymentRequiredFields();
   const {
     mutate: mutatePayment,
     status,
