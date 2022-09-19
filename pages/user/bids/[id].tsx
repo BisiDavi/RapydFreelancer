@@ -9,7 +9,7 @@ import BidItemView from "@/views/BidItemView";
 import connectDB from "@/db/DBConnection";
 import { getDataDB } from "@/db";
 
-export default function ViewBidPage({ bid }:any) {
+export default function ViewBidPage({ bid }: any) {
   const mobileView = useMediaQuery("(max-width:768px)");
   const { auth } = useHeader();
 
@@ -38,7 +38,7 @@ export const getServerSideProps = async (
 
   try {
     const dbClient = await connectDB();
-    const user = await getDataDB(dbClient, "users", { userId });
+    const user = await getDataDB(dbClient, "users", { email: userId });
     console.log("user", user);
     const bids = user[0].bids;
     const getABid = bids.filter((item: { id: string }) => item.id === id)[0];
