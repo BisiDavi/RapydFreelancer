@@ -1,3 +1,23 @@
 [
-    
+  {
+    "label": "Amount you want to deposit into your wallet",
+    "type": "input",
+    "name": "amount",
+    "elementType": "number",
+    "placeholder": "Amount you want to deposit into your wallet"
+  },
+  {
+    "label": "Select Currency to deposit in ewallet,",
+    "type": "currency",
+    "name": "currency",
+    "elementType": "text",
+    "placeholder": "Which currency do you want for your account"
+  },
+  {
+    "label": "Select Country",
+    "type": "country",
+    "name": "country",
+    "elementType": "text",
+    "placeholder": "Which currency do you want for your account"
+  }
 ]

@@ -18,7 +18,7 @@ interface Props {
 
 export default function ProposalView({ proposal }: Props) {
   const submittedOn = new Date(proposal.createdAt).toDateString();
-  const { updateProposalHandler, proposalStatusHandler } = useUI();
+  const { proposalStatusHandler } = useUI();
   return (
     <div>
       <h3 className="font-bold text-xl underline">{proposal.title}</h3>

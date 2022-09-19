@@ -6,8 +6,10 @@ interface Props {
 
 export default function EscrowPaymentForm({ data }: Props) {
   return (
-    <div>
-      <h4>You need to make an escrow deposit of ${data.price}</h4>
+    <div className="mt-8">
+      <h4 className="font-bold text-xl">
+        You need to make an escrow deposit of ${data.price}
+      </h4>
     </div>
   );
 }
