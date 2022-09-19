@@ -1,9 +1,8 @@
 import JobBanner from "@/components/banners/JobBanner";
 import Button from "@/components/UI/Button";
 import useHeader from "@/hooks/useHeader";
-import { useAppDispatch } from "@/hooks/useRedux";
+import useUI from "@/hooks/useUI";
 import greetUser from "@/lib/greetUser";
-import { updateProposal } from "@/redux/ui-slice";
 
 interface PropType {
   bids: {
@@ -18,13 +17,13 @@ interface PropType {
 
 export default function BidItemView({ bids }: PropType) {
   const { auth } = useHeader();
-  const dispatch = useAppDispatch();
+  const { updateProposalHandler } = useUI();
 
   function viewProposalHander(name: string) {
     const activeBidProposal = bids.filter(
       (item) => item.freelancer.displayName === name
     )[0];
-    dispatch(updateProposal({ data: activeBidProposal, active: true }));
+    updateProposalHandler(activeBidProposal);
   }
 
   return (
