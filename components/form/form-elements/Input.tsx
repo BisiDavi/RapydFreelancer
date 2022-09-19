@@ -11,6 +11,8 @@ export default function Input({ content }: elementType) {
     formState: { errors },
   }: any = useFormContext();
 
+  const disableInput = content.disable ? true : false;
+
   const inputClassName =
     content.inputStyle === "big"
       ? { label: "font-bold my-1 text-lg", input: "h-12" }
@@ -35,6 +37,7 @@ export default function Input({ content }: elementType) {
           type={inputType}
           className="rounded-lg h-10 px-4 border"
           aria-invalid={errors[content.name] ? "true" : "false"}
+          disabled={disableInput}
           {...register(content.name)}
         />
 
