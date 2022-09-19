@@ -1,13 +1,19 @@
+import type { GetServerSidePropsContext } from "next";
+
 import ProfileSidebar from "@/components/sidebar/ProfileSidebar";
 import DefaultLayout from "@/layout/DefaultLayout";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import useHeader from "@/hooks/useHeader";
 import greetUser from "@/lib/greetUser";
 import BidItemView from "@/views/BidItemView";
+import connectDB from "@/db/DBConnection";
+import { getDataDB } from "@/db";
 
-export default function ViewBidPage() {
+export default function ViewBidPage({ bid }:any) {
   const mobileView = useMediaQuery("(max-width:768px)");
   const { auth } = useHeader();
+
+  console.log("bid", bid);
 
   return (
     <DefaultLayout title="View Bids">
@@ -23,3 +29,32 @@ export default function ViewBidPage() {
     </DefaultLayout>
   );
 }
+
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext | any
+) => {
+  const { id, userId } = context.query;
+  console.log("context.query", context.query);
+
+  try {
+    const dbClient = await connectDB();
+    const user = await getDataDB(dbClient, "users", { userId });
+    console.log("user", user);
+    const bids = user[0].bids;
+    const getABid = bids.filter((item: { id: string }) => item.id === id)[0];
+    console.log("getABid", getABid);
+
+    return {
+      props: {
+        bid: getABid,
+      },
+    };
+  } catch (err) {
+    console.log("error", err);
+    return {
+      props: {
+        bid: null,
+      },
+    };
+  }
+};
