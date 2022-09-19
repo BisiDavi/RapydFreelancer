@@ -15,7 +15,6 @@ interface PropType {
 }
 
 export default function BidItemView({ bids }: PropType) {
-  console.log("bids", bids);
   const { auth } = useHeader();
 
   return (
