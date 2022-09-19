@@ -1,11 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/router";
 
 import DefaultLayout from "@/layout/DefaultLayout";
 import Button from "@/components/UI/Button";
 import useConnect from "@/hooks/useConnect";
 import { SpinnerLoader } from "@/components/loader/SpinnerRipple";
-import Router, { useRouter } from "next/router";
 
 export default function ConnectPaymentSuccessful() {
   const { updateConnectAfterPayment, connect, resetConnect } = useConnect();

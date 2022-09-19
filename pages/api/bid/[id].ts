@@ -24,6 +24,7 @@ export default async function handler(
             $push: { bids: data },
           }
         );
+        const freelancerMessage = bidMessageToFreelancer(data);
         await updateDataDB(
           dbClient,
           "users",
@@ -36,20 +37,12 @@ export default async function handler(
                 price: data.price,
                 createdAt: data?.createdAt,
               },
-            },
-          }
-        );
-        const freelancerMessage = bidMessageToFreelancer(data);
-        await updateDataDB(
-          dbClient,
-          "users",
-          { email: data.freelancer.email },
-          {
-            $push: {
               messages: freelancerMessage,
             },
+            $inc: {connects: -1}
           }
         );
+
         const recruiterMessage = await bidMessageToRecruiter(data);
         await updateDataDB(
           dbClient,
