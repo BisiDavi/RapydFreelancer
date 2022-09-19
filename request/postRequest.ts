@@ -42,5 +42,5 @@ export async function escrowPayment(data: any, email: string) {
     ...data,
     ewallet: getUserWallet?.data[0].ewallet,
   };
-  return axios.post("/api/payment", requestData);
+  return axios.post("/api/payment", { data: requestData });
 }
