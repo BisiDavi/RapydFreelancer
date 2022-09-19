@@ -3,9 +3,10 @@ import axios from "axios";
 
 import { updateHire } from "@/redux/payment-slice";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
+import toSlug from "@/lib/toSlug";
 
 export default function useJob() {
-  const { hire } = useAppSelector((state) => state.payment);
+  const { hire }: any = useAppSelector((state) => state.payment);
   const router = useRouter();
   const dispatch = useAppDispatch();
 
@@ -13,16 +14,10 @@ export default function useJob() {
     dispatch(updateHire(null));
   }
 
-  function updateJobAfterHired(freelancerEmail: string, data: any) {
-    axios.put("/api/db", {
-      data: { $push: { hires: data } },
-      query: { email: freelancerEmail },
-      collection: "users",
-    });
-    axios.put("/api/db", {
-      data: { $push: { hires: data } },
-      query: { email: freelancerEmail },
-      collection: "job",
+  function updateJobAfterHired(data: any) {
+    axios.post("/api/jobs/escrow", {
+      data,
+      query: { email: data.freelancer.email, id: toSlug(data.title) },
     });
   }
 
@@ -33,3 +28,5 @@ export default function useJob() {
     updateJobAfterHired,
   };
 }
+
+//   data: { $push: { hires: data } },

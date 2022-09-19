@@ -9,14 +9,18 @@ import { SpinnerLoader } from "@/components/loader/SpinnerRipple";
 export default function JobPaymentSuccessful() {
   const { router, hire, resetHired, updateJobAfterHired } = useJob();
   const queryClient = useQueryClient();
-  const { status } = useQuery(["updateJobAfterHired"], () => updateJobAfterHired, {
-    enabled: !!(hire !== null),
-    onSuccess: () => {
-      resetHired();
-      queryClient.invalidateQueries(["getUserProfile"]);
-      router.push("/user/profile");
-    },
-  });
+  const { status } = useQuery(
+    ["updateJobAfterHired"],
+    () => updateJobAfterHired(hire[0]),
+    {
+      enabled: !!(hire !== null),
+      onSuccess: () => {
+        resetHired();
+        queryClient.invalidateQueries(["getUserProfile"]);
+        router.push("/user/profile");
+      },
+    }
+  );
 
   return (
     <DefaultLayout title="Your Profile">
