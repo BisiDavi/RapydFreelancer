@@ -77,7 +77,7 @@ export function getPaymentData(
   console.log("data-dataObj", dataObj);
   const fxData =
     dataObj.currency !== "USD"
-      ? { fixed_side: "buy", requested_currency: "USD" }
+      ? { fixed_side: "sell", requested_currency: "USD" }
       : { requested_currency: "USD" };
 
   const paymentData = {
