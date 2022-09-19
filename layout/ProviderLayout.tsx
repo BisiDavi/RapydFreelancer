@@ -8,14 +8,7 @@ import type { PropsWithChildren } from "react";
 
 import store from "@/redux/store";
 import NextNProgress from "@/components/loader/NextNProgress";
-
 import "react-toastify/dist/ReactToastify.css";
-
-function accessLocalStorage() {
-  if (typeof window !== "undefined") {
-    return localStorage;
-  }
-}
 
 export default function Providerlayout({ children }: PropsWithChildren<{}>) {
   const queryClient: any = new QueryClient({

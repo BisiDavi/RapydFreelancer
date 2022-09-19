@@ -8,7 +8,7 @@ export default function BuyConnectView() {
         to successfully bid for 1 job
       </h4>
       <p className="font-light text-blue-500 text-center">
-        You can make payment in your local currency
+        You can make payment in your local currency, if supported
       </p>
       <ul className="mt-4">
         <li>10 Connects: $20</li>
@@ -16,6 +16,8 @@ export default function BuyConnectView() {
         <li>100 Connects: $90</li>
       </ul>
       <BuyConnectForm />
+      <h6>Or</h6>
+      <h4>Buy connect from your wallet Balance</h4>
     </div>
   );
 }

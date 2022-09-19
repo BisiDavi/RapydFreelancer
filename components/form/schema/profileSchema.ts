@@ -13,6 +13,12 @@ export const profileSchema = yup.object({
 
 export const virtualAccountSchema = yup.object({
   currency: yup.string().required("Currency is required"),
-  amount: yup.string().required("amount to deposit to ewallet is required"),
-  country: yup.string().required("country is required"),
+  amount: yup.string().required("Amount to deposit to ewallet is required"),
+  country: yup.string().required("Country is required"),
+});
+
+export const buyconnectSchema = yup.object({
+  currency: yup.string().required("Currency is required"),
+  connectPrice: yup.string().required("Connect quantity is required"),
+  country: yup.string().required("Country is required"),
 });

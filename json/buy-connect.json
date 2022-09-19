@@ -1,40 +1,28 @@
-{
-  "main": [
-    {
-      "label": "Do you want to make payment in your USD or Local Currency?",
-      "type": "radioGroup",
-      "name": "currencyType",
-      "elementType": "radioGroup",
-      "radios": [
-        { "text": "USD", "value": "USD" },
-        { "text": "Local Currency", "value": "LOCAL_CURRENCY" }
-      ]
-    },
-    {
-      "label": "Select Country",
-      "type": "country",
-      "name": "country",
-      "elementType": "text",
-      "placeholder": "Which currency do you want for your account"
-    },
-    {
-      "label": "Select Connect Quantity",
-      "type": "select",
-      "name": "connectPrice",
-      "elementType": "select",
-      "options": [
-        { "text": "Select Connect Quantity", "value": "" },
-        { "text": "10 Connects ($20)", "value": "20" },
-        { "text": "50 Connects ($50)", "value": "50" },
-        { "text": "100 Connects ($90)", "value": "90" }
-      ]
-    }
-  ],
-  "other": {
-    "label": "Select Your Local Currency",
+[
+  {
+    "label": "Select Currency (you can select your local currency)",
     "type": "currency",
     "name": "currency",
     "elementType": "text",
-    "placeholder": "Select currency"
+    "placeholder": "Which currency do you want for your account"
+  },
+  {
+    "label": "Select Country",
+    "type": "country",
+    "name": "country",
+    "elementType": "text",
+    "placeholder": "Which currency do you want for your account"
+  },
+  {
+    "label": "Select Connect Quantity",
+    "type": "select",
+    "name": "connectPrice",
+    "elementType": "select",
+    "options": [
+      { "text": "Select Connect Quantity", "value": "" },
+      { "text": "10 Connects ($20)", "value": "20" },
+      { "text": "50 Connects ($50)", "value": "50" },
+      { "text": "100 Connects ($90)", "value": "90" }
+    ]
   }
-}
+]
