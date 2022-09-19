@@ -1,14 +1,13 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { Fragment, useState } from "react";
 import axios from "axios";
 
 import { useAppDispatch } from "@/hooks/useRedux";
 import { updateUserProfile } from "@/redux/user-slice";
 import { SpinnerLoader } from "@/components/loader/SpinnerRipple";
 import useHeader from "@/hooks/useHeader";
+import MessageViewItem from "./MessageViewItem";
 
 export default function MessageView() {
-  const [showMessage, setShowMessage] = useState(false);
   const dispatch = useAppDispatch();
   const queryClient = useQueryClient();
   const { userProfile } = useHeader();
@@ -28,7 +27,6 @@ export default function MessageView() {
       : 0;
 
   function onClickHandler(id: string) {
-    setShowMessage(!showMessage);
     let readMessage: any = messages.filter((item: any) => item.id === id)[0];
     if (!readMessage.read) {
       axios
@@ -69,39 +67,12 @@ export default function MessageView() {
                 const statusStyle =
                   messageStatus === "read" ? "text-red-500" : "text-blue-500";
                 return (
-                  <li key={item.id} className="bg-white my-2 w-full">
-                    <div
-                      className="title  flex-col py-2 lg:flex-row flex mx-auto lg:items-center px-4 shadow w-full relative  cursor-pointer"
-                      onClick={() => onClickHandler(item.id)}
-                    >
-                      <h4 className="text-base lg:text-xl font-medium">
-                        {item.title}...
-                      </h4>
-                      <small className="lg:text-right lg:absolute text-red-500 lg:right-4">
-                        <span className={`mx-1 ${statusStyle}`}>
-                          ({messageStatus})
-                        </span>
-                        click to read more
-                      </small>
-                    </div>
-                    {showMessage && (
-                      <div className="message text-lg p-4">
-                        {item.message.map(
-                          (messageGroup: string[], index: number) => {
-                            return (
-                              <Fragment key={index}>
-                                {messageGroup.map((message) => (
-                                  <p key={message} className="my-2">
-                                    {message}
-                                  </p>
-                                ))}
-                              </Fragment>
-                            );
-                          }
-                        )}
-                      </div>
-                    )}
-                  </li>
+                  <MessageViewItem
+                    item={item}
+                    key={item.id}
+                    onClickHandler={onClickHandler}
+                    messages={messages}
+                  />
                 );
               })}
             </ul>
