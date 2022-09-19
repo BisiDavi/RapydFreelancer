@@ -9,11 +9,15 @@ import BidItemView from "@/views/BidItemView";
 import connectDB from "@/db/DBConnection";
 import { getDataDB } from "@/db";
 
-export default function ViewBidPage({ bid }: any) {
+interface PropType {
+  bid: string;
+}
+
+export default function ViewBidPage({ bid }: PropType) {
   const mobileView = useMediaQuery("(max-width:768px)");
   const { auth } = useHeader();
-
-  console.log("bid", bid);
+  const parsedBid = JSON.parse(bid);
+  console.log("bid", parsedBid);
 
   return (
     <DefaultLayout title="View Bids">
@@ -23,7 +27,7 @@ export default function ViewBidPage({ bid }: any) {
           <h3 className="text-xl font-bold mb-4">
             {greetUser()}, {auth?.displayName}
           </h3>
-          <BidItemView />
+          <BidItemView bid={parsedBid} />
         </div>
       </section>
     </DefaultLayout>
@@ -46,7 +50,7 @@ export const getServerSideProps = async (
 
     return {
       props: {
-        bid: getABid,
+        bid: JSON.stringify(getABid),
       },
     };
   } catch (err) {
