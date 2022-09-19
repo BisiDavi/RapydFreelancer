@@ -1,50 +1,36 @@
+import { useRouter } from "next/router";
 import { useForm, FormProvider } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useRouter } from "next/router";
 
 import accountForm from "@/json/issue-virtual-account-form.json";
 import displayFormElement from "@/lib/displayFormElement";
 import { virtualAccountSchema } from "@/components/form/schema/profileSchema";
 import Button from "@/components/UI/Button";
 import usePaymentMutation from "@/hooks/usePaymentMutation";
-import { SpinnerLoader } from "@/components/loader/SpinnerRipple";
-import PaymentTab from "@/components/payment/PaymentTab";
-import { getCountry } from "@/lib/fomatData";
-import { useAppDispatch } from "@/hooks/useRedux";
-import { updatePaymentFormData } from "@/redux/payment-slice";
+import { getPaymentData } from "@/lib/payment-data";
 
 interface Props {
   ewallet: string;
 }
 
 export default function FundAccountForm({ ewallet }: Props) {
-  const { usePaymentByMethod } = usePaymentMutation();
-  const { mutate, status, data, variables } = usePaymentByMethod();
+  const { useFundWalletMutation } = usePaymentMutation();
+  const router = useRouter();
+  const { mutate, status, data, variables } = useFundWalletMutation();
   const methods = useForm({
     resolver: yupResolver(virtualAccountSchema),
     mode: "all",
   });
-  const router = useRouter();
-  const { watch } = methods;
-
-  // const onSubmit = (data: any) => {
-  //   const wData = { ...data, country, ewallet };
-  //   const walletData = fundWalletPaymentData(wData);
-  //   mutate(walletData, {
-  //     onSuccess: (data) => {
-  //       return router.push(data?.data?.redirect_url);
-  //     },
-  //   });
-  // };
-  const dispatch = useAppDispatch();
 
   const onSubmit = (data: any) => {
-    dispatch(updatePaymentFormData({ data, link: "fund-wallet" }));
-    mutate({ country: data.country, currency: data.currency });
+    const wData = { ...data, ewallet };
+    const walletData = getPaymentData(wData, "fund-wallet");
+    mutate(walletData, {
+      onSuccess: (data) => {
+        return router.push(data?.data?.redirect_url);
+      },
+    });
   };
-
-  const formvalues = watch();
-  const formData = { ...formvalues, ewallet };
 
   return (
     <FormProvider {...methods}>
@@ -64,25 +50,10 @@ export default function FundAccountForm({ ewallet }: Props) {
           ))}
         </div>
         <Button
-          text="Fetch Payment Method"
+          text="Fund Wallet"
           className="bg-blue-500 mx-auto flex my-4 px-3 py-1.5 font-bold rounded-lg text-white hover:bg-blue-800"
           type="submit"
         />
-        {status === "error" ? (
-          "error fetching payment by country, you can try again."
-        ) : status === "loading" ? (
-          <SpinnerLoader loadingText="Fetching payment by country..." />
-        ) : data?.data.length > 0 ? (
-          <PaymentTab paymentMethod={data?.data} />
-        ) : (
-          data?.data.length === 0 && (
-            <p className="font-bold text-center">
-              No Payment method supported for {getCountry(variables.country)}
-              <span className="mx-1">and</span>
-              {variables.currency}
-            </p>
-          )
-        )}
       </form>
     </FormProvider>
   );

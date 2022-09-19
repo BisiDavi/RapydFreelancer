@@ -31,6 +31,7 @@ export type paymentMethodType = {
   currencies: string[];
   is_refundable: boolean;
   maximum_expiration_seconds: number;
+  payment_flow_type: string;
   amount_range_per_currency: {
     currency: string;
     maximum_amount: null | number;

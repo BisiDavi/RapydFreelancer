@@ -47,7 +47,7 @@ export default function AccountDetailsView({ walletId }: Props) {
             </p>
             <p>
               <span className="font-bold mr-1">Category:</span>
-              {data.data.category ? data.data.category : "ni ll"}
+              {data.data.category ? data.data.category : "nill"}
             </p>
             <p>
               <span className="font-bold mr-1">Type:</span>

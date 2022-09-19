@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { memo } from "react";
+import { useRouter } from "next/router";
 
 import Tabs from "@/components/tab";
 import Button from "@/components/UI/Button";
@@ -13,7 +14,6 @@ import {
 import { getPaymentData } from "@/lib/payment-data";
 import type { paymentMethodType } from "@/types";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
-import { useRouter } from "next/router";
 import { updatePaymentFormData } from "@/redux/payment-slice";
 
 interface Props {
@@ -64,25 +64,43 @@ function TabItem({ item }: ItemProps) {
             : false;
         const dataObj = is3dsRequired
           ? {
-              payment_method: data?.data.fields,
+              payment_method: {
+                type: data?.data.type,
+                category: item.category,
+                currencies: item.currencies,
+                fields: data?.data.fields,
+              },
               payment_method_options: {
                 "3d_required": true,
               },
             }
           : {
-              payment_method: data?.data.fields,
+              payment_method: {
+                type: data?.data.type,
+                category: item.category,
+                currencies: item.currencies,
+                fields: data?.data.fields,
+              },
             };
+
         if (formData) {
-          const { link, data } = formData;
-          const paymentData = getPaymentData(data, dataObj, link);
+          const { link, data, ewallet } = formData;
+          const fundWallet =
+            link === "fund-wallet" ? { ewallet_id: ewallet } : "";
+          const paymentDataObj = {
+            ...dataObj,
+            ...fundWallet,
+            amount: Number(data.amount),
+            currency: data.currency,
+          };
+          console.log("paymentDataObj", paymentDataObj);
+          const paymentData = getPaymentData(paymentDataObj, link);
           console.log("paymentData", paymentData);
-          makePayment.mutate(paymentData, {
+          return makePayment.mutate(paymentData, {
             onSuccess: (data) => {
               console.log("makePayment-data", data);
-              return router.push(data?.data?.redirect_url);
-            },
-            onSettled: () => {
               dispatch(updatePaymentFormData(null));
+              return router.push(data?.data?.redirect_url);
             },
           });
         }

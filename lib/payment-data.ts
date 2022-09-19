@@ -71,25 +71,18 @@ export function fundWalletPaymentData(data: fundWalletPaymentDataType) {
 }
 
 export function getPaymentData(
-  data: { country: string; currency: string; amount: string },
   dataObj: any,
   link: "connect" | "fund-wallet" | "job"
 ) {
-  console.log("data-data", data);
   console.log("data-dataObj", dataObj);
-  const country = data.country;
-  const currency = data.currency;
   const fxData =
-    currency !== "USD"
+    dataObj.currency !== "USD"
       ? { fixed_side: "buy", requested_currency: "USD" }
       : { requested_currency: "USD" };
 
   const paymentData = {
     ...fxData,
     ...dataObj,
-    amount: data.amount,
-    country,
-    currency,
     cancel_checkout_url: "https://rapyd-freelancer.vercel.app/user/account",
     complete_checkout_url: `https://rapyd-freelancer.vercel.app/payment/${link}/success`,
     complete_payment_url: `https://rapyd-freelancer.vercel.app/payment/${link}/success`,

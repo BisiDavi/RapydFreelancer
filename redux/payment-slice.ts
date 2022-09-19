@@ -3,7 +3,7 @@ import { linkType } from "@/types";
 import { createSlice } from "@reduxjs/toolkit";
 
 type initialStateType = {
-  formData: { data: any; link: linkType } | null;
+  formData: { data: any; link: linkType; ewallet?: string } | null;
 };
 
 const initialState: initialStateType = {

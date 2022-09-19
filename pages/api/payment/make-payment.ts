@@ -7,13 +7,15 @@ export default async function handler(
 ) {
   const { data }: any = req.body;
 
+  console.log("data", data);
+
   switch (req.method) {
     //make payment
     case "POST": {
       try {
         const paymentResponse: any = await makeRequest(
           "post",
-          `/v1/payment`,
+          `/v1/payments`,
           data
         );
         return res.status(200).send(paymentResponse?.body.data);
