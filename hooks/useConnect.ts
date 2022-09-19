@@ -27,10 +27,10 @@ export default function useConnect() {
     });
   }
 
-  function walletConnectPaymentDBUpdate(connect: number, router: NextRouter) {
+  function walletConnectPaymentDBUpdate(connects: number, router: NextRouter) {
     return axios
       .put("/api/db", {
-        data: { $inc: connect },
+        data: { $inc: { connects } },
         collection: "users",
         query: { email: auth?.email },
       })
