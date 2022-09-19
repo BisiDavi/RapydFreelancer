@@ -21,7 +21,7 @@ export default function useConnect() {
 
   function updateConnectAfterPayment() {
     return axios.put("/api/db", {
-      data: { $inc: connect },
+      data: { $inc: { connects: connect } },
       collection: "users",
       query: { email: auth?.email },
     });
