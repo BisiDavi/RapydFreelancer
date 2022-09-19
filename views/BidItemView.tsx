@@ -60,10 +60,6 @@ export default function BidItemView({ bids }: PropType) {
             </li>
           ))}
         </ul>
-        {/* <Button
-          className="bg-green-500 px-4 py-1.5 rounded-md text-white font-bold mx-auto flex items-center justify-center"
-          text="Hire"
-        /> */}
       </div>
     </div>
   );
