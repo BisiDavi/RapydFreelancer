@@ -10,13 +10,15 @@ import {
   getCountry,
   getDays,
 } from "@/lib/fomatData";
-import type { paymentMethodType } from "@/types";
+import { getPaymentData } from "@/lib/payment-data";
+import type { linkType, paymentMethodType } from "@/types";
 
 interface Props {
   paymentMethod: paymentMethodType[];
+  link: linkType;
 }
 
-export default function PaymentTab({ paymentMethod }: Props) {
+export default function PaymentTab({ paymentMethod, link }: Props) {
   let categories: string[] = [];
   paymentMethod.map((item) => categories.push(formatCategory(item.category)));
   const uniqueCategorySet = new Set(categories);
@@ -48,23 +50,23 @@ function TabItem({ item }: ItemProps) {
     mutate(item.type, {
       onSuccess: (data) => {
         console.log("data-mutate", data?.data);
-        if (data?.data.payment_method_options.length > 0) {
-          const is3dsRequired = data?.data.payment_method_options.filter(
-            (item: { name: string }) => item.name === "3d_required"
-          )[0].is_required;
-          const dataObj = is3dsRequired
-            ? {
-                payment_method: data?.data.fields,
-                payment_method_options: {
-                  "3d_required": true,
-                },
-              }
-            : {
-                payment_method: data?.data.fields,
-              };
-              
-        } else {
-        }
+        const is3dsRequired =
+          data?.data.payment_method_options.length > 0
+            ? data?.data.payment_method_options.filter(
+                (item: { name: string }) => item.name === "3d_required"
+              )[0].is_required
+            : false;
+        const dataObj = is3dsRequired
+          ? {
+              payment_method: data?.data.fields,
+              payment_method_options: {
+                "3d_required": true,
+              },
+            }
+          : {
+              payment_method: data?.data.fields,
+            };
+        //   getPaymentData(, dataObj, link)
       },
     });
   }
@@ -119,8 +121,9 @@ function TabItem({ item }: ItemProps) {
   );
 }
 
-type tabGroupType = Props & {
+type tabGroupType = {
   category: string;
+  paymentMethod: paymentMethodType[];
 };
 
 function TabGroup({ category, paymentMethod }: tabGroupType) {

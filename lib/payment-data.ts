@@ -70,7 +70,11 @@ export function fundWalletPaymentData(data: fundWalletPaymentDataType) {
   return paymentData;
 }
 
-export function getPaymentData(data: dataType, dataObj: any) {
+export function getPaymentData(
+  data: dataType,
+  dataObj: any,
+  link: "connect" | "fund-wallet" | "job"
+) {
   console.log("data-data", data);
   console.log("data-dataObj", dataObj);
   const country = data.country;
@@ -87,12 +91,9 @@ export function getPaymentData(data: dataType, dataObj: any) {
     country,
     currency,
     cancel_checkout_url: "https://rapyd-freelancer.vercel.app/user/account",
-    complete_checkout_url:
-      "https://rapyd-freelancer.vercel.app/payment/connect/success",
-    complete_payment_url:
-      "https://rapyd-freelancer.vercel.app/payment/connect/success",
-    error_payment_url:
-      "https://rapyd-freelancer.vercel.app/payment/connect/error",
+    complete_checkout_url: `https://rapyd-freelancer.vercel.app/payment/${link}/success`,
+    complete_payment_url: `https://rapyd-freelancer.vercel.app/payment/${link}/success`,
+    error_payment_url: `https://rapyd-freelancer.vercel.app/payment/${link}/error`,
     language: "en",
     merchant_reference_id: uuidv4(),
     metadata: {

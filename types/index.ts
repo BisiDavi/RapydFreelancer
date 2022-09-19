@@ -37,3 +37,5 @@ export type paymentMethodType = {
     minimum_amount: null | number;
   }[];
 };
+
+export type linkType = "connect" | "fund-wallet" | "job";

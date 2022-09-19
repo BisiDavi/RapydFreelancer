@@ -85,7 +85,7 @@ export default function FundAccountForm({ ewallet }: Props) {
             <SpinnerLoader loadingText="Fetching payment by country..." />
           )
         ) : data?.data.length > 0 ? (
-          <PaymentTab paymentMethod={data?.data} />
+          <PaymentTab paymentMethod={data?.data} link="fund-wallet" />
         ) : (
           data?.data.length === 0 && (
             <p className="font-bold text-center">
