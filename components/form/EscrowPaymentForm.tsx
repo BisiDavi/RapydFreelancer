@@ -5,12 +5,14 @@ import escrowpaymentForm from "@/json/escrowpayment.json";
 import displayFormElement from "@/lib/displayFormElement";
 import Button from "@/components/UI/Button";
 import useEscrowMutation from "@/hooks/useEscrowpayment";
-import { getPaymentData } from "@/lib/payment-data";
-import axios from "axios";
+import { getEscrowData, getPaymentData } from "@/lib/payment-data";
 
 interface Props {
   data: {
     price: number;
+    freelancer: {
+      email: string;
+    };
   };
 }
 
@@ -24,13 +26,12 @@ export default function EscrowPaymentForm({ data }: Props) {
     amount: data.price,
     country: "US",
     currency: "USD",
-    requested_currency: "USD",
     escrow: true,
   };
-  const payment = getPaymentData(escrowPaymentObj, "job");
+  const payment = getEscrowData(escrowPaymentObj, "job");
 
   function onSubmitHandler() {
-    mutate(payment);
+    mutate({ data: payment, email: data.freelancer.email });
   }
 
   return (
@@ -47,6 +48,7 @@ export default function EscrowPaymentForm({ data }: Props) {
             text="Make Deposit"
             className="mx-auto flex bg-green-500 px-4 py-1 text-white font-bold mt-6 rounded-md hover:opacity-80"
             loading={isLoading}
+            type="submit"
           />
         </form>
       </FormProvider>

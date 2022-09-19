@@ -74,7 +74,6 @@ export function getPaymentData(
   dataObj: any,
   link: "connect" | "fund-wallet" | "job"
 ) {
-  console.log("data-dataObj", dataObj);
   const fxData =
     dataObj.currency !== "USD"
       ? { fixed_side: "buy", requested_currency: "USD" }
@@ -95,4 +94,26 @@ export function getPaymentData(
   };
 
   return paymentData;
+}
+
+
+export function getEscrowData(
+  dataObj: any,
+  link: "connect" | "fund-wallet" | "job"
+) {
+
+  const escrowData = {
+    ...dataObj,
+    cancel_checkout_url: "https://rapyd-freelancer.vercel.app/user/account",
+    complete_checkout_url: `https://rapyd-freelancer.vercel.app/payment/${link}/success`,
+    complete_payment_url: `https://rapyd-freelancer.vercel.app/payment/${link}/success`,
+    error_payment_url: `https://rapyd-freelancer.vercel.app/payment/${link}/error`,
+    language: "en",
+    merchant_reference_id: uuidv4(),
+    metadata: {
+      merchant_defined: true,
+    },
+  };
+
+  return escrowData;
 }
