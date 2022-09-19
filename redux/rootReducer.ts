@@ -6,12 +6,14 @@ import UIReducer from "@/redux/ui-slice";
 import FormReducer from "@/redux/form-slice";
 import LayoutReducer from "@/redux/layout-slice";
 import UserReducer from "@/redux/user-slice";
+import PaymentReducer from "@/redux/payment-slice";
 
 const reducers = combineReducers({
   UI: UIReducer,
   form: FormReducer,
   layout: LayoutReducer,
   user: UserReducer,
+  payment: PaymentReducer,
 });
 
 const persistConfig = {

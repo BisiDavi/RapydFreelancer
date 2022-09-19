@@ -11,14 +11,16 @@ import {
   getDays,
 } from "@/lib/fomatData";
 import { getPaymentData } from "@/lib/payment-data";
-import type { linkType, paymentMethodType } from "@/types";
+import type { paymentMethodType } from "@/types";
+import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
+import { useRouter } from "next/router";
+import { updatePaymentFormData } from "@/redux/payment-slice";
 
 interface Props {
   paymentMethod: paymentMethodType[];
-  link: linkType;
 }
 
-export default function PaymentTab({ paymentMethod, link }: Props) {
+export default function PaymentTab({ paymentMethod }: Props) {
   let categories: string[] = [];
   paymentMethod.map((item) => categories.push(formatCategory(item.category)));
   const uniqueCategorySet = new Set(categories);
@@ -43,8 +45,12 @@ interface ItemProps {
 }
 
 function TabItem({ item }: ItemProps) {
-  const { usePaymentRequiredFields } = usePaymentMutation();
+  const { usePaymentRequiredFields, useMakePayment } = usePaymentMutation();
+  const { formData } = useAppSelector((state) => state.payment);
+  const dispatch = useAppDispatch();
   const { mutate } = usePaymentRequiredFields();
+  const makePayment = useMakePayment();
+  const router = useRouter();
 
   function onClickHandler() {
     mutate(item.type, {
@@ -66,7 +72,20 @@ function TabItem({ item }: ItemProps) {
           : {
               payment_method: data?.data.fields,
             };
-        //   getPaymentData(, dataObj, link)
+        if (formData) {
+          const { link, data } = formData;
+          const paymentData = getPaymentData(data, dataObj, link);
+          console.log("paymentData", paymentData);
+          makePayment.mutate(paymentData, {
+            onSuccess: (data) => {
+              console.log("makePayment-data", data);
+              return router.push(data?.data?.redirect_url);
+            },
+            onSettled: () => {
+              dispatch(updatePaymentFormData(null));
+            },
+          });
+        }
       },
     });
   }

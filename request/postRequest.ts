@@ -20,3 +20,9 @@ export function createWallet(
 export function connectPayment(data: any) {
   return axios.post("/api/payment", { data });
 }
+
+
+
+export function makePayment(data: any) {
+  return axios.post("/api/payment/make-payment", { data });
+}

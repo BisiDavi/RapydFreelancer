@@ -1,11 +1,12 @@
+import { useMutation } from "@tanstack/react-query";
+
 import useRequestMutation from "@/hooks/useRequestMutation";
-import { connectPayment } from "@/request/postRequest";
+import { connectPayment, makePayment } from "@/request/postRequest";
 import {
   getCurrencyDailyRate,
   getPaymentByCountry,
   getPaymentFields,
 } from "@/request/getRequest";
-import { useMutation } from "@tanstack/react-query";
 
 export default function usePaymentMutation() {
   function useGetCurrencyRate() {
@@ -49,11 +50,19 @@ export default function usePaymentMutation() {
     });
   }
 
+  function useMakePayment() {
+    return useRequestMutation((data) => makePayment(data), {
+      mutationKey: ["useMakePayment"],
+      success: "Redirecting you to Raypd payment gateway",
+    });
+  }
+
   return {
     useGetCurrencyRate,
     useConnectPaymentMutation,
     useFundWalletMutation,
     usePaymentByMethod,
     usePaymentRequiredFields,
+    useMakePayment,
   };
 }

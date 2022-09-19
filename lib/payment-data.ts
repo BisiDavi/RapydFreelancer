@@ -71,7 +71,7 @@ export function fundWalletPaymentData(data: fundWalletPaymentDataType) {
 }
 
 export function getPaymentData(
-  data: dataType,
+  data: { country: string; currency: string; amount: string },
   dataObj: any,
   link: "connect" | "fund-wallet" | "job"
 ) {
@@ -98,7 +98,6 @@ export function getPaymentData(
     merchant_reference_id: uuidv4(),
     metadata: {
       merchant_defined: true,
-      connectQuantity: data.connectQuantity,
     },
   };
 
