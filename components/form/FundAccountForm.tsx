@@ -24,6 +24,7 @@ export default function FundAccountForm({ ewallet }: Props) {
 
   const onSubmit = (data: any) => {
     const wData = { ...data, ewallet };
+    console.log("wData", wData);
     const walletData = getPaymentData(wData, "fund-wallet");
     mutate(walletData, {
       onSuccess: (data) => {
