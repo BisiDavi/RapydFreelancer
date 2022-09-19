@@ -1,5 +1,6 @@
 import useUI from "@/hooks/useUI";
 import ProposalView from "@/views/ProposalView";
+import EscrowPaymentForm from "../form/EscrowPaymentForm";
 
 export default function ProposalListingSidebar() {
   const { proposalSidebar, closeProposalHandler } = useUI();
@@ -11,9 +12,11 @@ export default function ProposalListingSidebar() {
         onClick={closeProposalHandler}
       />
       <div className="content w-5/6 bg-white  px-6 py-6">
-        {proposalSidebar && proposalSidebar.active === "proposal" && (
+        {proposalSidebar && proposalSidebar.active === "proposal" ? (
           <ProposalView proposal={proposalSidebar.data} />
-        )}
+        ) : proposalSidebar.active === "escrow-deposit" ? (
+          <EscrowPaymentForm data={proposalSidebar.data} />
+        ) : null}
       </div>
     </div>
   );

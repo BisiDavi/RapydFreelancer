@@ -27,7 +27,7 @@ export default function ProfileView() {
             <span className="font-bold">Role:</span> {user.role}
           </li>
           <li>
-            <span className="font-bold">Connects:</span> {user.connects}{" "}
+            <span className="font-bold">Connects:</span>🏵 {user.connects}{" "}
             Connect(s)
           </li>
         </ul>

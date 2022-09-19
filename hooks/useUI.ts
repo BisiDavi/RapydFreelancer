@@ -1,4 +1,8 @@
-import { updateModal, updateProposal } from "@/redux/ui-slice";
+import {
+  updateModal,
+  updateProposal,
+  updateProposalStatus,
+} from "@/redux/ui-slice";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import type { modalStateType, UIStateType } from "@/types/redux-types";
 
@@ -22,6 +26,11 @@ export default function useUI() {
       updateProposal({ data: activeBidProposal, active: proposalState })
     );
   }
+  function proposalStatusHandler(
+    status: UIStateType["proposalSidebar"]["active"]
+  ) {
+    dispatch(updateProposalStatus(status));
+  }
 
   return {
     modal,
@@ -29,5 +38,6 @@ export default function useUI() {
     proposalSidebar,
     closeProposalHandler,
     updateProposalHandler,
+    proposalStatusHandler,
   };
 }

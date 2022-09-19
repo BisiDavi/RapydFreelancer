@@ -43,6 +43,9 @@ const UISlice = createSlice({
     ) {
       state.proposalSidebar = action.payload;
     },
+    updateProposalStatus(state, action) {
+      state.proposalSidebar.active = action.payload;
+    },
   },
 });
 
@@ -52,6 +55,7 @@ export const {
   updateAppload,
   updateSidebar,
   updateMediaUpload,
+  updateProposalStatus,
   updateProposal,
 } = UISlice.actions;
 export default UISlice.reducer;
