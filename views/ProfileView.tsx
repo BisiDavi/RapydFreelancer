@@ -1,4 +1,3 @@
-import { useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 
 import ProfileForm from "@/components/form/ProfileForm";
@@ -53,7 +52,12 @@ export default function ProfileView() {
       ) : (
         <AccountDetailsView walletId={user?.ewallet} />
       )}
-
+      {user?.ewallet && (
+        <div className="my-4">
+          <h5 className="font-bold text-center">Apply for your RapydFreelancer Virtual Card, This enables you to spend your earnings with ease.</h5>
+          
+        </div>
+      )} 
       {user?.address && <IssueVirtualAccountForm ewallet={user?.ewallet} />}
     </div>
   );

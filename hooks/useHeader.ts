@@ -28,16 +28,19 @@ export default function useHeader() {
       staleTime: Infinity,
       onSuccess(data) {
         if (!profile && data.data.length > 0) {
-          dispatch(updateUserProfile(data?.data[0]));  
+          dispatch(updateUserProfile(data?.data[0]));
         }
       },
     }
   );
   const { data, status } = userProfile;
 
-  const messages = status === "success" ? data.data[0].messages : [];
+  const messages = status === "success" ? data?.data[0]?.messages : [];
 
-  const unreadMessages = messages.filter((item: any) => !item?.read).length;
+  const unreadMessages =
+    status === "success"
+      ? messages?.filter((item: any) => !item?.read).length
+      : 0;
 
   function signoutHandler() {
     return mutate({});
