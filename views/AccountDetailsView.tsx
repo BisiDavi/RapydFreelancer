@@ -5,6 +5,8 @@ import SpinnerRipple from "@/components/loader/SpinnerRipple";
 import Button from "@/components/UI/Button";
 import useWalletMutation from "@/hooks/useWalletMutation";
 import useHeader from "@/hooks/useHeader";
+import { IoCopyOutline } from "react-icons/io5";
+import { toast } from "react-toastify";
 
 interface Props {
   walletId: string;
@@ -140,9 +142,19 @@ export default function AccountDetailsView({ walletId }: Props) {
           {userCardDetails && (
             <ul className="account-balance">
               <li className="account-view flex items-center my-2 lg:flex-row flex-col shadow py-4 px-6 rounded-full bg-white justify-between">
-                <h4>
+                <h4 className="flex items-center">
                   <span className="font-bold mr-1">Card Number:</span>
-                  {userCardDetails?.cardNumber}
+                  {userCardDetails?.cardNumber}{" "}
+                  <Button
+                    icon={<IoCopyOutline />}
+                    className="ml-1 rounded bg-gray-500 hover:opacity-70 px-2 py-2 rounded-full text-white font-bold"
+                    title="copy card"
+                    onClick={() =>
+                      navigator.clipboard
+                        .writeText(userCardDetails?.cardNumber)
+                        .then(() => toast.success("card number copied"))
+                    }
+                  />
                 </h4>
                 <h4>
                   <span className="font-bold  mr-1">cvv:</span>
