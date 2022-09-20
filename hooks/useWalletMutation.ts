@@ -4,13 +4,19 @@ import { useAppDispatch } from "@/redux/store";
 import useRequestMutation from "@/hooks/useRequestMutation";
 import { updateProfileForm } from "@/redux/form-slice";
 import { updateUserProfile, updateWallet } from "@/redux/user-slice";
-import { createWallet } from "@/request/postRequest";
+import {
+  createWallet,
+  issueVirtualCard,
+  issueVirtualHostedCard,
+} from "@/request/postRequest";
 import useAuth from "@/hooks/useAuth";
+import { useRouter } from "next/router";
 
 export default function useWalletMutation() {
   const dispatch = useAppDispatch();
   const { authDetails } = useAuth();
   const auth = authDetails()?.providerData[0];
+  const router = useRouter();
 
   const queryClient = useQueryClient();
 
@@ -33,5 +39,33 @@ export default function useWalletMutation() {
     );
   }
 
-  return { useCreateWalletMutation };
+  function useIssueVirtualCardMutation() {
+    return useRequestMutation(
+      (ewalletContact) => issueVirtualCard(ewalletContact),
+      {
+        mutationKey: ["useIssueVirtualCardMutation"],
+        success: "",
+      }
+    );
+  }
+
+  function useIssueVirtualHostedCardMutation() {
+    return useRequestMutation(
+      (data) => issueVirtualHostedCard(data),
+      {
+        mutationKey: ["useIssueVirtualHostedCardMutation"],
+        success: "redirecting you to rapyd secured page",
+        onSuccessMethodWithData: (data) => {
+          console.log("data-onSuccessMethodWithData", data);
+          return router.push(data?.redirect_url);
+        },
+      }
+    );
+  }
+
+  return {
+    useCreateWalletMutation,
+    useIssueVirtualHostedCardMutation,
+    useIssueVirtualCardMutation,
+  };
 }

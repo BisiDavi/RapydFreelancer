@@ -5,6 +5,7 @@ import IssueVirtualAccountForm from "@/components/form/FundAccountForm";
 import AccountDetailsView from "@/views/AccountDetailsView";
 import useHeader from "@/hooks/useHeader";
 import { SpinnerLoader } from "@/components/loader/SpinnerRipple";
+import Button from "@/components/UI/Button";
 
 export default function ProfileView() {
   const { userProfile } = useHeader();
@@ -26,7 +27,7 @@ export default function ProfileView() {
             <span className="font-bold">Role:</span> {user.role}
           </li>
           <li>
-            <span className="font-bold">Connects:</span>🏵 {user.connects}{" "}
+            <span className="font-bold">Connects:</span> 🏵 {user.connects}{" "}
             Connect(s)
           </li>
         </ul>
@@ -50,14 +51,8 @@ export default function ProfileView() {
       ) : !user?.ewallet ? (
         status === "success" && <ProfileForm />
       ) : (
-        <AccountDetailsView walletId={user?.ewallet} />
+        user?.ewallet && <AccountDetailsView walletId={user?.ewallet} />
       )}
-      {user?.ewallet && (
-        <div className="my-4">
-          <h5 className="font-bold text-center">Apply for your RapydFreelancer Virtual Card, This enables you to spend your earnings with ease.</h5>
-          
-        </div>
-      )} 
       {user?.address && <IssueVirtualAccountForm ewallet={user?.ewallet} />}
     </div>
   );

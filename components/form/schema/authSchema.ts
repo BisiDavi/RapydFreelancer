@@ -4,6 +4,7 @@ export const loginSchema = yup.object({
   email: yup
     .string()
     .email("Enter a vaild email address")
+    .min(6)
     .required("E-mail address is required"),
   password: yup.string().required("Password is required"),
 });

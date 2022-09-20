@@ -2,6 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 
 import { getWallet } from "@/request/getRequest";
 import SpinnerRipple from "@/components/loader/SpinnerRipple";
+import Button from "@/components/UI/Button";
+import useWalletMutation from "@/hooks/useWalletMutation";
 
 interface Props {
   walletId: string;
@@ -18,6 +20,14 @@ type accountItemProps = {
 
 export default function AccountDetailsView({ walletId }: Props) {
   const { data, status } = useQuery(["getWallet"], () => getWallet(walletId));
+  const { useIssueVirtualHostedCardMutation } = useWalletMutation();
+  const { mutate } = useIssueVirtualHostedCardMutation();
+
+  function requestCardHandler(data: { ewallet_contact: string }) {
+    return mutate(data);
+  }
+
+  console.log("data?.data", data?.data);
 
   return (
     <>
@@ -85,6 +95,21 @@ export default function AccountDetailsView({ walletId }: Props) {
               );
             })}
           </ul>
+          <div className="my-4">
+            <h5 className="font-bold text-center">
+              Apply for your RapydFreelancer Virtual Card, This enables you to
+              spend your earnings with ease.
+            </h5>
+            <Button
+              className="mx-auto bg-green-500 px-4 py-1 my-2 rounded-lg hover:opacity-80 flex text-white font-bold"
+              text="Apply for Virtual Card"
+              onClick={() =>
+                requestCardHandler({
+                  ewallet_contact: data?.data.contacts.data[0].id,
+                })
+              }
+            />
+          </div>
         </>
       )}
     </>

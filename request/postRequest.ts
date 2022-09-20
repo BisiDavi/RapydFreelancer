@@ -2,7 +2,20 @@ import { formatWalletData } from "@/lib/rapyd-data";
 import axios from "axios";
 
 export function issueVirtualAccount(data: { [key: string]: string | any }) {
-  return axios.post("/api/virtual-account", { data });
+  return axios.post("/api/virtual-account/bank-account", { data });
+}
+
+export function issueVirtualHostedCard(data: any) {
+  return axios.post("/api/virtual-account/hosted-card", { data });
+}
+
+export function issueVirtualCard(ewallet_contact: string) {
+  return axios.post("/api/virtual-account/card", {
+    data: {
+      card_program: "cardprog_6dd223b05916b19cfacf7b2127a5ff14",
+      ewallet_contact,
+    },
+  });
 }
 
 export function createWallet(
