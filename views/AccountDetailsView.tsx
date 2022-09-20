@@ -100,15 +100,17 @@ export default function AccountDetailsView({ walletId }: Props) {
               Apply for your RapydFreelancer Virtual Card, This enables you to
               spend your earnings with ease.
             </h5>
-            <Button
-              className="mx-auto bg-green-500 px-4 py-1 my-2 rounded-lg hover:opacity-80 flex text-white font-bold"
-              text="Apply for Virtual Card"
-              onClick={() =>
-                requestCardHandler({
-                  ewallet_contact: data?.data.contacts.data[0].id,
-                })
-              }
-            />
+            {status === "success" && (
+              <Button
+                className="mx-auto bg-green-500 px-4 py-1 my-2 rounded-lg hover:opacity-80 flex text-white font-bold"
+                text="Apply for Virtual Card"
+                onClick={() =>
+                  requestCardHandler({
+                    ewallet_contact: data?.data.contacts.data[0].id,
+                  })
+                }
+              />
+            )}
           </div>
         </>
       )}
