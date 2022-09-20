@@ -1,24 +1,26 @@
 import connectDB from "@/db/DBConnection";
 import { updateDataDB } from "@/db";
 import type { NextApiRequest, NextApiResponse } from "next";
+import { hiredMessage } from "@/lib/messages";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   const { data, query } = req.body;
-
   switch (req.method) {
     // create job
     case "POST": {
       try {
+        const freelancerHiredMessage = hiredMessage(data);
         const dbClient = await connectDB();
         await updateDataDB(
           dbClient,
           "users",
           { email: query.email },
-          { $push: { hires: data } }
+          { $push: { hires: data, messages: freelancerHiredMessage } }
         );
+
         const response = await updateDataDB(
           dbClient,
           "jobs",

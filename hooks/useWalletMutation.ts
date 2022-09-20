@@ -1,4 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/router";
 
 import { useAppDispatch } from "@/redux/store";
 import useRequestMutation from "@/hooks/useRequestMutation";
@@ -10,7 +11,6 @@ import {
   issueVirtualHostedCard,
 } from "@/request/postRequest";
 import useAuth from "@/hooks/useAuth";
-import { useRouter } from "next/router";
 
 export default function useWalletMutation() {
   const dispatch = useAppDispatch();

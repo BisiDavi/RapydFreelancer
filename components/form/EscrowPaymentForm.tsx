@@ -43,14 +43,13 @@ export default function EscrowPaymentForm({ formData }: Props) {
       { data: payment, email: formData.freelancer.email },
       {
         onSuccess: (data) => {
-          console.log("data", data?.data);
           dispatch(
             updateHire([
               {
                 freelancer: formData.freelancer,
                 price: formData.price,
                 title: formData.title,
-                createdAt: date
+                createdAt: date,
               },
             ])
           );

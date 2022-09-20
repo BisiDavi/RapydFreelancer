@@ -71,3 +71,19 @@ export function defaultMessage(data: dataType) {
 
   return message;
 }
+
+export function hiredMessage(data: {
+  title: string;
+  freelancer: { displayName: string };
+}) {
+  const message = {
+    id: `hired-${toSlug(data.title)}`,
+    title: `Wow, you've been hired for ${data.title} job`,
+    message: [
+      [
+        `🎊 Congrats ${data.freelancer.displayName} you've been hired to work on ${data.title} project. Wishing you Goodluck `,
+      ],
+    ],
+  };
+  return message;
+}

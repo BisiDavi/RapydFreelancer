@@ -13,7 +13,7 @@ export default function JobPaymentSuccessful() {
     ["updateJobAfterHired"],
     () => updateJobAfterHired(hire[0]),
     {
-      enabled: !!(hire !== null),
+      enabled: !!hire,
       onSuccess: () => {
         resetHired();
         queryClient.invalidateQueries(["getUserProfile"]);
@@ -26,7 +26,9 @@ export default function JobPaymentSuccessful() {
   return (
     <DefaultLayout title="Your Profile">
       {status === "error" ? (
-        "unable to update connect payment"
+        <p className="font-bold text-center justify-center items-center my-40 text-xl">
+          unable to update connect payment
+        </p>
       ) : status === "loading" ? (
         <SpinnerLoader
           className="h-screen bg-white opacity-80 mx-auto justify-center items-center fixed top-0"

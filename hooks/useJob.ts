@@ -15,7 +15,8 @@ export default function useJob() {
   }
 
   function updateJobAfterHired(data: any) {
-    axios.post("/api/jobs/escrow", {
+    console.log("data-updateJobAfterHired", data);
+    return axios.post("/api/jobs/escrow", {
       data,
       query: { email: data.freelancer.email, id: toSlug(data.title) },
     });
@@ -28,5 +29,3 @@ export default function useJob() {
     updateJobAfterHired,
   };
 }
-
-//   data: { $push: { hires: data } },
