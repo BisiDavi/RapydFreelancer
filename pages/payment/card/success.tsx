@@ -1,23 +1,27 @@
 /* eslint-disable @next/next/no-img-element */
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/router";
 
 import DefaultLayout from "@/layout/DefaultLayout";
 import Button from "@/components/UI/Button";
-import useJob from "@/hooks/useJob";
 import { SpinnerLoader } from "@/components/loader/SpinnerRipple";
+import useAuth from "@/hooks/useAuth";
+import { updateUserAfterActivatingCard } from "@/request/postRequest";
 
 export default function CardActivationSuccessful() {
-  const { router, hire, resetHired, updateJobAfterHired } = useJob();
+  const { authDetails } = useAuth();
+  const auth = authDetails();
+  const userEmail: string | any = auth?.email;
+  const router = useRouter();
   const queryClient = useQueryClient();
+
   const { status } = useQuery(
     ["updateJobAfterHired"],
-    () => updateJobAfterHired(hire[0]),
+    () => updateUserAfterActivatingCard(userEmail),
     {
-      enabled: !!hire,
+      enabled: !!userEmail,
       onSuccess: () => {
-        resetHired();
         queryClient.invalidateQueries(["getUserProfile"]);
-        queryClient.invalidateQueries(["getJobs"]);
         router.push("/user/profile");
       },
     }
@@ -27,12 +31,12 @@ export default function CardActivationSuccessful() {
     <DefaultLayout title="Your Profile">
       {status === "error" ? (
         <p className="font-bold text-center justify-center items-center my-40 text-xl">
-          unable to update connect payment
+          unable to update your profile after activating card
         </p>
       ) : status === "loading" ? (
         <SpinnerLoader
           className="h-screen bg-white opacity-80 mx-auto justify-center items-center fixed top-0"
-          loadingText="Please wait, reconcilling with payment gateway"
+          loadingText="Please wait, reconcilling with the payment gateway"
         />
       ) : (
         status === "success" && (
@@ -44,7 +48,8 @@ export default function CardActivationSuccessful() {
                 className="w-1/6 mx-auto rounded-full"
               />
               <h4 className="font-bold text-center my-4">
-                Job Payment Successful, Congrats
+                Card Successful Activated Congrats 🎉, make sure you don&#39;t
+                forget your pin. 
               </h4>
               <Button
                 text="Home"

@@ -41,6 +41,7 @@ export default async function handler(
                   cvv: issueCardRequest?.body.data.cvv,
                   mm: issueCardRequest?.body.data.expiration_month,
                   yy: issueCardRequest?.body.data.expiration_year,
+                  activated: false,
                 },
               },
             }

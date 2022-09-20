@@ -57,3 +57,11 @@ export async function escrowPayment(data: any, email: string) {
   };
   return axios.post("/api/payment", { data: requestData });
 }
+
+export function updateUserAfterActivatingCard(email: string) {
+  return axios.put("/api/db", {
+    collection: "users",
+    query: { email },
+    data: { $set: { "card.activated": true } },
+  });
+}
