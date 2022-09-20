@@ -25,7 +25,7 @@ export default async function handler(
           dbClient,
           "jobs",
           { id: query.id },
-          { $push: { hired: data }, $set: { paid: true, active: false } }
+          { $push: { hired: data }, $set: { escrow: 'hold', active: false } }
         );
         return res.status(200).send(response.data);
       } catch (err) {

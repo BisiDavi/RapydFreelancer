@@ -1,9 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { getWallet } from "@/request/getRequest";
 import SpinnerRipple from "@/components/loader/SpinnerRipple";
 import Button from "@/components/UI/Button";
 import useWalletMutation from "@/hooks/useWalletMutation";
+import useHeader from "@/hooks/useHeader";
 
 interface Props {
   walletId: string;
@@ -20,14 +21,33 @@ type accountItemProps = {
 
 export default function AccountDetailsView({ walletId }: Props) {
   const { data, status } = useQuery(["getWallet"], () => getWallet(walletId));
-  const { useIssueVirtualHostedCardMutation } = useWalletMutation();
+  const { userProfile } = useHeader();
+  const { useIssueVirtualHostedCardMutation, useIssueVirtualCardMutation } =
+    useWalletMutation();
   const { mutate } = useIssueVirtualHostedCardMutation();
+  const mutateVCard = useIssueVirtualCardMutation();
+  const queryClient = useQueryClient();
 
-  function requestCardHandler(data: { ewallet_contact: string }) {
+  function requestCardActivationHandler(data: {
+    ewallet_contact: string;
+    cancel_url: string;
+    complete_url: string;
+  }) {
     return mutate(data);
   }
 
-  console.log("data?.data", data?.data);
+  function requestCardHandler(data: string) {
+    return mutateVCard.mutate(data, {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["getUserProfile"]);
+      },
+    });
+  }
+
+  const userCardDetails =
+    userProfile.status === "success" ? userProfile?.data?.data[0]?.card : null;
+
+  console.log("userProfile.data?.data", userProfile?.data?.data[0]?.card);
 
   return (
     <>
@@ -95,23 +115,73 @@ export default function AccountDetailsView({ walletId }: Props) {
               );
             })}
           </ul>
-          <div className="my-4">
-            <h5 className="font-bold text-center">
-              Apply for your RapydFreelancer Virtual Card, This enables you to
-              spend your earnings with ease.
-            </h5>
-            {status === "success" && (
-              <Button
-                className="mx-auto bg-green-500 px-4 py-1 my-2 rounded-lg hover:opacity-80 flex text-white font-bold"
-                text="Apply for Virtual Card"
-                onClick={() =>
-                  requestCardHandler({
-                    ewallet_contact: data?.data.contacts.data[0].id,
-                  })
-                }
-              />
-            )}
-          </div>
+          {!userCardDetails && (
+            <div className="my-4">
+              <h5 className="font-bold text-center">
+                Apply for your RapydFreelancer Virtual Card, This enables you to
+                spend your earnings with ease.
+              </h5>
+              {status === "success" && (
+                <Button
+                  className="mx-auto bg-green-500 px-4 py-1 my-2 rounded-lg hover:opacity-80 flex text-white font-bold"
+                  text="Apply for Virtual Card"
+                  onClick={() =>
+                    requestCardHandler(data?.data.contacts.data[0].id)
+                  }
+                />
+              )}
+            </div>
+          )}
+          <h4 className="font-bold text-lg">Your Card Details</h4>
+          <p className="font-bold text-red-500">
+            Please copy your CARD NUMBER details before activating your Virtual
+            Card
+          </p>
+          {userCardDetails && (
+            <ul className="account-balance">
+              <li className="account-view flex items-center my-2 lg:flex-row flex-col shadow py-4 px-6 rounded-full bg-white justify-between">
+                <h4>
+                  <span className="font-bold mr-1">Card Number:</span>
+                  {userCardDetails?.cardNumber}
+                </h4>
+                <h4>
+                  <span className="font-bold  mr-1">cvv:</span>
+                  {userCardDetails?.cvv}
+                </h4>
+                <h4>
+                  <span className="font-bold  mr-1">mm:</span>
+                  {userCardDetails?.mm}
+                </h4>
+                <h4>
+                  <span className="font-bold  mr-1">yy:</span>
+                  {userCardDetails?.yy}
+                </h4>
+              </li>
+            </ul>
+          )}
+          {userCardDetails && (
+            <div className="my-4">
+              <h5 className="font-bold text-center">
+                Activate your RapydFreelancer Virtual Card, to start spending
+                your earnings with ease.
+              </h5>
+              {status === "success" && (
+                <Button
+                  className="mx-auto bg-green-500 px-4 py-1 my-2 rounded-lg hover:opacity-80 flex text-white font-bold"
+                  text="Activate your Virtual Card"
+                  onClick={() =>
+                    requestCardActivationHandler({
+                      ewallet_contact: data?.data.contacts.data[0].id,
+                      complete_url:
+                        "https://rapyd-freelancer.vercel.app/payment/card/success",
+                      cancel_url:
+                        "https://rapyd-freelancer.vercel.app/payment/card/error",
+                    })
+                  }
+                />
+              )}
+            </div>
+          )}
         </>
       )}
     </>

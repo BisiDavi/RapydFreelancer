@@ -50,17 +50,14 @@ export default function useWalletMutation() {
   }
 
   function useIssueVirtualHostedCardMutation() {
-    return useRequestMutation(
-      (data) => issueVirtualHostedCard(data),
-      {
-        mutationKey: ["useIssueVirtualHostedCardMutation"],
-        success: "redirecting you to rapyd secured page",
-        onSuccessMethodWithData: (data) => {
-          console.log("data-onSuccessMethodWithData", data);
-          return router.push(data?.redirect_url);
-        },
-      }
-    );
+    return useRequestMutation((data) => issueVirtualHostedCard(data), {
+      mutationKey: ["useIssueVirtualHostedCardMutation"],
+      success: "redirecting you to rapyd secured page",
+      onSuccessMethodWithData: (data) => {
+        console.log("data-onSuccessMethodWithData", data);
+        return router.push(data?.redirect_url);
+      },
+    });
   }
 
   return {
