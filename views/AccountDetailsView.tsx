@@ -103,7 +103,7 @@ export default function AccountDetailsView({ walletId }: Props) {
                   </h4>
                   <h4>
                     <span className="font-bold  mr-1">Received Balance:</span>
-                    {accountItem.received_balance} {accountItem.currency}
+                    {accountItem.received_balance} {accountItem.currency}0{" "}
                   </h4>
                   <h4>
                     <span className="font-bold  mr-1">On Hold Balance:</span>
@@ -171,7 +171,7 @@ export default function AccountDetailsView({ walletId }: Props) {
               </li>
             </ul>
           )}
-          {userCardDetails && (
+          {!userCardDetails.activated && (
             <div className="my-4">
               <h5 className="font-bold text-center">
                 Activate your RapydFreelancer Virtual Card, to start spending
